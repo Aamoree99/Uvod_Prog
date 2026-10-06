@@ -1,0 +1,8 @@
+[package]
+name = "uvod_prog"
+version = "0.1.0"
+edition = "2024"
+default-run = "uvod_prog"
+
+[dependencies]
+rand = "0.8"

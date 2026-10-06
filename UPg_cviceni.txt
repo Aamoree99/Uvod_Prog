@@ -1,0 +1,2575 @@
+VŠFS B_UPg Úvod do programování: Sbírka příkladů na cvičení
+
+doc. RNDr. Jan Lánský, Ph.D.
+
+
+1. Cvičení a zápočet
+
+a) Tato sbírka příkladů slouží jako příprava na zápočet a zkoušku. Příklady jsou rozděleny do
+jednotlivých hodin. Každý příklad má stanovený počet bodů za správné řešení. Pokud v daném cvičení
+získáte 8 bodů, máte cvičení splněné, učivo je dostatečně procvičené. Pak raději dejte přednost
+přechodu na další cvičení před dokončováním dalších příkladů z již splněného cvičení.
+
+b) Během cvičení, alespoň jednou za hodinu, je doporučené, vypracované úlohy osobně ukázat
+cvičícímu, aby vás upozornil na případné nedostatky a doporučil vhodný směr pro další studium.
+
+c) Zápočtový test jde skládat na libovolné hodině cvičení, nicméně doporučuje se, předtím splnit
+cvičení 1, 2, 3, 4 a 5. Vzorový zápočtový test naleznete v IS.
+
+
+2. Podmínky kladené na řešení příkladů
+
+a) K řešení příkladů je možné používat pouze syntaktických konstrukcí a funkcí probraných na
+přednáškách. K řešení cvičení s nižším číslem nelze používat učivo hodin s vyšším číslem.
+
+b) Řešení musí být procedurální, nesmí být objektové. Je zakázáno použití cyklu foreach. Je
+zakázáno použití kolekcí (Dictionary, List, LinkedList, SortedList, atd.) a jejich obdoby v jiných
+programovacích jazycích.
+
+c) Příklady můžete řešit i v jiném jazyku než C#, pokud tento jazyk umožňuje procedurální
+programování, např. C, C++, Java. Při této volbě zdůrazňuji platnost pravidla 2a, lze používat
+pouze ekvivalenty syntaktických konstrukcí a funkcí probraných na přednášce.
+
+d) Úloha musí být funkční. Otestujte ji minimálně na datech uvedených v zadání příkladu.
+
+e) Zdrojové kódy musí být formátovány jednotným způsobem, zejména odsazování.
+
+f) Proměnné a funkce musejí mít vhodné názvy
+
+g) Zdrojové kódy musí být vhodně členěny do funkcí (platí pro 3. cvičení a následující)
+
+h) Pro každé cvičení vytvořte vlastní Solution (Rešení). Jednotlivé příklady budou jako samostatné
+Projekty.
+
+i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden příkaz.
+
+
+3. Využití umělé inteligence (AI)
+
+a) Využití AI není povinné, ale je to jedna z možností, která má své přínosy i svá rizika.
+
+b) Špatně: pokud AI předložíte zadání příkladu, ať ho vypracuje, tak se tím nenaučíte dovednosti
+nutné ke splnění zápočtového testu, který se píše na papír. Pokud se pro tuto volbu přesto
+rozhodnete, tak alespoň aplikujte bod 3d), aby řešení odpovídalo naším požadavkům.
+
+c) AI je výborný nástroj na pomoc pro pochopení učiva, pokud je správně použit. Než budete řešit
+úlohy za cvičení, je nutné chápat učivo přednášky. Pokud vám nestačí slajdy a audiozáznam
+přednášky, je možné AI požádat o vysvětlení konkrétního řádku zdrojového kódu z přednášky, dokonce
+i celého příkladu. Tím že zdrojové kódy z přednášky ručně přepíšete, se mimo jiné také učíte. Pokud
+AI použijte nejprve k pochopení přednášky a teprve následně jako pomoc při řešení příkladů
+dosáhnete nejlepších výsledků, že vás AI bude vést stejným směrem jako je probírané učivo.
+
+d) Pokud AI budete používat i jako pomoc při vypracovávání příkladů ze cvičení, tak AI zadejte i
+podmínky kladené na řešení příkladů (bod 2). Zároveň přidejte i podrobné informace, které
+syntaktické konstrukce a funkce se probíraly na přednáškách od první hodiny až do té, ze které je
+daný příklad (bod 2a). Zdůrazněte, že jste studenti VŠ programu Aplikovaná informatika, a že cílem
+předmětu je pochopit syntaktické konstrukce, ne se naučit nějaký konkrétní programovací jazyk.
+
+e) Z nabídky příkladů na cvičení si vyberte takové, které vám přijdou nejsnazší. A zkuste sami
+navrhnout řešení, klidně slovně, běžným lidským jazykem. AI požádejte, aby posoudila, jestli by
+daný postup vedl k řešení příkladu a byl optimální. Žádejte o nápovědu, co s řešením dělat, aby
+bylo správné.
+
+f) Pokud máte řešení slovně, můžete AI požádat o radu, jak krok za krokem ho přepisovat do
+jednotlivých příkazů. A jednotlivé dílčí příkazy nechte AI posoudit, zda jsou správně.
+
+g) AI je výborná na kontrolu správnosti řešení. Můžete AI požádat, ať řešení otestuje na náhodných
+datech, ať se pokusí najít data, pro které řešení nebude fungovat.
+
+h) AI je dobrá i hledání zbytečných řádků kódu, které by šly odstranit, aniž by to změnilo
+funkčnost programu.
+
+
+4. Zpětná vazba
+
+Objevili jste v příkladech chybu (i pravopisnou)? Je nějaký příklad nesrozumitelný? Je nějaký
+příklad příliš těžký, lehký vzhledem k počtu bodů? Máte nápady na nové příklady? Dejte mi vědět,
+zabere Vám to pár vteřin: http://goo.gl/forms/WxkZqBsZLs
+
+
+
+1. hodina
+
+Příklady vyřešte v libovolném procedurálním programovacím jazyce nebo na papír. Správnost programu
+otestujte zadáním různých vstupních hodnot. Hodina se považuje za splněnou po zisku alespoň 8 bodů
+z možných 34 bodů.
+
+
+Příklad 1.1: Specifický aritmetický výraz
+
+Ve funkci Main deklarujte tři celočíselné proměnné (pojmenujte je libovolně) a tyto proměnné
+inicializujte hodnotami (ideálně různými). Napište program, který spočte následující aritmetický
+výraz: Hodnoty posledních dvou proměnných vynásobte a od získaného výsledku odečtěte hodnotu první
+proměnné. Aritmetický výraz a jeho výsledek vypište vhodným způsobem na obrazovku. [1 bod].
+
+
+Ukázka:
+
+Hodnota první proměnné je 12, hodnota druhé proměnné je 5, hodnota třetí proměnné je 9.
+
+Výsledek výrazu 5*9-12 je 33
+
+
+Příklad 1.2: Zbytek po celočíselném dělení bez operátoru %
+
+Ve funkci Main deklarujte dvě celočíselné proměnné (pojmenujte je libovolně) a tyto proměnné
+inicializujte hodnotami (ideálně různými). Napište program, který spočte zbytek po celočíselném
+dělení první zadané proměnné druhou zadanou proměnnou. Program nesmí použít operátor zbytku po
+celočíselném dělení %. Cíl výpočtu a jeho výsledek vypište vhodným způsobem na obrazovku. [3 body]
+
+
+Ukázka:
+
+Hodnota první proměnné je 14, hodnota druhé proměnné je 3.
+
+Zbytek po celočíselném dělení čísla 14 číslem 3 je 2.
+
+
+Příklad 1.3: Počet čísel menších než 10
+
+Ve funkci Main deklarujte tři celočíselné proměnné (pojmenujte je libovolně) a tyto proměnné
+inicializujte hodnotami. Napište program, který určí, kolik ze zadaných hodnot je menších než
+hodnota 10. Cíl příkladu a jeho výsledek vypište vhodným způsobem na obrazovku. [1 bod]
+
+
+Ukázka:
+
+Hodnota první proměnné je 8, hodnota druhé proměnné je 22, hodnota třetí proměnné je 10.
+
+Byla zadána čísla 8, 22 a 10. Počet čísel s hodnotou menší než  hodnota 10 je 1.
+
+
+Příklad 1.4: Největší ze tří čísel
+
+Ve funkci Main deklarujte tři celočíselné proměnné (pojmenujte je libovolně) a tyto proměnné
+inicializujte hodnotami (ideálně různými). Napište program, který určí nejvyšší z hodnot výše
+uvedených tří proměnných. Cíl příkladu a jeho výsledek vypište vhodným způsobem na obrazovku. [1
+bod]
+
+
+Ukázka:
+
+Hodnota první proměnné je 14, hodnota druhé proměnné je 6, hodnota třetí proměnné je 23.
+
+Nejvyšší z hodnot 14, 6 a 23 je 23.
+
+
+
+
+
+Příklad 1.5: Prostřední ze tří čísel
+
+Ve funkci Main deklarujte tři celočíselné proměnné (pojmenujte je libovolně) a tyto proměnné
+inicializujte hodnotami (ideálně různými). Napište program, který určí prostřední (= druhou
+nejvyšší) z hodnot výše uvedených tří proměnných. Cíl příkladu a jeho výsledek vypište vhodným
+způsobem na obrazovku. [6 bodů]
+
+
+Ukázka:
+
+Hodnota první proměnné je 11, hodnota druhé proměnné je 18, hodnota třetí proměnné je 5.
+
+Prostřední z hodnot 11, 18 a 5 je 11.
+
+
+Příklad 1.6: Různá čísla
+
+Ve funkci Main deklarujte tři celočíselné proměnné (pojmenujte je libovolně) a tyto proměnné
+inicializujte hodnotami. Napište program, který určí, zda zadané hodnoty čísel jsou navzájem (po
+dvou) různé. Cíl příkladu a jeho výsledek vypište vhodným způsobem na obrazovku. [2 body]
+
+
+Ukázka:
+
+Hodnota první proměnné je 7, hodnota druhé proměnné je 3 hodnota třetí proměnné je 7.
+
+Hodnoty 7, 3 a 7 nejsou navzájem různé.
+
+Hodnota první proměnné je 25, hodnota druhé proměnné je 8 hodnota třetí proměnné je 19.
+
+Hodnoty 25, 8 a 19 jsou navzájem různé.
+
+
+Příklad 1.7: Lichá vs sudá čísla
+
+Ve funkci Main deklarujte tři celočíselné proměnné (pojmenujte je libovolně) a tyto proměnné
+inicializujte hodnotami. Napište program, který určí, zda součet lichých hodnot z těchto tří čísel
+je vyšší nebo nižší než součet sudých hodnot z těchto tří čísel, případně zda si jsou součty rovny.
+Cíl příkladu a jeho výsledek vypište vhodným způsobem na obrazovku. [4 body]
+
+
+Ukázka:
+
+Hodnota první proměnné je 9, hodnota druhé proměnné je 2 hodnota třetí proměnné je 6.
+
+Zadaná čísla 9, 2 a 6 mají součet lichých hodnot 9 vyšší než součet sudých hodnot 8.
+
+
+Příklad 1.8: Dělitel čísla
+
+Ve funkci Main deklarujte tři celočíselné proměnné (pojmenujte je libovolně) a tyto proměnné
+inicializujte hodnotami. Napište program, který určí, zda některé z čísel je dělitelem jiného
+čísla, nebo zda žádné číslo není dělitelem jiného čísla. Je-li více správných dvojic číslo a jeho
+dělitel, uveďte libovolnou z těchto dvojic. Cíl příkladu a jeho výsledek vypište vhodným způsobem
+na obrazovku. [5 bodů]
+
+
+Ukázka:
+
+Hodnota první proměnné je 6, hodnota druhé proměnné je 3 hodnota třetí proměnné je 8.
+
+Ze zadaných čísel 6, 3 a 8 je číslo 3 dělitelem čísla 6.
+
+Hodnota první proměnné je 7, hodnota druhé proměnné je 2 hodnota třetí proměnné je 5.
+
+Ze zadaných čísel 7, 2 a 5 není žádné číslo dělitelem jiného čísla.
+
+
+
+
+
+
+Příklad 1.9: Sčítance čísla
+
+Ve funkci Main deklarujte tři celočíselné proměnné (pojmenujte je libovolně) a tyto proměnné
+inicializujte hodnotami. Napište program, který určí, zda některé z čísel je součtem zbývajících
+dvou čísel, nebo zda žádná dvě čísla netvoří součet třetího čísla. Cíl příkladu a jeho výsledek
+vypište vhodným způsobem na obrazovku. [5 bodů]
+
+
+Ukázka:
+
+Hodnota první proměnné je 4, hodnota druhé proměnné je 13, hodnota třetí proměnné je 9.
+
+Ze zadaných čísel 4, 13 a 9 je číslo 13 součtem čísel 4 a 9.
+
+
+Příklad 1.10: Jízdné v MHD
+
+Jízdné v MHD je závislé na věku cestujícího. Lze jezdit zdarma, za poloviční jízdné 12 Kč a za plné
+jízdné 24 Kč v závislosti na splnění následujících podmínek. Pokud cestující splní více podmínek,
+platí pro něj nejvýhodnější jízdné. Kdokoliv může jezdit za plné jízdné. Cestující mladší 6 let
+mohou jezdit zdarma. Cestující mladší 15 let nebo ve věku 60 let a starší mohou jezdit za poloviční
+jízdné.
+
+Ve funkci Main deklarujte jednu celočíselnou proměnnou (pojmenujte je libovolně) a tuto proměnnou
+inicializujte hodnotou, které by mohla reprezentovat věk cestujícího.  Napište program, který určí,
+jízdné pro daný věk cestujícího. Cíl příkladu a jeho výsledek vypište vhodným způsobem na
+obrazovku. [3 body]
+
+
+Ukázka:
+
+Hodnota proměnné je 9.
+
+Cestující ve věku 9 let zaplatí jízdné 12 Kč.
+
+Hodnota proměnné je 15.
+
+Cestující ve věku 15 let zaplatí jízdné 24 Kč.
+
+Hodnota proměnné je 3.
+
+Cestující ve věku 3 let zaplatí jízdné 0 Kč.
+
+
+Příklad 1.11: Rychlost na dálnici
+
+Nejnižší povolená rychlost na dálnici je 60 km/h, za její nedodržení je udělena pokuta 1000 Kč.
+Nejvyšší povolená rychlost na dálnici je 130 km/h, za její překročení je udělena pokuta 2000 Kč.
+V případě výrazného překročení nejvyšší povolené se pokuta zvyšuje o 500 Kč za každých započatých 5
+km/h nad 150 km/h.
+
+Ve funkci Main deklarujte jednu celočíselnou proměnnou (pojmenujte je libovolně) a tuto proměnnou
+inicializujte hodnotou, které by mohla reprezentovat rychlost automobilu.  Napište program, který
+určí výši pokuty odpovídající dané rychlosti. Cíl příkladu a jeho výsledek vypište vhodným způsobem
+na obrazovku. [3 body]
+
+
+Ukázka:
+
+Hodnota proměnné je 146.
+
+Rychlost 146 km/h je pokutována částkou 2000 Kč.
+
+Hodnota proměnné je 162.
+
+Rychlost 162 km/h je pokutována částkou 3500 Kč.
+
+2. hodina
+
+Příklady vyřešte v libovolném procedurálním programovacím jazyce, v krajním případě na papír. Další
+hodiny řešení na papír nebude již přípustné. Správnost programu otestujte zadáním různých vstupních
+hodnot. Hodina se považuje za splněnou po zisku alespoň 8 bodů z možných 28 bodů.
+
+
+Příklad 2.1: Dvě čísla sestupně
+
+Uživatel zadá dvě čísla z klávesnice. Setřiďte tato číslo ve vnitřní paměti. Vypište tato čísla
+setříděná sestupně dle jejich hodnot. [1 bod]
+
+
+Ukázka:
+
+Setridime dve cisla sestupne
+
+Zadejte prvni cislo: 5
+
+Zadejte druhe cislo: 9
+
+Setridena cisla jsou 9, 5
+
+
+Příklad 2.2: Tři čísla vzestupně
+
+Uživatel zadá tři čísla z klávesnice. Setřiďte tato číslo ve vnitřní paměti. Vypište tato čísla
+setříděná vzestupně dle jejich hodnot. [3 body]
+
+Ukázka:
+
+Setridime tri cisla vzestupne
+
+Zadejte prvni cislo: 33
+
+Zadejte druhe cislo: 6
+
+Zadejte treti cislo: 14
+
+Setridena cisla jsou 6, 14, 33
+
+
+Příklad 2.3: Dvojciferná čísla
+
+Vypište všechna dvojciferná čísla. [1 bod]
+
+
+Ukázka:
+
+Vsechna dvojciferna cisla jsou: 10, 11, 12, . . . . 98, 99
+
+
+Příklad 2.4 Faktoriál
+
+Uživatel zadá číslo. Vypište faktoriál tohoto čísla. Faktoriál čísla 0 je definován jako 1,
+faktoriál pro číslo n>0 je definovaný jako součin všech čísel od 1 do n. Pro záporná čísla není
+faktoriál definován. Př.: 6!  = 1*2*3*4*5*6 =720. [1 bod]
+
+
+Ukázka:
+
+Vypocteme faktorial kladneho cisla
+
+Zadejte cislo: 6
+
+Faktorial je 720
+
+
+Příklad 2.5: Nejmenší společný násobek
+
+Uživatel zadá dvě čísla z klávesnice. Vypište jejich nejmenší společný násobek. Nejmenší společný
+násobek čísel x a y je nejmenší číslo n takové, že x dělí n beze zbytku a zároveň y dělí n beze
+zbytku. Nápověda: využijte Euklidův algoritmus, který nalezne největšího společného dělitele. [3
+body]
+
+
+
+Ukázka:
+
+Spocteme nejmensi spolecny nasobek cisel
+
+Zadej prvni cislo: 21
+
+Zadej druhe cislo: 30
+
+Nejmensi spolecny nasobek je 210
+
+
+Příklad 2.6 Prvočísla
+
+Vypište všechna prvočísla menší než 1000 [3 body]
+
+
+Ukázka:
+
+Vsechna prvocisla mensi nez 1000: 2, 3, 5, . . . . 991, 997
+
+
+Příklad 2.7 Dokonalá čísla
+
+Vypište všechna dokonalá čísla menší než 10 000. Číslo je dokonalé, pokud je rovno součtu svých
+dělitelů, kromě sebe sama. Např. 6 = 1+2+3; 28 = 1+2+4+7+14 [3 body]
+
+
+Ukázka:
+
+Vsechna dokonala cisla mensi nez 10000: 6, 28, . . . 8128
+
+
+Příklad 2.8 Armstrongova čísla
+
+Vypište všechna Armstrongova čísla menší než 100 000. Armstrongovo číslo řádu n je n-ciferné číslo,
+které je rovno součtu n-tých mocnin svých cifer. Například jakékoliv jednociferné číslo je
+Armstrongovo číslo řádu 1, číslo 153 = 1*1*1+5*5*5+3*3*3 je Armstrongovo číslo řádu 3. [4 body]
+
+
+Ukázka:
+
+Vsechna Armstrongova cisla mensi nez 100000: 1, 2, . . . 93084
+
+
+Příklad 2.9 Statistické informace
+
+Uživatel zadává posloupnost kladných čísel. Pokud uživatel zadá nekladné číslo, je posloupnost
+ukončena (a toto nekladné číslo není její součástí). Vypište:
+
+a) počet čísel v posloupnosti. Pokud posloupnost obsahuje nejvýše jedno číslo, nevypisujte další
+části úkolu. [1/2 bodu]
+
+b) součet hodnot čísel [1/2 bodu]
+
+c) hodnotu největšího čísla [1 bod]
+
+d) hodnotu nejmenšího čísla [1 bod]
+
+e) hodnotu druhého největšího číslo [1 bod]
+
+f) hodnotu druhého nejmenšího číslo [1 bod]
+
+
+Ukázka:
+
+Spocteme statisticke informace o zadanych kladnych cislech.
+
+Zadejte cislo: 5
+
+Zadejte cislo: 6
+
+Zadejte cislo: 11
+
+Zadejte cislo: 22
+
+Zadejte cislo: 15
+
+Zadejte cislo: 0
+
+Delka posloupnosti je 5.
+
+Soucet prvku posloupnosti je 59.
+
+Nejmensi prvek posloupnosti je 5, druhy nejmensi je 6.
+
+Nejvetsi prvek posloupnosti je 22, druhy nejvetsi je 15.
+
+Příklad 2.10 Druh posloupnosti
+
+Uživatel zadává posloupnost kladných čísel. Pokud uživatel zadá nekladné číslo, je posloupnost
+ukončena (a toto nekladné číslo není její součástí). Vypište jakého z následujících druhů je
+posloupnost: krátká, rostoucí, neklesající, konstantní, nerostoucí, klesající, není monotónní.
+
+a) Posloupnost je krátká, pokud obsahuje nejvýše jedno číslo. Ostatní druhy posloupností vyžadují
+alespoň dvě čísla.
+
+b) Posloupnost je konstantní, pokud hodnoty všech čísel jsou si rovny. Př.: 17, 17, 17, 17, 17.
+
+c) Posloupnost je rostoucí, pokud pro každé číslo posloupnosti platí, že jeho hodnota je menší než
+hodnota následujícího čísla. Př.: 2, 6, 19, 37, 38, 40, 95.
+
+d) Posloupnost je klesající, pokud pro každé číslo posloupnosti platí, že jeho hodnota je větší než
+hodnota následujícího čísla. Př.: 85, 67, 66, 14, 9, 5, 2, 1
+
+e) Posloupnost je neklesající, pokud pro každé číslo posloupnosti platí, že jeho hodnota je menší
+než hodnota následujícího čísla, nebo se hodnotě následujícího čísla rovná. V posloupnosti se musí
+vyskytovat alespoň jedna dvojice po sobě následujících čísel, jejichž hodnoty jsou si rovny
+(posloupnost není rostoucí) a alespoň jedna dvojice po sobě následujících čísel, jejichž hodnoty si
+nejsou rovny (posloupnost není konstantní). Př.: 4, 11, 11, 26, 31, 45, 88.
+
+f) Posloupnost je nerostoucí, pokud pro každé číslo posloupnosti platí, že jeho hodnota je větší
+než hodnota následujícího čísla, nebo se hodnotě následujícího čísla rovná. V posloupnosti se musí
+vyskytovat alespoň jedna dvojice po sobě následujících čísel, jejichž hodnoty jsou si rovny
+(posloupnost není klesající) a alespoň jedna dvojice po sobě následujících čísel, jejichž hodnoty
+si nejsou rovny (posloupnost není konstantní). Př.: 55, 49, 49, 49, 35, 20, 12, 9, 9, 6, 2.
+
+g) V ostatních případech posloupnost není monotónní. Př.: 60, 20, 8, 8, 12, 5
+
+                                                                                           [4 body]
+
+
+Ukázka:
+
+Zjistime druh posloupnosti.
+
+Zadejte cislo: 15
+
+Zadejte cislo: 8
+
+Zadejte cislo: 6
+
+Zadejte cislo: 6
+
+Zadejte cislo: 2
+
+Zadejte cislo: 0
+
+Posloupnost je nerostouci.
+
+
+
+3. hodina
+
+Příklady vyřešte v libovolném procedurálním programovacím jazyce. Správnost programu otestujte
+zadáním různých vstupních hodnot. Hodina se považuje za splněnou po zisku alespoň 8 bodů z možných
+30 bodů.
+
+
+Příklad 3.1: DPH
+
+a) Napište funkci, která pro zadanou cenu zboží a číselně zadanou sazbu DPH spočte cenu zboží
+s DPH. [1 bod]
+
+b) Napište funkci, která pro sazbu DPH použije výčtový typ. Existují tři sazby DPH: základní 21%,
+první snížená 15% a druhá snížená 10% [1 bod]:
+
+
+Ukázka:
+
+x = SpoctiDPH1(56.20, 21); // 68.002
+
+y = SpoctiDPH2(115, DPH.PrvniSnizena); // 132.25
+
+
+Příklad 3.2: BMI
+
+BMI (Body Mass Index) se počítá: váha v kilogramech vydělená druhou mocninou výšky v metrech.
+
+a) Napište funkci, která pro zadanou hodnotu výšky a váhy spočte BMI. [1 bod]
+
+b) Napište funkci, která místo číselné hodnoty bude vracet výčtový typ. [1 bod]
+
+
+BMI                výčtový typ
+
+[0; 16,5)          těžká podvýživa
+
+[16,5; 18,5)     podváha
+
+[18,5; 25)        optimální váha
+
+[25; 30)           nadváha
+
+[30; 35)           obezita prvního stupně
+
+[35; 40)           obezita druhého stupně
+
+[40; oo)           obezita třetího stupně
+
+
+Ukázka:
+
+x = SpoctiBMI1(1.70, 61.5); // 21.28
+
+y = SpoctiBMI2(1.67, 80); // Nadvaha
+
+
+Příklad 3.3 Aritmetický výraz
+
+Napište následující funkce bez použití funkcí z Math. Návratové hodnoty funkcí budou vždy reálná
+čísla. Reálná čísla jsou schopna reprezentovat vyšší číselné hodnoty než čísla celá
+
+a) Funkci, která pro zadané celé číslo spočte jeho faktoriál. [1 bod]
+
+b) Funkci, která pro zadané reálné číslo spočte jeho nezápornou celočíselnou mocninu [1 bod]
+
+c) Funkci, která pro zadané reálné číslo n spočte hodnotu e^n, která je přibližně dána níže
+uvedeným vztahem. [1 bod]
+
+
+
+d) Funkci, která pro zadaná celá čísla n a k spočte jejich kombinační číslo. Pro dvojice n a k
+nesplňující podmínku n ³ k ³ 0 je kombinační číslo rovno 0, pro ostatní dvojice je kombinační číslo
+dané níže uvedeným vztahem. [1 bod]
+
+
+Ukázka:
+
+x = faktorial(11); // 39916800
+
+y = mocnina(5, 3); // 125.0
+
+z = mocnina(2.69, 7); //1019.215
+
+a = vyraz(5.14); // 170.715
+
+b = kombinace(49, 6); // 13983816.0
+
+
+Příklad 3.4 Komplexní čísla
+
+Vytvořte strukturu pro reprezentaci komplexních čísel v algebraickém tvaru. Napište funkce pro
+následující operace
+
+a) sčítání komplexních čísel [1/2 bodu]
+
+b) odečítání komplexních čísel [1/2 bodu]
+
+c) násobení komplexních čísel [1 bod]
+
+
+
+
+Ukázka:
+
+x.re = 5.2; x.im = 3.25;
+
+y.re = 1.6; y.im = -4;
+
+a = secti(x, y); // 6.8 - 0.75i
+
+b = odecti(x, y); // 3.6 + 7.25i
+
+c = vynasob(x, y); // 21.32 - 15.6i
+
+
+Příklad 3.5 Trojúhelník v rovině
+
+Vytvořte strukturu bod v rovině. Vytvořte strukturu trojúhelník, obsahující tři body. Za použití
+euklidovské metriky napište následující funkce. V euklidovské metrice se vzdálenost mezi dvěma body
+rovná odmocnině ze součtu druhých mocnin rozdílů odpovídajících souřadnic daných bodů.
+
+a) Funkci, která porovná, zda dvě reálná čísla se v absolutní hodnotě liší nejvýše o 10^-13.  Tuto
+funkci použijte kdykoliv porovnáváte dvě reálná čísla na rovnost. [1 bod]
+
+b) Funkci, která spočte délku úsečky. [1 bod]
+
+c) Funkci, která rozhodne, zda zadané tři body tvoří trojúhelník. Body tvoří trojúhelník, pokud
+neleží na přímce. Tři body vytvoří tři úsečky. Body neleží na přímce, pokud součet délek dvou
+kratších úseček je delší než délka nejdelší úsečky. [2 body]
+
+d) Funkci, která spočte obvod trojúhelníku. Obvod trojúhelníku je roven součtu délek stran
+trojúhelníku. [1 bod]
+
+e) Funkci, která rozhodne, zda zadaný trojúhelník je pravoúhlý. Podle Pythagorovy věty se
+v pravoúhlém trojúhelníku součet druhých mocnin kratších stran rovná druhé mocnině delší strany. [2
+body]
+
+
+
+
+Ukázka:
+
+b1.x = 7.2; b1.y = -2;
+
+b2.x = -2.9; b2.y = -6.23;
+
+b3.x = 2; b3.y = 5;
+
+b4.x = -1; b4.y = -2.5;
+
+b5.x = 3; b5.y = 7.5;
+
+b6.x = 3; b6.y = -2.6;
+
+b7.x = 5.2; b7.y = -2.6;
+
+t1.a = b1; t1.b = b2; t1.c = b3;
+
+t2.a = b5; t2.b = b6; t2.c = b7;
+
+je1 = PribliznaRovnost(5, 4.99999999999992); // true
+
+delka = DelkaUsecky(b1, b2); // 10.95
+
+je2 = JeTrojuhelnik(b1, b2, b3); // true
+
+je3 = JeTrojuhelnik(b4, b3, b5); //false
+
+obvod1 = ObvodTrojuhelniku(t1); // 31.923
+
+obvod2 = ObvodTrojuhelniku(t2); // 22.637
+
+je4 = TrojuhelnikJePravouhly(t2); // true
+
+
+Příklad 3.6 Kámen, nůžky papír
+
+Napište program, který si s uživatelem zahraje hru kámen, nůžky, papír. Hraje se na dvě vítězná
+kola. Použijte výčtový typ. V každém kole si  uživatel zvolí jeden z výše uvedených
+předmětů předmětů, počítač svůj předmět vylosuje náhodně. Kámen poráží nůžky, nůžky poráží papír,
+papír poráží kámen. Pokud si uživatel i počítač zvolili stejný předmět, dané kolo se opakuje do té
+doby, dokud nebudou zvoleny různé předměty. [5 bodů]
+
+
+Ukázka:
+
+Vitejte ve hre kamen – nuzky – papir
+
+Hrajeme na dve vitezna kola
+
+Zadejte svuj tah: 6
+
+Tento tah je neplatny
+
+Zadejte svuj tah: kamen
+
+Hrac zahral Kamen, pocitac zahral Kamen
+
+Toto kolo je nerozhodne
+
+Celkove skore: hrac 0 – pocitac 0
+
+Zadejte svuj tah: papir
+
+Hrac zahral Papir, pocitac zahral Nuzky
+
+Toto kolo vyhral pocitac
+
+Celkove skore: hrac 0 – pocitac 1
+
+Zadejte svuj tah: papir
+
+Hrac zahral Papir, pocitac zahral Kamen
+
+Toto kolo vyhral hrac
+
+Celkove skore: hrac 1 – pocitac 1
+
+Zadejte svuj tah: nuzky
+
+Hrac zahral Nuzky, pocitac zahral Papir
+
+Toto kolo vyhral hrac
+
+Celkove skore: hrac 2 – pocitac 1
+
+Celou hru vyhral hrac
+
+
+
+
+
+Příklad 3.7 Počet dní po datu
+
+Napište funkci, která k zadanému datu (pomocí struktury) a počtu dní určí datum, které po zadaném
+datu nastane za zadaný počet dní. Funkce zohledňuje přestupné roky. [4 body]
+
+
+Správnost programu si můžete ověřit na online datumové kalkulačce
+
+http://www.timeanddate.fasterreader.eu/pages/cs/date-after-days-calc-cs.html
+
+
+Ukázka:
+
+d.den = 16; d.mesic = 7; d.rok = 2015;
+
+d1 = NasledneDatum(d, 500); // 27.11.2016
+
+
+Příklad 3.8 Den v týdnu
+
+Napište funkci, která k zadanému datu (pomocí struktury) určí den v týdnu (výčtový typ). Funkce
+zohledňuje přestupné roky. Nápověda 1.1.1900 bylo pondělí. [4 body]
+
+
+Správnost programu si můžete ověřit na online datumové kalkulačce
+
+http://www.timeanddate.fasterreader.eu/pages/cs/day-of-week-cs.html
+
+
+Ukázka:
+
+d.den = 15; d.mesic = 3; d.rok = 1966;
+
+den = DenVTydnu(d); // Utery
+
+4. hodina
+
+Příklady vyřešte v libovolném procedurálním programovacím jazyce. Správnost programu otestujte
+zadáním různých vstupních hodnot. Hodina se považuje za splněnou po zisku alespoň 8 bodů z možných
+32 bodů.
+
+
+Příklad 4.1: Sestupné setřídění
+
+Napište funkci, která své dva parametry setřídí sestupně. [1 bod]
+
+
+Ukázka:
+
+int a = 5, b = 7;
+
+SetridSestupne(ref a, ref b); // a = 7; b = 5;
+
+
+Příklad 4.2: Absolutní hodnota pole
+
+Napište funkci, která v zadaném poli nahradí hodnoty jednotlivých prvků pole jejich absolutní
+hodnotou. [1 bod]
+
+
+Ukázka:
+
+int[] pole = { 5, -2, 0, -1, 7, -12, 2, 4 };
+
+AbsolutniHodnotaPole(pole); // 5, 2, 0, 1, 7, 12, 2, 4
+
+
+Příklad 4.3: Zaokrouhlení pole
+
+Napište funkci, která pro zadané pole reálných čísel vrátí pole celých čísel. Hodnoty prvků v novém
+poli vzniknou zaokrouhlením hodnot prvků z původního pole. [2 body]
+
+
+Ukázka:
+
+double[] pole = { 5.12, -3.5996, 156, 7.9 };
+
+zaokrouhli = ZaokrouhliPole(pole); // 5, -4, 156, 8
+
+
+Příklad 4.4: Obrácení pole
+
+Napište funkci, která v zadaném poli obrátí pořadí prvků. První prvek bude posledním, druhý prvek
+předposledním, atd. Je zakázáno použít pomocné pole. [3 body]
+
+
+Ukázka:
+
+int[] pole = { 5, 7, 2, 1, 0, 6 };
+
+ObratPole(pole); // 6, 0, 1, 2, 7, 5
+
+
+Příklad 4.5: Maximum z pole
+
+Napište funkci, která v zadaném poli nezáporných čísel najde a pomocí parametrů funkce vrátí:
+
+a) hodnotu největšího prvku [1 bod]
+
+b) hodnotu druhého největšího prvku [1 bod]
+
+c) třetího největšího prvku [2 body]
+
+
+Ukázka:
+
+int[] pole = { 2, 5, 7, 1, 4, 6, 9, 8, 2 };
+
+MaxPole(pole, ref max, ref max2, ref max3); // 9, 8, 7
+
+Příklad 4.6: Nejčastější prvek.
+
+Napište funkci, která v zadaném poli najde nejčastěji se vyskytující hodnotu prvku. Vyskytují-li se
+dvě hodnoty stejně často, přednost má první vyskytnuvši se hodnota. [3 body]
+
+
+Ukázka:
+
+int[] pole = { 2, 7, 6, 6, 6, 1, 7, 7, 2};
+
+modus = NejcastejsiPrvek(pole); // 7
+
+
+Příklad 4.7: Skalární součin
+
+Napište funkci, která spočte skalární součin dvou stejně dlouhých vektorů. Vektor o n složkách je
+reprezentovaný pomocí pole délky n. Skalární součin pro dva vektory délky n se počítá jako součet n
+součinů. Jednotlivé součiny vzniknou vynásobením odpovídajících složek prvního a druhého vektoru [2
+body].
+
+
+Ukázka:
+
+int[] u = { 2, 0, -5, 1, 4 };
+
+int[] v = { 7, 4, 2, -2, 0 };
+
+skalar = SkalarniSoucin(u, v); // 2
+
+
+Příklad 4.8: Zaplatit mincemi
+
+a) Napište funkci, která pro zadané pole obsahující sestupně setříděné nominální hodnoty mincí
+platících v ČR spočte minimální počet kusů mincí, které je nutno použít pro zaplacení zadané
+částky. Nápověda: vždy zkoušejte platit co nejvyšší hodnotou mince [4 body].
+
+b) Najděte sadu mincí (jinou než v ukázce) a částku, pro kterou funkce nenajde optimální řešení.
+Nalezená sada pravděpodobně nebude platit v žádné zemi na světě. [2 body]
+
+
+Ukázka:
+
+int[] mince = { 50, 20, 10, 5, 2, 1 };
+
+pocet = ZaplatitMincemi(mince, 97); // 5 (50+20+20+5+2)
+
+pocet = ZaplatitMincemi(mince, 88); // 6 (50+20+10+5+2+1)
+
+pocet = ZaplatitMincemi(mince, 26); // 3 (20+5+1)
+
+
+Ukázka neoptimálního řešení:
+
+int[] mince = { 50, 20, 10, 7, 5, 2, 1 };
+
+pocet = ZaplatitMincemi(mince, 14); // 3 (10+2+2)
+
+// optimálně jde zaplatit 2 (7+7)
+
+
+Příklad 4.9 Sportka
+
+Napište funkci, která umožní uživateli si zahrát sportku. Výsledkem funkce bude finanční částka
+vyhraná (častěji však prohraná) uživatelem. Uživatel vyplní na sázence 6 různých čísel z čísel 1 až
+49 a počet slosování, na které chce čísla vsadit. Cena jednoho slosování je 20 Kč. Pokud uživatel
+zadá na sázence neplatnou kombinaci čísel, je mu vrácen vklad. V každém slosování se losují dva
+tahy. V každém tahu se ze 49 čísel vylosuje 6 řádných čísel a jedno číslo dodatkové. Tahy jsou
+navzájem nezávislé. V každém tahu uživatel obdrží nejvyšší z výher dle tabulky. Výhry z obou tahů
+se sčítají. [10 bodů]
+
+Tabulka výher
+
+1. pořadí: 15 382 198 Kč (uhodnuto 6 řádných čísel)
+
+2. pořadí: 815 723 Kč (uhodnuto 5 řádných čísel a dodatkové číslo)
+
+3. pořadí: 24 971 Kč (uhodnuto 5 řádných čísel)
+
+4. pořadí: 619 Kč (uhodnuta 4 řádná čísla)
+
+5. pořadí: 113 Kč (uhodnuta 3 řádná čísla)
+
+Zdroj: http://www.sazka.cz/cz/loterie-a-hry/sportka/jak-hrat/charakteristika/
+
+
+Ukázka:
+
+int[] sazenka = { 7, 9, 22, 6, 14, 48 };
+
+vys = Sportka(sazenka, 5000); // -74030
+
+5. hodina
+
+Příklady vyřešte v libovolném procedurálním programovacím jazyce. Správnost programu otestujte
+zadáním různých vstupních hodnot. Hodina se považuje za splněnou po zisku alespoň 8 bodů z možných
+32 bodů.
+
+
+Příklad 5.1 Test setříděnosti pole.
+
+Napište funkci, která rozhodne, zda zadané pole je sestupně setříděné. Upozornění: ve studijních
+materiálech jsme pracovali se vzestupně setříděnými poli. [1 bod]
+
+
+Ukázka:
+
+int[] pole = { 15, 12, 9, 9, 8, 5, 2, 2, 1 };
+
+bool je = JeSestupne(pole); // true
+
+
+Příklad 5.2 Příprava na třídění
+
+Vytvořte dvě globální proměnné (prirazeni a porovnani), které budou sloužit pro měření počtu volání
+funkcí vytvořených v tomto příkladu. Napište následující funkce, které budou nahrazovat operátory:
+
+a) funkce přiřazení (globální proměnná prirazeni ) [1 bod]
+
+b) funkce je menší (globální proměnná porovnani ) [1/2 bodu]
+
+c) funkce je větší (globální proměnná porovnani ) [1/2 bodu]
+
+
+Ukázka:
+
+int x = 5, y = 4, z = 3;
+
+bool je1 = JeMensi(y, z); // false
+
+bool je2 = JeMensi(x, z); // false
+
+bool je3 = JeVetsi(x, y); // true
+
+Prirazeni(ref x, y); // x = 4
+
+Prirazeni(ref y, z); // y = 3
+
+Console.WriteLine("Prirazeni: {0}, Porovnani: {1}", prirazeni, porovnani); // 2 3
+
+
+Příklad 5.3 Sestupné třídění
+
+Napište třídící funkce pro sestupné třídění. Body navíc lze získat za použití pomocných funkcí
+z příkladu 5.2 pro porovnávání a přiřazování hodnot prvků. Pomocné funkce nepoužívejte pro práci
+s řídící proměnnou cyklu. Výjimkou je Count sort, u kterého pomocné funkce se používají pro řídící
+proměnnou cyklu v situacích, ve kterých je řídící proměnná cyklu brána jako prvek pole.
+
+a) Selection sort [3+1 body]
+
+b) Insertion sort [3+1  body]
+
+c) Bubble sort [2+1  body]
+
+d) Count sort [3+2 body]
+
+
+Ukázka:
+
+int[] pole = { 5, 7, 1, 5, 6, 8, 9, 0, 1, 2};
+
+SelectionSort(pole); // 9, 8, 7, 6, 5, 5, 2, 1, 1, 0
+
+Console.WriteLine("Prirazeni: {0}, Porovnani: {1}", prirazeni, porovnani); // 30,  55
+
+Příklad 5.4 Testování rychlostí algoritmů
+
+Otestujte třídící algoritmy z příkladu 5.3 na polích různé velikosti (1000, 10 000 a 30 000 prvků),
+naplněných náhodnými hodnotami z intervalu 0 až velikost pole. Všechny třídící algoritmy budou
+pracovat nad kopií stejného pole. Výsledky přehledně prezentujte.
+
+a) s použitím počtu operací [2 body]
+
+b) s použitím měření času [2 body]
+
+
+Ukázka – část (a):
+
+Prvku 1000
+
+Selection sort – porovnani: 500500, prirazeni: 3000
+
+Insertion sort – porovnani: 259065, prirazeni: 260069
+
+Bubble sort – porovnani: 974025, prirazeni: 774213
+
+Count sort – porovnani: 2995, prirazeni: 3006
+
+Prvku 10000
+
+...
+
+Prvku 30000
+
+...
+
+
+Ukázka – část (b):
+
+Prvku 1000
+
+...
+
+Prvku 10000
+
+...
+
+Prvku 30000
+
+Selection sort – doba behu 11194 ms
+
+Insertion sort – doba behu 9300 ms
+
+Bubble sort – doba behu 39415 ms
+
+Count sort – doba behu 4 ms
+
+
+Příklad 5.5 Binární vyhledávání
+
+Napište funkci hledání zadané hodnoty v sestupně setříděném poli za použití algoritmu binárního
+vyhledávání:
+
+a) Je vrácen index libovolného prvku s hledanou hodnotou. [2 body]
+
+b) Je vrácen index prvního prvku v poli, který má hledanou hodnotu. [+1 bod]
+
+
+Ukázka
+
+int[] p1 = { 12, 9, 6, 6, 6, 5, 3, 1, 1 };
+
+int index = BinarniVyhledavani(p1, 6);
+
+// (a) index = 2, 3, nebo 4 (b) index = 2
+
+
+Příklad 5.6 Vylepšený Bubble Sort
+
+Algoritmus Bubble Sort třídící sestupně zadané pole lze implementovat ve dvou verzích. V základní
+verzi algoritmu se ve vnořeném cyklu prochází pole až do posledního prvku.  Ve vylepšené verzi
+algoritmu se ve vnořeném cyklu prochází pole jen do místa poslední výměny, která proběhla
+v předchozí iteraci vnějšího cyklu.
+
+a) Napište vylepšenou verzi Bubble sortu. Pokud jste vylepšenou verzi napsali již v příklad 5.3c,
+napište nyní verzi základní. [2 body]
+
+b) Změřte (dle příkladu 5.4) počty operací a dobu běhu vylepšené a základní verze. [1 bod]
+
+Ukázka:
+
+Prvku 1000
+
+Bubble sort – porovnani: 944055, prirazeni: 763212
+
+Bubble sort2 – porovnani: 496415, prirazeni: 763212
+
+Bubble sort – doba behu 46 ms
+
+Bubble sort2 – doba behu 30 ms
+
+Prvku 10000
+
+...
+
+Prvku 30000
+
+...
+
+
+Příklad 5.7 Vylepšený Count Sort
+
+Rozšiřte funkci z příkladu  5.3d pro sestupné setřídění pole pomocí třídícího algoritmu Count Sort.
+Hodnoty prvků pole jsou z omezeného intervalu, který může obsahovat i záporná čísla [3 body]
+
+
+Ukázka:
+
+int[] p1 = { -5, 7, 15, 22, 4, 0, 4, 9, -11 };
+
+CountSort(p1); // 22, 15, 9, 7, 4, 4, 0, -5, -11
+
+6. hodina
+
+Příklady vyřešte v libovolném procedurálním programovacím jazyce. Správnost programu otestujte
+zadáním různých vstupních hodnot. Hodina se považuje za splněnou po zisku alespoň 8 bodů z možných
+38 bodů.
+
+
+Příklad 6.1 Práce s textovými řetězci
+
+Slovo je řetězec složený výhradně z písmen, který je maximální délky, nejde tedy prodloužit o další
+písmeno. Dvě slova jsou od sebe oddělena jedním nebo více znaky, které nejsou písmeny. Pokud se
+před slovem či za slovem nachází znak, tak tento znak není písmenem. Napište následující funkce pro
+práci s textovými řetězci bez použití funkcí Split a Distinct. Původní řetězec nesmíte modifikovat,
+ani od něj vytvářet kopie:
+
+a) Funkce vracející počet různých písmen anglické abecedy, které zadaný řetězec obsahuje. Velikost
+písmen se nerozlišuje. [2 body]
+
+b) Funkce vracející počet slov v zadaném řetězci. [2 body]
+
+c) Funkce vracející slovo první výskyt slova na zadané pozice v zadaném řetězci. Pokud se na zadané
+pozici nachází písmeno, je vráceno slovo, jehož součástí toto písmeno je. V tomto případě bude
+nalezené slovo často začínat před zadanou pozicí. Pokud se na zadané pozici nenachází písmeno, je
+vráceno první slovo nacházející se napravo od zadané pozice v zadaném řetězci. Pokud není nalezeno
+žádné slovo, je vrácen prázdný řetězec. [2 body]
+
+d) Funkce vracející nejdelší slovo v zadaném řetězci. Pokud jsou dvě slova stejně dlouhá, je
+vráceno slovo, které se v řetězci vyskytuje jako první. Pokud není nalezeno žádné slovo, je vrácen
+prázdný řetězec. [1 bod]
+
+e) Funkce vracející lexikograficky (abecedně) největší slovo v zadaném řetězci. Pokud není nalezeno
+žádné slovo, je vrácen prázdný řetězec. [1 bod]
+
+f) Funkce vracející nejčastěji se vyskytující slovo v zadaném řetězci. Pokud se vyskytují dvě slova
+stejně často, je vráceno slovo, které se v řetězci vyskytuje jako první. Pokud není nalezeno žádné
+slovo, je vrácen prázdný řetězec. Dejte pozor na situace, kdy jedno slovo je podslovem jiného
+slova. V řetězci "Ja a Jana" má slovo "a" pouze jeden výskyt. [4 body]
+
+
+Ukázka:
+
+string s1 = "Alena ma 2 ruce.";
+
+int ruznych = RuznychPismen(s1); // 8
+
+int pocet = PocetSlov(s1); // 3
+
+string s2 = PrvniSlovo(s1, 2); // "Alena"
+
+string s3 = PrvniSlovo(s1, s1.Length - 1); // ""
+
+string s4 = NejdelsiSlovo(s1); // "Alena"
+
+string s5 = NejvetsiSlovo(s1); // "ruce"
+
+string s6 = "Mama ma 2 ruce a v ruce hul";
+
+string s7 = NejcastejsiSlovo(s1 + s6); // "ruce"
+
+
+Příklad 6.2 Césarova šifra
+
+Césarova šifra je jednou z nejstarších metod pro převod přenášené zprávy do zašifrované podoby,
+která je nečitelná pro neinformovaného útočníka. Parametrem šifry je celé číslo nazvané posun.
+Každé písmeno zprávy je zaměněno za písmeno, které se v abecedě nachází za tímto písmenem o počet
+znaků určený hodnotou parametru posun. Původní zprávu získáme aplikací tohoto postupu na
+zašifrovanou zprávu s modifikovaným parametrem posun. Hodnota parametru posun bude mít oproti
+původní hodnotě tohoto parametru opačné znaménko.
+
+
+
+a) Implementujte funkci pro zašifrování textového řetězce pomocí této šifry. Pro jednoduchost
+nezkoumejte, co jsou písmena a posouvejte celý řetězec. [1 bod].
+
+b) Slovně (pomocí komentáře ve zdrojovém kódu) popište postup, kterým byste v roli útočníka bez
+znalosti parametru posun ze zašifrované zprávy získali původní zprávu. [2 body]
+
+
+Ukázka:
+
+string s = "Toto je tajny text: 1726";
+
+string zasifrovane = CezarovaSifra(s, 20);
+
+// h���4~y4�u~‚�4�yŒ�N4EKFJ
+
+string odsifrovane = CezarovaSifra(zasifrovane, -20);
+
+// Musíme získat původní text
+
+
+Příklad 6.3 Naše vlastní řetězce
+
+Napište funkce pracující s polem znaků char[], které budou mít stejnou funkčnost jako funkce pro
+textové řetězce string. (Aniž byste pole znaků char[], na textový řetězec string převedli).
+
+a) Funkce lexikografického porovnání řetězců s1 a s2: Compare(s1, s2). [2 body]
+
+b) Funkce vracející index prvního výskytu hledaného řetězce s2 v řetězci s1. Řetězec s1 se
+prohledává od zadané pozice start: IndexOf(s1, s2, start). [2 body]
+
+c) Funkce vracející podřetězec zadaného řetězce s1. Podřetězec začíná na zadané pozici a má zadanou
+délku: Substring(s1, start, delka). [1 bod]
+
+d) Funkce vracející řetězec vzniklý vložením řetězce s2 do řetězce s1 na pozici zadanou indexem:
+Insert(s1, index, s2). [2 body]
+
+e) Funkce vracející řetězec vzniklý odstraněním podřetězce ze zadaného řetězce s1. Z řetězce s1 se
+odstraní podřetězec určený indexem (v rámci řetězce s1) svého prvního znaku a svojí délkou:
+Remove(s1, index, delka). [2 body]
+
+f) Funkce vracející řetězec vzniklý z řetězce s1 nahrazením všech výskytů řetězce s2 za řetězec s3:
+Replace (s1, s2, s3). [4 body]
+
+
+Ukázka:
+
+char[] s1 = "klokan".ToCharArray();
+
+char[] s2 = "klobouk".ToCharArray();
+
+int i1 = Compare(s1, s2); // 1
+
+int i2 = IndexOf(s2, "o".ToCharArray(), 3); // 4
+
+char[] s3 = Substring(s2, 2, 3); // 'o''b''o'
+
+char[] s4 = Insert(s1, 1, s3); // 'k''o''b''o''l''o''k''a''n'
+
+char[] s5 = Remove(s2, 3, 2); // 'k''l''o''u''k''
+
+char[] s6 = Replace(s5, "k".ToCharArray(), s3);
+
+// 'o''b''o''l''o''u''o''b''o'
+
+
+Příklad 6.4 Ruleta
+
+Napište program, který umožní uživateli si zahrát evropskou ruletu. Hra probíhá v sázkových kolech.
+Uživatel může v každém sázkovém kole uzavírat libovolný počet (a vzájemné kombinace) sázek dle
+tabulky sázek a výher. Uživatel v rámci sázkového kola zadá všechny své sázky formou jednoho
+textového řetězce. Formát zadávání sázek navrhněte sami, můžete se inspirovat formátem navrženým
+v ukázce. Neplatné části řetězce ignorujte. Následně je náhodně vybráno jedno z čísel 0 až 36.
+Uživateli je oznámeno, jak dopadly jeho jednotlivé sázky, jsou mu proplaceny případné výhry.
+Uživatel může hru v jakémkoliv kole ukončit, případné sázky jsou anulovány. [10 bodů]
+
+
+
+Tabulka sázek a výher
+
+a) jednotlivé číslo (0 až 36), výhra 35x vsazená suma
+
+b) liché číslo (1,3,5…35) nebo sudé číslo (2,4,6, …., 36), výhra 1x vsazená suma
+
+c) malé číslo (1 až 18) nebo vysoké číslo (19 až 36), výhra 1x vsazená suma
+
+d) tucet: první (1 až 12), druhý (13 až 24), třetí (25 až 36), výhra 2x vsazená suma
+
+
+Ukázka:
+
+Vitejte ve hre ruleta:
+
+Sazka: cislo 0 az 36, licha, suda, nizka, vysoka, 1. az 3. tucet. Za sazku vlozte vsazenou sumu,
+sazky lze kombinovat.
+
+Sazka? 5 20 1 25 9 30 Suda 100 vysoka 200 hotovo
+
+Na rulete padlo cislo 24.
+
+Sazka na sude cislo ve vysi 100 byla vyhrana. Konto +100.
+
+Sazka na vysoke cislo ve vysi 200 byla vyhrana. Konto +200.
+
+Sazka na cislo 1 ve vysi 25 byla prohrana. Konto -25.
+
+Sazka na cislo 5 ve vysi 20 byla prohrana. Konto -20.
+
+Sazka na cislo 9 ve vysi 30 byla prohrana. Konto -30.
+
+Stav konta je 222.
+
+Sazka? Super jedeme dal 2 tucet 100, 15 50, suda 200
+
+Na rulete padlo cislo 8.
+
+Sazka na sude cislo ve vysi 200 byla vyhran. Konto +200.
+
+Sazka na 2. tucet ve vysi 100 byla prohrana. Konto -100.
+
+Sazka na cislo 15 ve vysi 50 byla prohrana. Konto -50.
+
+Stav konta je 275.
+
+Sazka? Konec, uz me to staci
+
+
+
+
+7. hodina
+
+Příklady vyřešte v libovolném procedurálním programovacím jazyce. Správnost programu otestujte
+zadáním různých vstupních hodnot. Hodina se považuje za splněnou po zisku alespoň 8 bodů z možných
+43 bodů.
+
+
+Příklad 7.1 Dlouhá celá čísla
+
+Napište funkce pracující s dlouhými celými čísly, které používají způsob uložení cifer v poli big
+endian (na přednášce byl použit způsob little endian).
+
+a) Funkci Vytvor, která převede textový řetězec na číslo. [1 bod]
+
+b) Funkci Vypis, která vypíše číslo na obrazovku bez zbytečných nul. [1 bod]
+
+c) Funkce Compare porovná dvě čísla. Je-li první číslo menší než druhé číslo, je vrácena hodnota
+-1. Je-li první číslo větší než druhé číslo, je vrácena hodnota 1. Jsou-li si obě čísla rovna, je
+vrácena hodnota 0. [1 bod]
+
+d) Funkce Soucet sečte dvě čísla. [1 bod]
+
+e) Funkce Rozdil odečte menší číslo od většího. [1 bod]
+
+f) Funkce Soucin vynásobí dvě čísla. [2 body]
+
+g) Funkce Podil vydělí číslo číslem. [3 body]
+
+
+Ukázka:
+
+int[] c1 = Vytvor("560111202232646");
+
+int[] c2 = Vytvor("560100600690986");
+
+Vypis(c1); // 560111202232646
+
+int i = Compare(c1, c2); // 1
+
+int[] c3 = Soucet(c1, c2);  // 1120211802923632
+
+int[] c4 = Rozdil(c1, c2);  // 10601541660
+
+int[] c5 = Soucin(c1, c4); // 5938042244702081581032360
+
+int[] c6 = Podil(c1, c4); // 52832
+
+
+Příklad 7.2 Dlouhá reálná čísla
+
+Napište funkce pracující s dlouhými reálnými čísly v plovoucí řádové čárce, které používají způsob
+uložení cifer v poli little endian (tento způsob byl použit na přednášce).
+
+a) Funkci Vytvor, která převede textový řetězec na číslo. Textový řetězec může (ale nemusí)
+obsahovat znak pro exponent. Př.: 7896e4 = 78960000; 5636.7e-2 =56.367; [4 body]
+
+b) Funkci Vypis, která vypíše číslo na obrazovku bez zbytečných nul. [1 bod]
+
+c) Funkce Compare porovná dvě čísla. Je-li první číslo menší než druhé číslo, je vrácena hodnota
+-1. Je-li první číslo větší než druhé číslo, je vrácena hodnota 1. Jsou-li si obě čísla rovna, je
+vrácena hodnota 0. [1 bod]
+
+d) Funkce Soucet sečte dvě čísla. V závislosti na znaménku sčítaných čísel bude docházet ke sčítání
+(př. 2 + 3) nebo odečítání (př. 2 + -3) absolutních hodnot čísel. Na rozdíl od implementace celých
+čísel vyřešte i možná přetečení a podtečení výsledku. [5 bodů]
+
+e) Funkce Soucin vynásobí dvě čísla. [4 body]
+
+f) Funkce Podil vydělí číslo číslem. [3 body]
+
+
+Ukázka:
+
+Real r1 = Vytvor("-256.2e-1"); // - 2.562e1
+
+Real r2 = Vytvor("-9534.07256e15"); // -9.53407256e18
+
+Real r3 = Vytvor("9534.07256e15"); // 9.53407256e18
+
+Vypis(r1); Vypis(r2); Vypis(r3);
+
+int i = Compare(r1,r2); // -1
+
+Real r4 = Soucet(r2, r2);  // -1.906814512e19
+
+Real r5 = Soucet(r1, r3);  // 9.53407255999999997438e18
+
+Real r6 = Soucet(r2, r3);  // 0
+
+Real r7 = Soucin(r1, r2);  // 2.442629389872e20
+
+Real r8 = Podil(r2, r1);  // 3.7213397970335675253...e17
+
+
+Příklad 7.3 Zlomky
+
+Napište funkce pracující se zlomky, které mají čitatele i jmenovatele reprezentované dlouhým celým
+číslem. Využijte funkce z příkladu 7.1. Výsledky funkcí d až f budou v základním tvaru. Nápověda:
+pro převod zlomku do základního tvaru využijte Euklidův algoritmus.
+
+a) Funkce VytvorZlomek načte zlomek z řetězce. [1 bod]
+
+b) Funkce VypisZlomek vypíše zlomek na obrazovku. [1 bod]
+
+c) Funkce ZakladniTvar převede zlomek na základní tvar. [2 body]
+
+d) Funkce SoucetZlomku sečte dva zlomky. [2 body]
+
+e) Funkce SoucinZlomku vynásobí dva zlomky [1 bod]
+
+f) Funkce PodilZlomku vydělí zlomek zlomkem. [1 bod]
+
+
+Ukázka:
+
+Zlomek z1 = VytvorZlomek("-56890/1223366");
+
+Zlomek z2 = VytvorZlomek("2565689841/2365");
+
+VypisZlomek(z1); VypisZlomek(z2);
+
+ZakladniTvar(ref z1); // -28445/611683
+
+ZakladniTvar(ref z2); // 233244531/215
+
+VypisZlomek(z1); VypisZlomek(z2);
+
+Zlomek z3 = SoucetZlomku(z1, z2); // 142671708339998/131511845
+
+Zlomek z4 = SoucinZlomku(z1, z2); // -1326928136859/26302369
+
+Zlomek z5 = PodilZlomku(z2, z1); // -142671714455673/6115675
+
+
+Příklad 7.4 Římská čísla
+
+Římská čísla jsou příkladem nepoziční číselné soustavy. Hodnoty číslic nezávisí na jejich pozici
+v zápise čísla. Hodnoty číslic jsou následující I = 1, V = 5, X = 10, L = 50, C = 100, D = 500, M =
+1000. Existují i dvojice číslic, které se považují za jednu číslici: IV  = 4, IX = 9, XL = 40, XC =
+90, CD 400, CM 900. Číslice jsou v zápisu čísla uspořádány od nejvyšší hodnoty po nejnižší.
+Například číslo 2016 se zapíše jako MMXVI. Například číslo 1949 se zapíše zkráceným zápisem jako
+MCMXLIX. Například výraz IM, který měl mít hodnotu 999, odporuje výše uvedeným pravidlům a není
+povolen. Napište následující funkce:
+
+a) Funkce DecRoman převede číslo v desítkové soustavě na římské číslo. [1 bod]
+
+b) Funkce RomanDec převede římské číslo na číslo v desítkové soustavě [1 bod].
+
+
+Ukázka:
+
+string s = DecRoman(1969); // "MCMLXIX"
+
+int i = RomanDec("MMCDXXXVII"); // 2437
+
+
+Správnost programu si můžete ověřit na online konvertoru:
+
+http://www.convertit.com/Go/ConvertIt/Calculators/Math/Roman_Numerals_Converter.ASP
+
+
+Příklad 7.5 Dlouhá celá čísla v obecné číselné soustavě
+
+Funkce z příkladu 7.1 upravte tak, aby pracovaly s čísly v zadané číselné soustavě:
+
+a) Funkce Soucet sečte dvě čísla. [1/2 bodu]
+
+b) Funkce Rozdil odečte menší číslo od většího. [1/2 bodu]
+
+c) Funkce Soucin vynásobí dvě čísla. [1/2 bodu]
+
+d) Funkce Podil vydělí číslo číslem. [1/2 bodu]
+
+e) Napište funkci Prevod, která převede číslo používající způsob uložení cifer big endian z jedné
+číselné soustavy do druhé číselné soustavy. Při praktických pokusech používejte číselné soustavy o
+maximálním základu 10, snáze se v nich zobrazují výsledky. [3 body]
+
+
+Ukázka:
+
+int[] c1 = Vytvor("560111202232646");
+
+int[] c2 = Prevod(c1, 10, 2);
+
+// 1111111010110101100001101001111100110100101000110
+
+int[] c3 = Prevod(c2, 2, 5); // 1041403330220232421041
+
+int[] c4 = Soucet(c3, c3, 5); // 2133312210441020342132
+
+int[] c5 = Rozdil(c4, c3, 5); // 1041403330220232421041
+
+int[] c6 = Prevod(c5, 5, 7); // 225656461511451251
+
+int[] c7 = Soucin(c6, c6, 7);
+
+// 55402656051563425266136012062265231
+
+int[] c8 = Podil(c7, c6, 7); // 225656461511451251
+
+int[] c9 = Prevod(c8, 7, 10); // 560111202232646
+8. hodina
+
+Příklady vyřešte v libovolném procedurálním programovacím jazyce. Správnost programu otestujte
+zadáním různých vstupních hodnot. Hodina se považuje za splněnou po zisku alespoň 8 bodů z možných
+31 bodů.
+
+
+Příklad 8.1 Náhodný binární soubor
+
+Napište funkci, která vytvoří binární soubor obsahující zadaný počet náhodných kladných celých
+čísel. [2 body].
+
+
+Ukázka:
+
+NahodnySoubor("cisla.dat", 1000);
+
+// velikost souboru 4000 bytu
+
+
+Příklad 8.2 Převod binárního souboru na textový
+
+Napište funkci, která ze zadaného binárního souboru obsahujícího kladné celá čísla vytvoří textový
+soubor, který bude na každém řádku obsahovat 10 čísel. Nápověda: počet čísel v souboru zjistíte
+z jeho délky. [3 body].
+
+
+Ukázka:
+
+BinarniNaTextovy("cisla.dat", "cisla.txt");
+
+/* 1540684667 1050586463 ... 487858389  // 10 čísel
+
+ *  2103328287 817864052  ... 727647820  // 10 čísel
+
+ *  ...                                  // 10 čísel
+
+ */
+
+
+Příklad 8.3 Součet čísel na řádku
+
+Napište funkci, která ze zadaného textového souboru obsahujícího celá čísla vytvoří nový textový
+soubor, který bude na každém řádku obsahovat součet čísel z odpovídajícího řádku původního souboru.
+ Nápověda: na součet použijte datový typ long. [3 body]
+
+
+Ukázka:
+
+SoucetCisel("cisla.txt", "soucet.txt");
+
+/* 9690170347
+
+ * 12228343489
+
+ * ...
+
+ */
+
+
+Příklad 8.4 Změna velikosti písmen
+
+Napište funkci, která ze zadaného textového souboru vytvoří nový textový soubor, který se bude od
+původního souboru lišit jen ve velikosti písmen. V novém souboru bude první řádek velkými písmeny.
+Na ostatních řádcích budou všechna slova obsahující tři a více písmen začínat velkými písmeny.
+Zbylá písmena v novém souboru budou malá. [3 body].
+
+
+Ukázka:
+
+ZmenaVelikostiPismen("aaa.txt", "novy.txt");
+
+/* NADPIS TEXTU
+
+ * Tohle je Ukazkovy Textovy Soubor, na Kterem Budeme Testovat
+
+ * Druhy Radek Cvicneho Textu.
+
+ */
+
+
+Příklad 8.5 Řádky se zadaným řetězcem
+
+Napište funkci, která ze zadaného textového souboru vytvoří nový textový soubor, který bude
+obsahovat pouze ty řádky původního souboru, na kterých se nachází zadaný řetězec. Velikost písmen
+se ignoruje [2 body]
+
+
+Ukázka:
+
+RadkySeSlovem("aaa.txt", "novy.txt", "dnes");
+
+/* Dnes je sobota.
+
+ * vcera, dnes, zitra
+
+ * dnesni
+
+ */
+
+
+Příklad 8.6 Statistické údaje
+
+Napište funkce, které ze zadaného textového souboru zjistí následující statistické údaje.
+
+a) Funkce vracející počet různých znaků, které se v souboru vyskytují. Nápověda: použijte pole
+velikosti odpovídající rozsahu datového typu char. [1 bod]
+
+b) Funkce vracející počet slov, které se v souboru vyskytují. Definice slova je uvedena v příkladu
+6.1. [2 body]
+
+c) Funkce vracející počet vět, které se v souboru vyskytují. Věta obsahuje alespoň jedno slovo a je
+ukončena tečkou, otazníkem nebo vykřičníkem. Věta nemusí začínat velkým písmenem. Pokud první
+písmeno, které následuje po tečce je malé, tato tečka neukončuje větu. Věta se může nacházet na
+více řádcích. [2 body]
+
+d) Funkce vracející nejdelší slovo, vyskytující se v souboru. V případě, že dvě slova mají shodný
+počet písmen, vypíše se první z nich. [2 body]
+
+e) Funkce vracející nejdelší větu, vyskytující se v souboru. Délka vět je měřena počtem všech
+znaků, které obsahuje. V případě, že dvě věty mají shodný počet znaků, vypíše se první z nich. [2
+body]
+
+
+Ukázka:
+
+int pismen = PocetRuznychZnaku("aaa.txt"); // 36
+
+int slov = PocetSlov("aaa.txt"); // 26
+
+int vet = PocetVet("aaa.txt"); // 5
+
+string slovo = NejdelsiSlovo("aaa.txt"); // "ukazkovy"
+
+string veta = NejdelsiVeta("aaa.txt");
+
+// "Nadpis textu\nTohle je 4. ukazkovy textovy soubor.\n"
+
+
+Příklad 8.7 Výpis souborů
+
+Napište funkci, která do zadaného textového souboru vypíše názvy všech souborů nacházejících se
+v zadaném adresáři a obsahujících zadané slovo. Pokud se soubor určený pro výpis výsledků nachází
+v adresáři, ve kterém hledáme soubory, je ve výpisu všech souborů uveden i tento soubor určený pro
+výpis výsledků. [3 body]
+
+
+Ukázka:
+
+VypisSouboru("vypis.txt", ".", "posledni");
+
+// C:\UPg\Hodina 08\c07 Vypis souboru\bin\Debug\aaa.txt
+
+
+Příklad 8.8 Formátování textu
+
+Napište funkci, která ze zadaného textového souboru vytvoří druhý textový soubor, ve kterém bude
+text zalomen na zadanou délku řádky (obdoba funkcí z MS Word). Řádek bude naplněn slovy tak, že
+nepůjde na něj žádné další slovo přidat bez porušení požadované délky řádku. Za slovo se (na rozdíl
+od předchozích příkladů) považuje jakýkoliv řetězec z jiných než bílých znaků. Slova mohou být
+kombinací písmen, čísel, interpunkčních znamének atd. Bílé znaky a řídící znaky jsou odstraněny a
+nahrazeny jednou mezerou mezi každými sousedními řetězci. Slovo nesmí být rozděleno na více řádků
+s výjimkou případu, kdy je delší než maximální délka řádku. Zbylé místo na řádku je vyplněno
+mezerami. Vytvořte výčtový typ Format, který bude určovat, jakým způsobem se umísťují výplňkové
+mezery na řádce.
+
+a) Text se bude formátovat směrem doleva. Všechny výplňkové mezery jsou přidány za poslední slovo.
+[2 body]
+
+b) Text se bude formátovat směrem doprava. Všechny výplňkové mezery jsou přidány před první slovo.
+[2 bod]
+
+c) Text se bude formátovat na střed. Všechny výplňkové mezery jsou rozděleny na dvě poloviny.
+V případě lichého počtu mezer bude druhá polovina o mezeru větší. První polovina je přidána před
+první slovo, druhá polovina za poslední slovo [2 body]
+
+
+Ukázka:
+
+VypisFormat("aaa.txt", "doleva.txt", Format.DoLeva, 20);
+
+/* Nadpis textu Tohle
+
+ * je 5. ukazkovy
+
+ * textovy soubor.
+
+ */
+
+VypisFormat("aaa.txt", "doprava.txt", Format.DoPrava, 20);
+
+/*  Nadpis textu Tohle
+
+ *      je 5. ukazkovy
+
+ *     textovy soubor.
+
+ */
+
+VypisFormat("aaa.txt", "nastred.txt", Format.NaStred, 20);
+
+/* Nadpis textu Tohle
+
+ *   je 5. ukazkovy
+
+ *  textovy soubor.
+
+ */
+
+
+9. hodina
+
+Příklady vyřešte v libovolném procedurálním programovacím jazyce. Správnost programu otestujte
+zadáním různých vstupních hodnot. Hodina se považuje za splněnou po zisku alespoň 8 bodů z možných
+40 bodů.
+
+
+Příklad 9.1 Matice
+
+Napište následující funkce pracující s maticí celých čísel long:
+
+a) Funkci, která vytvoří matici zadaného rozměru naplněnou prvky s náhodnými hodnotami. Hodnoty
+volte z intervalu [-4,+4], je to výhodné pro použití v dalších příkladech. [1 bod]
+
+b) Funkci, která zadanou matici uloží do textového souboru. Na prvním řádku bude uložen rozměr
+matice. Na dalších řádcích budou uloženy jednotlivé řádky matice [1 bod]
+
+c) Funkci, která z textového souboru načte matici (zadanou formou uvedenou v 1.b). [1 bod]
+
+d) Funkci, která vytvoří transponovanou matici (= záměna řádků za sloupce). [1 bod]
+
+e) Funkci testující, zda zadaná matice je symetrická. Matice je symetrická, pokud pro každý prvek
+nacházející se v řádku r a sloupci s, platí, že jeho hodnota je rovna hodnotě prvku v řádku s a
+sloupci r. [1 bod].
+
+f) Funkce vracející pole obsahující diagonálu matice. Diagonála matice je tvořena prvky, které se
+nacházejí v řádku se stejným pořadovým číslem, jako je pořadové číslo sloupce, ve kterém se
+nacházejí. [1 bod].
+
+g) Funkci testující, zda matice je horní trojúhelníková. Tj. Matice je čtvercová a všechny prvky
+nacházející se pod diagonálou mají nulovou hodnotu. [1 bod].
+
+h) Funkci vracející pořadové číslo sloupce, ve kterém se na zadaném řádku nachází první nenulový
+prvek. Tj. Na zadaném řádku určí počet prvků s nulovou hodnotou nacházejících se nalevo od prvního
+nenulového prvku zleva [1 bod].
+
+i) Funkci testující, zda matice je odstupňovaná. V odstupňované matici je na každém řádku počet nul
+zleva alespoň o jednu nulu větší než na předchozím řádku. [1 bod].
+
+j) Funkci testující, zda matice je jednotková. Jednotková matice je čtvercová matice, která má na
+diagonále prvky s hodnotou jedna, ostatní prvky mají nulovou hodnotu. [1 bod].
+
+
+Ukázka:
+
+long[,] M1 = NahodnaMatice(2, 3);
+
+UlozMatici(M1, "matice1.txt");
+
+long[,] M2 = NactiMatici("matice1.txt");
+
+long[,] M3 = { { 2, 3, 1 }, { 7, 4, 6 } };
+
+long[,] M4 = TransponovanaMatice(M3);
+
+// { {2, 7 }, { 3, 4 }, { 1, 6 } }
+
+long[,] M5 = { { 2, 6, 1 }, { 6, 4, 3 }, { 1, 3, 7 } };
+
+bool b1 = MaticeJeSymetricka(M5); // true
+
+long[] v1 = DiagonalaMatice(M5); // 2, 4, 7
+
+long[,] M6 = { { 4, 5, 2 }, { 0, 3, 6 }, { 0, 0, 9 } };
+
+bool b2 = MaticeJeHorniTrojuhelnikova(M6); // true
+
+int i1 = PocetNulZleva(M6, 2); // 2
+
+long[,] M7 = { { 7, 1, 2 }, { 0, 0, 6 } };
+
+bool b3 = MaticeJeOdstupnovana(M7); // true
+
+bool b4 = MaticeJeJednotkova(M6); // false
+
+Příklad 9.2 Gaussova eliminační metoda
+
+Napište následující funkce pracující s maticí celých čísel long:
+
+a) Napište funkci OdstupnujMatici, která pomocí elementárních řádkových úprav převede zadanou
+matici na odstupňovaný tvar. [6 bodů]
+
+b) Napište funkci GaussovaEliminace, která za pomocí funkce OdstupnujMatici z matice reprezentující
+nehomogenní soustavu lineárních rovnic vypočte hodnoty jednotlivých neznámých a vrátí je poli
+reálných čísel. V případě, že soustava nemá řešení, je vráceno pole nulové délky. V případě, že
+soustava má nekonečně mnoho řešení, nastavte volitelné proměnné na hodnoty 0. [3 body]
+
+c) Napište funkci Zkouska. Funkce nejprve dosadí hodnoty ze zadaného pole reprezentujícího hodnoty
+neznámých do zadané matice reprezentující nehomogenní soustavu lineárních rovnic. Funkce ověří, zda
+pro každou rovnici platí rovnost levé a pravé strany. Tj. hodnoty neznámých nacházející se
+v zadaném poli jsou řešením nehomogenní soustavy lineárních rovnic reprezentované zadanou maticí.
+[1 bod]
+
+
+Ukázka:
+
+long[,] M = { { 0, 0, 3, 2 }, { 0, 2, 4, 3 }, { 0, 4, 8, 6 }};
+
+OdstupnujMatici(M);
+
+// { { 0, 2, 4, 3 }, { 0, 0, 3, 2 }, { 0, 0, 0, 0 } };
+
+double[] y = GaussovaEliminace(M); // 0.166666, 0.666666
+
+bool b = Zkouska(M, y); // true
+
+
+Příklad 9.3 ANSII Art
+
+Pomocí znaků hvězdičky '*' a mezery ' ' vytvořte následující obrazce pro zadanou délku hrany
+obrazce. Délka hrany obrazce bude liché číslo. Vzhledem k rozdílné výšce a šířce znaků budou
+obrazce oproti předloze vypadat mírně deformované. Složitější obrazce lze vytvořit postupy, které
+se naučíte na jednodušších obrazcích.
+
+a) Obrazec z předlohy na pozici [0,0] – okraje čtverce. [1 bod]
+
+b) Obrazec z předlohy na pozici [0,1] – okraje čtverce a svislá střední příčka. [1 bod]
+
+c) Obrazec z předlohy na pozici [0,2] – okraje čtverce a úhlopříčka z levého horního rohu do
+pravého dolního rohu. [1 bod]
+
+d) Obrazec z předlohy na pozici [0,3] – okraje čtverce a obě dvě úhlopříčky. [1 bod]
+
+e) Obrazec z předlohy na pozici [1,0] – okraje čtverce a obě dvě střední příčky. [1 bod]
+
+f) Obrazec z předlohy na pozici [1,1] – okraje čtverce a obě dvě střední příčky a obě dvě
+úhlopříčky. [1 bod]
+
+g) Obrazec z předlohy na pozici [1, 2] – Okraje čtverce a ve čtverci se střídají prázdné a plné
+řádky. [1 bod]
+
+h) Obrazec z předlohy na pozici [1, 3] – Mřížka. [1 bod]
+
+i) Obrazec z předlohy na pozici [2, 0] – Střídání plných a prázdných soustředných čtverců. Obrazec
+byl probírán na přednášce, proto není bodován. [0 bodů]
+
+j) Obrazec z předlohy na pozici [2, 1] – Pravá horní polovina čtverce. [1 bod]
+
+k) Obrazec z předlohy na pozici [2, 2] – Horní čtvrtina čtverce. [1 bod]
+
+l) Obrazec z předlohy na pozici [2, 3] – Přesýpací hodiny. [1 bod]
+
+m) Obrazec z předlohy na pozici [3, 0] – Složený obrazec ze 4 samostatných [2 body]
+
+n) Obrazec z předlohy na pozici [3, 1] – Složený obrazec ze 4 samostatných [3 body]
+
+o) Obrazec z předlohy na pozici [3, 2] – Složený obrazec ze 4 samostatných [2 body]
+
+p) Obrazec z předlohy na pozici [3, 3] – Složený obrazec ze 4 samostatných [2 body]
+
+
+
+Ukázka:
+
+char[,] obrA = Obrazec00(25);
+
+char[,] obrB = Obrazec01(25);
+
+//...
+
+10. hodina
+
+Příklady vyřešte v libovolném procedurálním programovacím jazyce. Správnost programu otestujte
+zadáním různých vstupních hodnot. Hodina se považuje za splněnou po zisku alespoň 8 bodů z možných
+28 bodů.
+
+
+Příklad 10.1 Rekurze s jedním voláním
+
+S využitím rekurze napište následující funkce. Na začátku každé funkce bude výpis (v režimu Append)
+do souboru log.txt. Zapisovat budeme: (1) volání funkce a hodnotu parametrů; (2) ukončení funkce a
+návratová hodnota. Otevřený soubor bude jedním z parametrů funkce.
+
+a) Rekurzivní funkce zanořující se na podproblém velikosti n - 1, která vrátí hodnotu nejmenšího
+prvku v poli. [2 body]
+
+b) Rekurzivní funkce zanořující se na podproblém velikosti n - 1, která vrátí součet prvků v poli,
+které mají kladnou hodnotu. [2 body]
+
+c) Rekurzivní funkce zanořující se na dva podproblémy velikosti n / 2, která vrátí hodnotu
+nejmenšího prvku v poli. [3 body]
+
+d) Rekurzivní zanořující se na dva podproblémy velikosti n / 2, která vrátí součet prvků v poli,
+které mají kladnou hodnotu. [3 body]
+
+e) Rekurzivní funkce, která spočte největšího společného dělitele dvou čísel Euklidovým algoritmem.
+[3 body]
+
+
+Ukázka:
+
+int[] p = {7, 5, 6, -3, -2, 8, -5};
+
+int i1 = Min1(p); // -5
+
+int i2 = Sum1(p); // 26
+
+int i3 = Min2(p); // -5
+
+int i4 = Sum2(p); // 26
+
+int i5 = Euklid(21, 77); // 7
+
+
+
+Start Min1(p)
+
+Start MinRek1(p,0,6)
+
+Start MinRek1(p,0,5)
+
+Start MinRek1(p,0,4)
+
+Start MinRek1(p,0,3)
+
+Start MinRek1(p,0,2)
+
+Start MinRek1(p,0,1)
+
+Start MinRek1(p,0,0)
+
+Konec MinRek1(p,0,0) = 7
+
+Konec MinRek1(p,0,1) = 5
+
+Konec MinRek1(p,0,2) = 5
+
+Konec MinRek1(p,0,3) = -3
+
+Konec MinRek1(p,0,4) = -3
+
+Konec MinRek1(p,0,5) = -3
+
+Konec MinRek1(p,0,6) = -5
+
+Konec Min1(p) = -5
+
+
+
+                         Start Sum2(p)
+
+                         Start SumRek2(p,0,6)
+
+                         Start SumRek2(p,0,2)
+
+                         Start SumRek2(p,0,0)
+
+                         Konec SumRek2(p,0,0) = 7
+
+                         Start SumRek2(p,2,2)
+
+                         Konec SumRek2(p,2,2) = 6
+
+                         Konec SumRek2(p,0,2) = 18
+
+                         Start SumRek2(p,4,6)
+
+                         Start SumRek2(p,4,4)
+
+                         Konec SumRek2(p,4,4) = 0
+
+                         Start SumRek2(p,6,6)
+
+                         Konec SumRek2(p,6,6) = 0
+
+                         Konec SumRek2(p,4,6) = 8
+
+                         Konec SumRek2(p,0,6) = 26
+
+                         Konec Sum2(p) = 26
+
+
+
+                                                  Start Euklid(21, 77)
+
+                                                  Start EuklidRek(21, 77)
+
+                                                  Start EuklidRek(77, 21)
+
+                                                  Start EuklidRek(21, 14)
+
+                                                  Start EuklidRek(14, 7)
+
+                                                  Start EuklidRek(7, 0)
+
+                                                  Konec EuklidRek(7, 0) = 7
+
+                                                  Konec EuklidRek(14, 7) = 7
+
+                                                  Konec EuklidRek(21, 14) = 7
+
+                                                  Konec EuklidRek(77, 21) = 7
+
+                                                  Konec EuklidRek(21, 77) = 7
+
+                                                  Konec Euklid(21, 77) = 7
+
+
+
+
+Příklad 10.2 Fibonacciho čísla řádu d
+
+Fibonacciho čísla řádu d jsou definována následovně:
+  * F[d](n) = 0, pro n < d
+  * F[d](n) = 1, pro n = d
+  * F[d](n) = F[d](n-1) + … + F[d](n - d), pro n > d.
+
+a) Napište rekurzivní funkci, která pro zadaný řád d spočte n-té Fibonacciho číslo. [2 body]
+
+b) Napište nerekurzivní funkci, která pro zadaný řád d spočte n-té Fibonacciho číslo. [3 body]
+
+
+Ukázka:
+
+int i1 = FibonacciRek(3, 8); // 13
+
+int i2 = FibonacciRek(4, 16); // 1490
+
+int i3 = FibonacciRek(5, 13); // 120
+
+int i4 = FibonacciRek(200, 212); // 2048
+
+int i5 = Fibonacci(3, 8); // 13
+
+int i6 = Fibonacci(4, 16); // 1490
+
+int i7 = Fibonacci(5, 13); // 120
+
+int i8 = Fibonacci(200, 212); // 2048
+
+
+Příklad 10.3 Výpis adresáře
+
+Napište funkci, která do zadaného textového souboru vypíše absolutní cesty všech souborů
+nacházejících se v zadaném adresáři a jeho podadresářích (rekurzivně). [4 body]
+
+
+Ukázka:
+
+VypisAdresare(@".\..\..\", "log.txt");
+
+// Kontrola Windows: dir /s
+
+// Kontrola Unix: ls –R
+
+
+C:\Upg\Vypis Adresare\c03 Vypis Adresare.csproj
+
+C:\Upg\Vypis Adresare\Program.cs
+
+C:\Upg\Vypis Adresare\bin\Debug\c03 Vypis Adresare.exe
+
+C:\Upg\Vypis Adresare\bin\Debug\c03 Vypis Adresare.pdb
+
+C:\Upg\Vypis Adresare\bin\Debug\c03 Vypis Adresare.vshost.exe
+
+C:\Upg\Vypis Adresare\bin\Debug\log.txt
+
+...
+
+
+Příklad 10.4 Falešná mince
+
+Na vstupu je pole, obsahující hmotnosti mincí. Všechny mince mají shodnou hmotnost s výjimkou jedné
+falešné mince, která má hmotnost menší. K dispozici máme dvojramennou váhu, pomocí které můžeme
+porovnat hmotnost jedné skupiny mincí vůči hmotnosti druhé skupiny mincí. Napište funkci, která
+vrátí index falešné mince za použití co nejmenšího počtu vážení. Nápověda: počet vážení řádově
+odpovídající počtu mincí je neefektivní. [6 bodů]
+
+
+Ukázka:
+
+int[] p = new int[1000];
+
+int i;
+
+for (i = 0; i < p.Length; i++)
+
+   p[i] = 5;
+
+p[371] = 4;
+
+i = FalesnaMince(p); // 371
+
+11. hodina
+
+Příklady vyřešte v libovolném procedurálním programovacím jazyce. Správnost programu otestujte
+zadáním různých vstupních hodnot. Hodina se považuje za splněnou po zisku alespoň 8 bodů z možných
+30 bodů
+
+
+Příklad 11.1 Hanojské věže
+
+V minulé hodině byla představena hra Hanojské věže a její řešení pomocí rekurzivní funkce.
+Výsledkem funkce byla posloupnost tahů vedoucích k řešení hry. Správnost výsledku jsme si museli
+zkontrolovat externě. Napište funkci HonojTah, která zkontroluje, zda zadaný tah je proveditelný –
+splňuje následující dvě podmínky:
+
+a) Na věži, ze které přesouváme disk se nějaký disk nachází
+
+b) Po provedení přesunu nebude na cílové věži větší disk na menším.
+
+Funkce HanojTah rovněž vypíše do zadaného souboru informace o provedeném tahu, včetně informací o
+provedených kontrolách. Funkci HanojTah použijte v rekurzivní funkci HanojRek, která řeší hru
+Hanojské věže. Nápověda: Jednotlivé věže implementujte jako zásobníky. Oproti klasické implementaci
+zásobníku přidejte položku název, která bude sloužit pro identifikaci věže, která je daným
+zásobníkem reprezentována. Ve funkci Hanoj, ze které budete volat rekurzivní funkci HanojRek
+vytvořte jednotlivé zásobníky a zásobník reprezentující zdrojovou věž naplňte prvky n až 1. [5
+bodů]
+
+
+Ukázka:
+
+Hanoj("Hanoj.txt", 6); // presun z Vez 1 na Vez 2 pres Vez 3
+
+
+Pokusime se prenest disk z Vez 1 na Vez 3.
+
+Vez 1: 6 5 4 3 2 1
+
+Vez 3: nic
+
+Na zdrojove vezi se nachazi disk 1, lze pokracovat v tahu.
+
+Cilova vez je prazdna, lze provest tah.
+
+Presouvame disk 1 z Vez 1 na vez Vez 3.
+
+
+. . .
+
+
+Pokusime se prenest disk z Vez 1 na Vez 2.
+
+Vez 1: 6 5 2
+
+Vez 2: 4 3
+
+Na zdrojove vezi se nachazi disk 2, lze pokracovat v tahu.
+
+Na cilove vezi se nachazi disk 3
+
+Lze polozit mensi disk 2 na vetsi 3.
+
+Presouvame disk 2 z Vez 1 na vez Vez 2.
+
+
+. . .
+
+
+Pokusime se prenest disk z Vez 3 na Vez 2.
+
+Vez 3: 1
+
+Vez 2: 6 5 4 3 2
+
+Na zdrojove vezi se nachazi disk 1, lze pokracovat v tahu.
+
+Na cilove vezi se nachazi disk 2
+
+Lze polozit mensi disk 1 na vetsi 2.
+
+Presouvame disk 1 z Vez 3 na vez Vez 2.
+
+Příklad 11.2 Fronta
+
+Implementujte níže zadané druhy front. Napište funkce Create, Enqueue, Dequeue, Front, IsEmpty a
+Vypis. Globální konstanta max udávající maximální délku fronty má hodnotu 100.
+
+a) Cyklická fronta CFronta  poté, co konec fronty dosáhne délky použitého pole, umožní, aby konec
+fronty pokračoval na volném začátku pole. Je nutno uchovávat počet prvků ve frontě, protože ho
+nelze odvodit z počátku a konce fronty. [3 body]
+
+b) Fronta s posunem SFronta poté, co konec fronty dosáhne délky použitého pole, provede přesun
+všech prvků na začátek pole při zachování jejich vzájemného uspořádání. [2 body]
+
+c) Prioritní fronta PFronta s parametrem d upřednostňuje čísla s větším zbytkem po dělení d.
+Například pro d = 2 upřednostňuje lichá čísla před sudými. Při výpisu prioritní fronty vypište
+každou dílčí frontu na samostatný řádek s označením její priority. [4 body]
+
+
+Ukázka:
+
+Random r = new Random();
+
+int i;
+
+PFronta pf = CreatePF(5);
+
+for (i = 0; i < 90; i++) Enqueue(ref pf, r.Next(0, 50));
+
+for (i = 0; i < 80; i++) Dequeue(ref pf);
+
+for (i = 0; i < 10; i++) Enqueue(ref pf, r.Next(0, 50));
+
+Vypis(pf);
+
+
+// 4: 29
+
+// 3: 38 43 23
+
+// 2: 17
+
+// 1: 36 16
+
+// 0: 0 20 30 35 25 5 40 30 20 30 25 15 20
+
+
+Příklad 11.3 Rozklad čísla na sčítance
+
+Napište rekurzivní funkci, která zadané číslo rozloží všemi způsoby na součet kladných celých
+sčítanců. Výsledek bude vypsán do zadaného souboru. Dva rozklady lišící se pouze v pořadí sčítanců
+nejsou považovány za různé. Vytvářejte pouze rozklady, ve kterých sčítance tvoří nerostoucí
+posloupnost, zamezíte tím opakovaní se rozkladů lišících se jen v pořadí sčítanců. [3 body]
+
+
+Ukázka:
+
+Rozklad("Rozklad.txt", 7);
+
+
+1 1 1 1 1 1
+
+2 1 1 1 1
+
+2 2 1 1
+
+2 2 2
+
+3 1 1 1
+
+3 2 1
+
+3 3
+
+4 1 1
+
+4 2
+
+5 1
+
+6
+
+Příklad 11.4 N-ciferná čísla
+
+Napište rekurzivní funkce, které do zadaného souboru pro zadané N vypíší všechna N-ciferná čísla
+splňující následující podmínky:
+
+a) Čísla jsou zapsána v číselné soustavě o základu d, který je parametrem funkce. [3 body]
+
+b) V každém čísle jsou hodnoty cifer navzájem různé. [4 body]
+
+c) V čísle nejsou vedle sebe dvě sudé nebo dvě liché cifry. [3 body]
+
+
+Ukázka:
+
+RuzneCifry("RuzneCifry.txt", 3);
+
+// 1023 1024 1025 1026 1027 1028 1029 1032 1034 1035 1036 1037 1038 1039 1042 1043 1045 ...
+
+Soustava("Soustava.txt", 5, 3);
+
+// 100 101 102 103 104 110 111 112 113 114 120 121 122 123 124 130 131 132 133 134 140 ...
+
+LichaSuda("LichaSuda.txt", 5);
+
+// 10101 10103 10105 10107 10109 10121 10123 10125 10127 10129 10141 10143 10145 10147 ...
+
+
+Příklad 11.5 Součet čísel
+
+Napište rekurzivní funkci, které do zadaného souboru vypíše ze zadaného pole celých kladných čísel
+všechny n-tice čísel, jejichž součet se rovná zadané hodnotě. [3 body]
+
+
+Ukázka:
+
+int[] pole = { 2, 3, 1, 2, 5, 7, 11, 8, 4 };
+
+Soucet("Soucet.txt", pole, 10);
+
+
+2 8
+
+1 2 7
+
+3 7
+
+3 2 5
+
+2 8
+
+2 1 7
+
+2 1 2 5
+
+2 3 5
+
+
+12. hodina
+
+Příklady vyřešte v libovolném procedurálním programovacím jazyce. Správnost programu otestujte
+zadáním různých vstupních hodnot. Hodina se považuje za splněnou po zisku alespoň 8 bodů z možných
+40 bodů
+
+
+Příklad 12.1 Normální magické čtverce
+
+Napište funkci, která pomocí backtrackingu pro zadané n najde jeden normální magický čtverec a
+vypíše ho do zadaného souboru. [10 bodů]
+
+
+Ukázka:
+
+MagickyCtverec("MagickyCtverec.txt", 4);
+
+
+1 2 15 16
+
+12 14 3 5
+
+13 7 10 4
+
+8 11 6 9
+
+
+Příklad 12.2 Rozmístění maháradžů na šachovnici
+
+Napište funkci, která na šachovnici n x n umístí maximální možný počet maháradžů, tak aby se
+neohrožovaly. Rozměr šachovnice n je parametrem funkce. Maháradža může hrát jako dáma nebo jako
+kůň. Do zadaného souboru vypište všechna maximální řešení. [15 bodů]
+
+
+Ukázka:
+
+NMaharadzu("Maharadzove.txt", 8);
+
+
+
+M.......
+
+...M....
+
+......M.
+
+........
+
+.M......
+
+....M...
+
+.......M
+
+........
+
+
+        M.......
+
+        ...M....
+
+        ......M.
+
+        ........
+
+        .M......
+
+        ........
+
+        .....M..
+
+        ..M.....
+
+
+                M.......
+
+                ...M....
+
+                ......M.
+
+                ........
+
+                .M......
+
+                ........
+
+                .......M
+
+                ..M.....
+
+
+                        M.......
+
+                        ...M....
+
+                        ......M.
+
+                        ........
+
+                        ..M.....
+
+                        ........
+
+                        .......M
+
+                        ....M...
+
+                                M.......
+
+                                ...M....
+
+                                ......M.
+
+                                ........
+
+                                ........
+
+                                .M......
+
+                                .......M
+
+                                ....M...
+
+
+M.......
+
+...M....
+
+.......M
+
+........
+
+..M.....
+
+......M.
+
+........
+
+.M......
+
+
+        M.......
+
+        ...M....
+
+        .......M
+
+        ........
+
+        ..M.....
+
+        ........
+
+        .....M..
+
+        .M......
+
+                M.......
+
+                ...M....
+
+                ........
+
+                ......M.
+
+                ..M.....
+
+                ........
+
+                .....M..
+
+                .M......
+
+                        M.......
+
+                        ...M....
+
+                        ........
+
+                        ......M.
+
+                        ..M.....
+
+                        ........
+
+                        .......M
+
+                        .M......
+
+
+
+
+
+                                                                                ...
+
+
+
+Příklad 12.3 Cesta jezdcem po šachovnici s překážkami
+
+Napište funkci, která najde nejkratší cestu bílým jezdcem na šachovnici 8x8 ze zadaného startovního
+políčka do zadaného cílového políčka. Žádné políčko se v cestě nesmí opakovat. Na šachovnici mohou
+být rozmístěny černé figurky (dámy, králové, jezdi, věže). Jezdec při své cestě nesmí vstoupit na
+políčko, které je ohrožováno jinou figurkou ani nesmí jinou figurku sebrat. Pokud není možno se ze
+startovního políčka do cílového políčka dostat žádnou cestou, funkce tuto skutečnost oznámí.
+Rozmístěním figurek na šachovnici je zapsané v textovém souboru pomocí algebraické šachové notace.
+Na prvním řádku je startovní a cílová pozice bílého jezdce, na druhém řádku jsou černé figury a
+jejich pozice. Nalezená cesta bude vypsána do zadaného souboru pomocí algebraické šachové notace.
+[15 bodů]
+
+
+Ukázka:
+
+int delka = JezdecCesta("sachovnice.txt", "cesta.txt");
+
+
+sachovnice.txt
+
+Ja6 Je2
+
+Dc2 Vd7 Ja3 Vh2 Kg4 Sf1
+
+
+cesta.txt
+
+Ja6 Jb4 Jd5 Jf6 Je8 Jd6

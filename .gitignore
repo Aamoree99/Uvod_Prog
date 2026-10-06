@@ -1,0 +1,84 @@
+# Rust: результаты Cargo. Исходники src/bin/ и Cargo.lock сохраняем.
+/target/
+/rust/**/target/
+
+# C# / .NET: сборки, кеши и локальные настройки Visual Studio.
+/csharp/**/bin/
+/csharp/**/obj/
+/csharp/**/artifacts/
+/csharp/packages/
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.nupkg
+*.snupkg
+TestResults/
+
+# C / C++: сборки CMake, промежуточные файлы и скомпилированные библиотеки.
+/cpp/**/build/
+/cpp/**/build-*/
+/cpp/**/cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+CTestTestfile.cmake
+CPackConfig.cmake
+CPackSourceConfig.cmake
+compile_commands.json
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.so.*
+*.dylib
+*.dll
+*.exe
+*.out
+*.pdb
+*.ilk
+*.pch
+*.dSYM/
+
+# Java: результаты javac, Maven, Gradle и локальные кеши.
+/java/**/build/
+/java/**/target/
+/java/**/out/
+.gradle/
+*.class
+*.war
+*.ear
+# JAR не исключаем глобально: Gradle wrapper может храниться в Git.
+
+# Дополнительные языки: типичные кеши Python и JavaScript / TypeScript.
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+node_modules/
+.npm/
+.next/
+.nuxt/
+*.tsbuildinfo
+
+# Локальные настройки IDE. Общие настройки VS Code сохраняем для группы.
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.swp
+*.swo
+*~
+
+# Служебные файлы macOS и Windows.
+.DS_Store
+._*
+Thumbs.db
+Desktop.ini
