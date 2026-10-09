@@ -47,15 +47,16 @@ import java.math.BigInteger;
 // Каждый файл Main.java компилируется отдельно в свой каталог.
 public class Main {
     // Обмен крайних элементов разворачивает массив без вспомогательного массива.
-    static void obrat_pole(int[] pole) {
-        int levy=0, pravy=pole.length-1;
-        while (levy < pravy) {
-            int pomocna=pole[levy]; pole[levy]=pole[pravy]; pole[pravy]=pomocna;
-            levy += 1; pravy -= 1;
+    static void reverseArray(int[] array) {
+        int left=0, right=array.length-1;
+        while (left < right) {
+            int savedNumber=array[left]; array[left]=array[right]; array[right]=savedNumber;
+            left += 1; right -= 1;
         }
     }
+    // Запускаем пример из упражнения и выводим результаты.
     public static void main(String[] args) {
-        int[] pole = new int[] {5,7,2,1,0,6};
-        System.out.printf(Locale.ROOT, "Pred: %s%n", Arrays.toString(pole)); obrat_pole(pole); System.out.printf(Locale.ROOT, "Po:   %s%n", Arrays.toString(pole));
+        int[] array = new int[] {5,7,2,1,0,6};
+        System.out.printf(Locale.ROOT, "Before: %s%n", Arrays.toString(array)); reverseArray(array); System.out.printf(Locale.ROOT, "After:   %s%n", Arrays.toString(array));
     }
 }

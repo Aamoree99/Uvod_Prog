@@ -46,11 +46,11 @@ i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden
 // Он использует массив и отличается от ограничений исходного задания.
 int main() {
     std::cout << std::boolalpha;
-    std::cout << "Poznamka:" << '\n';
-    std::cout << "Ulohu by bylo mozne vyresit jednoduchym prochazenim cisel v cyklu" << '\n';
-    std::cout << "a u kazdeho cisla zkouset vsechny mozne delitele." << '\n';
-    std::cout << "Takove reseni by ale nebylo moc zajimave, proto pouzijeme Eratosthenovo sito" << '\n';
-    std::cout << "a zvysime limit z 1000 na 100000." << '\n';
+    std::cout << "Note:" << '\n';
+    std::cout << "This exercise can be solved by looping through the numbers" << '\n';
+    std::cout << "and testing all possible divisors for each number." << '\n';
+    std::cout << "This implementation uses the sieve of Eratosthenes" << '\n';
+    std::cout << "and increases the limit from 1000 to 100000." << '\n';
     std::cout << '\n';
 
     int limit = 100000;
@@ -81,7 +81,7 @@ int main() {
         number += 1;
     }
 
-    std::cout << "Prvocisla mensi nez " << limit << ":" << '\n';
+    std::cout << "Prime numbers less than " << limit << ":" << '\n';
     std::cout << '\n';
 
     number = 2;
@@ -106,6 +106,6 @@ int main() {
     }
 
     std::cout << '\n';
-    std::cout << "Celkovy pocet prvocisel: " << count << '\n';
+    std::cout << "Total prime count: " << count << '\n';
     return 0;
 }

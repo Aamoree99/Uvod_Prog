@@ -56,7 +56,92 @@ Projekty.
 i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden příkaz.
 */
 
-// Решение пока не написано. Этот entrypoint нужен только для сборки Cargo.
+use std::sync::atomic::{AtomicUsize, Ordering};
+
+// Глобальный счётчик вызовов функции присваивания.
+static ASSIGNMENTS: AtomicUsize = AtomicUsize::new(0);
+
+// Глобальный счётчик вызовов функций сравнения.
+static COMPARISONS: AtomicUsize = AtomicUsize::new(0);
+
+// Функция присваивает переменной a значение b.
+//
+// a — изменяемая ссылка на исходную переменную.
+// b — значение, которое нужно записать.
+//
+// Каждый вызов увеличивает счётчик ASSIGNMENTS на 1.
+fn assign(a: &mut i32, b: i32) {
+    // Увеличиваем глобальный счётчик присваиваний.
+    ASSIGNMENTS.fetch_add(1, Ordering::Relaxed);
+
+    // Изменяем исходную переменную через ссылку.
+    *a = b;
+}
+
+// Проверяем, меньше ли первое число второго.
+//
+// Возвращает true, если a < b.
+// Каждый вызов увеличивает COMPARISONS на 1.
+fn is_less(a: i32, b: i32) -> bool {
+    // Увеличиваем глобальный счётчик сравнений.
+    COMPARISONS.fetch_add(1, Ordering::Relaxed);
+
+    // Возвращаем результат сравнения.
+    a < b
+}
+
+// Проверяем, больше ли первое число второго.
+//
+// Возвращает true, если a > b.
+// Использует тот же счётчик COMPARISONS.
+fn is_greater(a: i32, b: i32) -> bool {
+    // Увеличиваем глобальный счётчик сравнений.
+    COMPARISONS.fetch_add(1, Ordering::Relaxed);
+
+    // Возвращаем результат сравнения.
+    a > b
+}
+
 fn main() {
-    println!("Reseni teto ulohy zatim neni implementovano.");
+    // Исходные значения из задания.
+    let mut x: i32 = 5;
+    let mut y: i32 = 4;
+    let z: i32 = 3;
+
+    println!("INITIAL VALUES");
+    println!("x = {}, y = {}, z = {}", x, y, z);
+    println!();
+
+    // Выполняем три сравнения.
+    // Результаты сохраняем в переменные типа bool.
+    let result1 = is_less(y, z);
+    let result2 = is_less(x, z);
+    let result3 = is_greater(x, y);
+
+    println!("COMPARISONS");
+    println!("y < z: {}", result1);
+    println!("x < z: {}", result2);
+    println!("x > y: {}", result3);
+    println!();
+
+    // Присваиваем x значение y.
+    // x изменится с 5 на 4.
+    assign(&mut x, y);
+
+    // Присваиваем y значение z.
+    // y изменится с 4 на 3.
+    assign(&mut y, z);
+
+    println!("VALUES AFTER ASSIGNMENTS");
+    println!("x = {}, y = {}, z = {}", x, y, z);
+    println!();
+
+    // load() читает текущее значение атомарного счётчика.
+    // AtomicUsize нельзя напрямую вывести через {}.
+    let assignments = ASSIGNMENTS.load(Ordering::Relaxed);
+    let comparisons = COMPARISONS.load(Ordering::Relaxed);
+
+    println!("OPERATION COUNTERS");
+    println!("Assignments: {}", assignments);
+    println!("Comparisons: {}", comparisons);
 }

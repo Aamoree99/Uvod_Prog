@@ -51,6 +51,7 @@ import java.math.BigInteger;
 
 // Каждый файл Main.java компилируется отдельно в свой каталог.
 public class Main {
+    // Запускаем пример из упражнения и выводим результаты.
     public static void main(String[] args) {
         int a = 25;
         int b = 8;
@@ -59,9 +60,9 @@ public class Main {
         // Все три пары должны различаться одновременно. != означает «не равно».
         // Одной проверки a != b недостаточно: например, a и c могут совпадать.
         if (a != b && a != c && b != c) {
-            System.out.printf(Locale.ROOT, "Hodnoty %s, %s a %s jsou navzájem různé.%n", a, b, c);
+            System.out.printf(Locale.ROOT, "The numbers %s, %s and %s are pairwise distinct.%n", a, b, c);
         } else {
-            System.out.printf(Locale.ROOT, "Hodnoty %s, %s a %s nejsou navzájem různé.%n", a, b, c);
+            System.out.printf(Locale.ROOT, "The numbers %s, %s and %s are not pairwise distinct.%n", a, b, c);
         }
     }
 }

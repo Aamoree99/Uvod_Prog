@@ -43,6 +43,7 @@ i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden
 
 #include <iostream>
 
+// Запускаем пример из упражнения и выводим результаты.
 int main() {
     std::cout << std::boolalpha;
     int a = 4;
@@ -52,13 +53,13 @@ int main() {
     // Любое из трёх чисел может оказаться суммой двух других, поэтому проверяем три варианта.
     // Цепочка else if выводит только первое найденное совпадение.
     if (a + b == c) {
-        std::cout << "Ze zadaných čísel " << a << ", " << b << " a " << c << " je číslo " << c << " součtem čísel " << a << " a " << b << "." << '\n';
+        std::cout << "Among the numbers " << a << ", " << b << " and " << c << " the number " << c << " is the sum of " << a << " and " << b << "." << '\n';
     } else if (a + c == b) {
-        std::cout << "Ze zadaných čísel " << a << ", " << b << " a " << c << " je číslo " << b << " součtem čísel " << a << " a " << c << "." << '\n';
+        std::cout << "Among the numbers " << a << ", " << b << " and " << c << " the number " << b << " is the sum of " << a << " and " << c << "." << '\n';
     } else if (b + c == a) {
-        std::cout << "Ze zadaných čísel " << a << ", " << b << " a " << c << " je číslo " << a << " součtem čísel " << b << " a " << c << "." << '\n';
+        std::cout << "Among the numbers " << a << ", " << b << " and " << c << " the number " << a << " is the sum of " << b << " and " << c << "." << '\n';
     } else {
-        std::cout << "Ze zadaných čísel " << a << ", " << b << " a " << c << " žádná dvě čísla netvoří součet třetího čísla." << '\n';
+        std::cout << "Among the numbers " << a << ", " << b << " and " << c << " no two numbers sum to the third." << '\n';
     }
     return 0;
 }

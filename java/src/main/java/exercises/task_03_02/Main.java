@@ -65,31 +65,32 @@ import java.math.BigInteger;
 
 // Каждый файл Main.java компилируется отдельно в свой каталог.
 public class Main {
-    enum BmiType { TezkaPodvyziva, Podvaha, OptimalniVaha, Nadvaha, ObezitaPrvnihoStupne, ObezitaDruhehoStupne, ObezitaTretihoStupne }
+    enum BmiType { SevereUnderweight, Underweight, NormalWeight, Overweight, ObesityClassOne, ObesityClassTwo, ObesityClassThree }
     // Рост задаётся в метрах, вес — в килограммах. Рост должен быть положительным.
-    static double bmi1(double height, double weight) { return weight / (height * height); }
+    static double calculateBmi(double height, double weight) { return weight / (height * height); }
     // Проверяем верхние границы по порядку: нижние уже исключены предыдущими ветками.
-    static BmiType bmi2(double height, double weight) {
+    static BmiType classifyBmi(double height, double weight) {
         double bmi = weight / (height * height);
-        if (bmi < 16.5) return BmiType.TezkaPodvyziva;
-        else if (bmi < 18.5) return BmiType.Podvaha;
-        else if (bmi < 25.0) return BmiType.OptimalniVaha;
-        else if (bmi < 30.0) return BmiType.Nadvaha;
-        else if (bmi < 35.0) return BmiType.ObezitaPrvnihoStupne;
-        else if (bmi < 40.0) return BmiType.ObezitaDruhehoStupne;
-        else return BmiType.ObezitaTretihoStupne;
+        if (bmi < 16.5) return BmiType.SevereUnderweight;
+        else if (bmi < 18.5) return BmiType.Underweight;
+        else if (bmi < 25.0) return BmiType.NormalWeight;
+        else if (bmi < 30.0) return BmiType.Overweight;
+        else if (bmi < 35.0) return BmiType.ObesityClassOne;
+        else if (bmi < 40.0) return BmiType.ObesityClassTwo;
+        else return BmiType.ObesityClassThree;
     }
+    // Запускаем пример из упражнения и выводим результаты.
     public static void main(String[] args) {
-        double x = bmi1(1.70, 61.5);
-        BmiType y = bmi2(1.67, 80.0);
-        System.out.printf(Locale.ROOT, "BMI je %.2f.%n", x);
+        double x = calculateBmi(1.70, 61.5);
+        BmiType y = classifyBmi(1.67, 80.0);
+        System.out.printf(Locale.ROOT, "BMI is %.2f.%n", x);
         // Переводим категорию в текст для пользователя.
-        if (y == BmiType.TezkaPodvyziva) System.out.printf(Locale.ROOT, "Kategorie BMI: tezka podvyziva.%n");
-        else if (y == BmiType.Podvaha) System.out.printf(Locale.ROOT, "Kategorie BMI: podvaha.%n");
-        else if (y == BmiType.OptimalniVaha) System.out.printf(Locale.ROOT, "Kategorie BMI: optimalni vaha.%n");
-        else if (y == BmiType.Nadvaha) System.out.printf(Locale.ROOT, "Kategorie BMI: nadvaha.%n");
-        else if (y == BmiType.ObezitaPrvnihoStupne) System.out.printf(Locale.ROOT, "Kategorie BMI: obezita prvniho stupne.%n");
-        else if (y == BmiType.ObezitaDruhehoStupne) System.out.printf(Locale.ROOT, "Kategorie BMI: obezita druheho stupne.%n");
-        else System.out.printf(Locale.ROOT, "Kategorie BMI: obezita tretiho stupne.%n");
+        if (y == BmiType.SevereUnderweight) System.out.printf(Locale.ROOT, "BMI category: severe underweight.%n");
+        else if (y == BmiType.Underweight) System.out.printf(Locale.ROOT, "BMI category: underweight.%n");
+        else if (y == BmiType.NormalWeight) System.out.printf(Locale.ROOT, "BMI category: normal weight.%n");
+        else if (y == BmiType.Overweight) System.out.printf(Locale.ROOT, "BMI category: overweight.%n");
+        else if (y == BmiType.ObesityClassOne) System.out.printf(Locale.ROOT, "BMI category: class I obesity.%n");
+        else if (y == BmiType.ObesityClassTwo) System.out.printf(Locale.ROOT, "BMI category: class II obesity.%n");
+        else System.out.printf(Locale.ROOT, "BMI category: class III obesity.%n");
     }
 }

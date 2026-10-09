@@ -57,6 +57,7 @@ i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden
 
 #include <iostream>
 
+// Запускаем пример из упражнения и выводим результаты.
 int main() {
     std::cout << std::boolalpha;
     int age = 9;
@@ -64,11 +65,11 @@ int main() {
     // Проверяем тарифы по порядку. После первой ветки уже известно, что возраст >= 6.
     // Во второй ветке скидку получают дети до 15 лет либо люди от 60 лет включительно.
     if (age < 6) {
-        std::cout << "Cestující ve věku " << age << " let zaplatí jízdné 0 Kč." << '\n';
+        std::cout << "A passenger aged " << age << " pays a fare of 0 CZK." << '\n';
     } else if (age < 15 || age >= 60) {
-        std::cout << "Cestující ve věku " << age << " let zaplatí jízdné 12 Kč." << '\n';
+        std::cout << "A passenger aged " << age << " pays a fare of 12 CZK." << '\n';
     } else {
-        std::cout << "Cestující ve věku " << age << " let zaplatí jízdné 24 Kč." << '\n';
+        std::cout << "A passenger aged " << age << " pays a fare of 24 CZK." << '\n';
     }
     return 0;
 }

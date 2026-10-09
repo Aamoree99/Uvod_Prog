@@ -49,6 +49,7 @@ using System.Numerics;
 internal static class Program
 {
 
+    // Запускаем пример из упражнения и выводим результаты.
     public static void Main() {
         CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
         int a = 14;
@@ -69,6 +70,6 @@ internal static class Program
             max = c;
         }
 
-        Console.WriteLine("Nejvyšší z hodnot {0}, {1} a {2} je {3}.", a, b, c, max);
+        Console.WriteLine("The largest of {0}, {1} and {2} is {3}.", a, b, c, max);
     }
 }

@@ -41,12 +41,13 @@ i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden
 #include <iostream>
 
 // Передаём оба числа по ссылке, чтобы обмен изменил переменные вызывающей функции.
-static void setrid_sestupne(int& a,int& b) {
-    if (a < b) { int pomocna=a; a=b; b=pomocna; }
+static void sort_descending(int& a,int& b) {
+    if (a < b) { int saved_number=a; a=b; b=saved_number; }
 }
+// Запускаем пример из упражнения и выводим результаты.
 int main() {
     int a=5,b=7;
-    std::cout << "Pred: a = " << a << ", b = " << b << '\n';
-    setrid_sestupne(a,b);
-    std::cout << "Po:   a = " << a << ", b = " << b << '\n';
+    std::cout << "Before: a = " << a << ", b = " << b << '\n';
+    sort_descending(a,b);
+    std::cout << "After:   a = " << a << ", b = " << b << '\n';
 }

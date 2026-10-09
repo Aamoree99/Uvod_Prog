@@ -58,18 +58,19 @@ int read_int() {
     return number;
 }
 
+// Запускаем пример из упражнения и выводим результаты.
 int main() {
     std::cout << std::boolalpha;
-    std::cout << "Zadejte cislo:" << '\n';
+    std::cout << "Enter a number:" << '\n';
 
     // trim убирает перевод строки, parse преобразует текст в int. Ввод должен быть целым числом.
     int a = read_int();
 
     // Факториал определён для неотрицательных целых. В Rust 34! помещается в u128, а 35! уже нет; сохраняем этот предел.
     if (a < 0) {
-        std::cout << "Faktorial zaporneho cisla neni definovan." << '\n';
+        std::cout << "The factorial of a negative number is undefined." << '\n';
     } else if (a > 34) {
-        std::cout << "Hodnota je prilis vysoka pro datovy typ u128." << '\n';
+        std::cout << "The number is too large for a 128-bit unsigned integer." << '\n';
     } else {
         // Начинаем произведение с 1. Для 0 цикл не выполняется, поэтому 0! = 1.
         // 34! содержит 39 цифр. Массив цифр позволяет считать точно без внешних библиотек.
@@ -91,7 +92,7 @@ int main() {
             }
             --number;
         }
-        std::cout << "Faktorial je ";
+        std::cout << "The factorial is ";
         int i = length - 1;
         while (i >= 0) std::cout << digits[i--];
         std::cout << '\n';

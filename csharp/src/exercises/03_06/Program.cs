@@ -89,108 +89,119 @@ internal static class Program
 {
 
     // Возможные ходы и результаты раунда представлены перечислениями.
-    enum Tah { Kamen, Nuzky, Papir }
-    enum Vysledek { Nerozhodne, Hrac, Pocitac }
+    enum Move { Rock, Scissors, Paper }
+    enum RoundResult { Draw, Player, Computer }
     private static readonly Random RNG=new Random();
-    static int random_move() { return RNG.Next(0,3); }
-    static string read_line() { return (Console.ReadLine() ?? throw new InvalidOperationException("End of input")).Trim().ToLowerInvariant(); }
-    static void pause(int ms) { System.Threading.Thread.Sleep(ms); }
+    // Возвращаем случайное число от 0 до 2 для выбора хода.
+    static int RandomMove() { return RNG.Next(0,3); }
+    // Читаем строку и убираем окружающие пробелы.
+    static string ReadLine() { return (Console.ReadLine() ?? throw new InvalidOperationException("End of input")).Trim().ToLowerInvariant(); }
+    // Приостанавливаем выполнение на заданное число миллисекунд.
+    static void Pause(int ms) { System.Threading.Thread.Sleep(ms); }
     // ANSI-последовательности очищают экран и перемещают курсор в левый верхний угол.
-    static void vycisti_obrazovku() { Console.Write("\u001b[2J\u001b[1;1H"); Console.Out.Flush(); }
-    static string tah_na_text(Tah tah) {
-        if (tah==Tah.Kamen) return "Kamen";
-        if (tah==Tah.Nuzky) return "Nuzky";
-        return "Papir";
+    static void ClearScreen() { Console.Write("\u001b[2J\u001b[1;1H"); Console.Out.Flush(); }
+    // Возвращаем английское название выбранного хода.
+    static string MoveText(Move move) {
+        if (move==Move.Rock) return "Rock";
+        if (move==Move.Scissors) return "Scissors";
+        return "Paper";
     }
-    static string tah_emoji(Tah tah) {
-        if (tah==Tah.Kamen) return "🪨";
-        if (tah==Tah.Nuzky) return "✂️";
+    // Возвращаем символ для выбранного хода.
+    static string MoveEmoji(Move move) {
+        if (move==Move.Rock) return "🪨";
+        if (move==Move.Scissors) return "✂️";
         return "📄";
     }
     // Многострочные рисунки соответствуют исходной Rust-версии.
-    static string tah_ascii(Tah tah) {
-        if (tah==Tah.Kamen) return "\n    _______\n---'   ____)\n      (_____)\n      (_____)\n      (____)\n---.__(___)\n";
-        if (tah==Tah.Nuzky) return "\n    _______\n---'   ____)____\n          ______)\n       __________)\n      (____)\n---.__(___)\n";
+    static string MoveAscii(Move move) {
+        if (move==Move.Rock) return "\n    _______\n---'   ____)\n      (_____)\n      (_____)\n      (____)\n---.__(___)\n";
+        if (move==Move.Scissors) return "\n    _______\n---'   ____)____\n          ______)\n       __________)\n      (____)\n---.__(___)\n";
         return "\n    _______\n---'   ____)____\n          ______)\n          _______)\n         _______)\n---.__________)\n";
     }
     // Три кадра с той же паузой 600 мс, что в Rust.
-    static void animace() {
-        vycisti_obrazovku(); Console.WriteLine(""); Console.WriteLine("             KAMEN!"); Console.WriteLine(""); Console.WriteLine("{0}", tah_ascii(Tah.Kamen)); pause(600);
-        vycisti_obrazovku(); Console.WriteLine(""); Console.WriteLine("             NUZKY!"); Console.WriteLine(""); Console.WriteLine("{0}", tah_ascii(Tah.Nuzky)); pause(600);
-        vycisti_obrazovku(); Console.WriteLine(""); Console.WriteLine("             PAPIR!"); Console.WriteLine(""); Console.WriteLine("{0}", tah_ascii(Tah.Papir)); pause(600);
+    static void AnimateMoves() {
+        ClearScreen(); Console.WriteLine(""); Console.WriteLine("             ROCK!"); Console.WriteLine(""); Console.WriteLine("{0}", MoveAscii(Move.Rock)); Pause(600);
+        ClearScreen(); Console.WriteLine(""); Console.WriteLine("             SCISSORS!"); Console.WriteLine(""); Console.WriteLine("{0}", MoveAscii(Move.Scissors)); Pause(600);
+        ClearScreen(); Console.WriteLine(""); Console.WriteLine("             PAPER!"); Console.WriteLine(""); Console.WriteLine("{0}", MoveAscii(Move.Paper)); Pause(600);
     }
     // Неизвестное слово даёт отсутствующий ход; вызывающая функция повторяет запрос.
-    static Tah? nacti_tah_hrace() {
-        Console.Write("Zadejte svuj tah [kamen / nuzky / papir]: "); Console.Out.Flush();
-        string vstup=read_line();
-        if (vstup == "kamen" || vstup == "k") return Tah.Kamen;
-        if (vstup == "nuzky" || vstup == "n") return Tah.Nuzky;
-        if (vstup == "papir" || vstup == "p") return Tah.Papir;
+    static Move? ReadPlayerMove() {
+        Console.Write("Enter your move [rock / scissors / paper]: "); Console.Out.Flush();
+        string input=ReadLine();
+        if (input == "rock" || input == "r") return Move.Rock;
+        if (input == "scissors" || input == "s") return Move.Scissors;
+        if (input == "paper" || input == "p") return Move.Paper;
         return null;
     }
     // Случайное целое 0, 1 или 2 определяет ход компьютера.
-    static Tah tah_pocitace() {
-        int cislo=random_move();
-        if (cislo==0) return Tah.Kamen;
-        if (cislo==1) return Tah.Nuzky;
-        return Tah.Papir;
+    static Move ComputerMove() {
+        int number=RandomMove();
+        if (number==0) return Move.Rock;
+        if (number==1) return Move.Scissors;
+        return Move.Paper;
     }
-    static Vysledek vysledek_kola(Tah hrac,Tah pocitac) {
-        if (hrac==pocitac) return Vysledek.Nerozhodne;
-        if ((hrac==Tah.Kamen && pocitac==Tah.Nuzky) || (hrac==Tah.Nuzky && pocitac==Tah.Papir) || (hrac==Tah.Papir && pocitac==Tah.Kamen)) return Vysledek.Hrac;
-        return Vysledek.Pocitac;
+    // Возвращаем исход раунда по ходам игрока и компьютера.
+    static RoundResult GetRoundResult(Move player,Move computer) {
+        if (player==computer) return RoundResult.Draw;
+        if ((player==Move.Rock && computer==Move.Scissors) || (player==Move.Scissors && computer==Move.Paper) || (player==Move.Paper && computer==Move.Rock)) return RoundResult.Player;
+        return RoundResult.Computer;
     }
-    static void zobraz_skore(int skore_hrac,int skore_pocitac) {
+    // Выводим текущие очки игрока и компьютера.
+    static void ShowScore(int playerScore,int computerScore) {
         Console.WriteLine(""); Console.WriteLine("========================================");
-        Console.WriteLine("        HRAC {0} : {1} POCITAC", skore_hrac, skore_pocitac);
+        Console.WriteLine("        PLAYER {0} : {1} COMPUTER", playerScore, computerScore);
         Console.WriteLine("========================================"); Console.WriteLine("");
     }
-    static void zobraz_tahy(Tah hrac,Tah pocitac) {
-        Console.WriteLine(""); Console.WriteLine("HRAC                         POCITAC");
-        Console.WriteLine("{0} {1}                     {2} {3}", tah_emoji(hrac), tah_na_text(hrac), tah_na_text(pocitac), tah_emoji(pocitac));
-        Console.WriteLine(""); Console.WriteLine("HRAC:"); Console.WriteLine("{0}", tah_ascii(hrac)); Console.WriteLine("POCITAC:"); Console.WriteLine("{0}", tah_ascii(pocitac));
+    // Выводим названия, символы и рисунки обоих ходов.
+    static void ShowMoves(Move player,Move computer) {
+        Console.WriteLine(""); Console.WriteLine("PLAYER                         COMPUTER");
+        Console.WriteLine("{0} {1}                     {2} {3}", MoveEmoji(player), MoveText(player), MoveText(computer), MoveEmoji(computer));
+        Console.WriteLine(""); Console.WriteLine("PLAYER:"); Console.WriteLine("{0}", MoveAscii(player)); Console.WriteLine("COMPUTER:"); Console.WriteLine("{0}", MoveAscii(computer));
     }
-    static void zobraz_uvod() {
-        vycisti_obrazovku(); Console.WriteLine("========================================"); Console.WriteLine("         KAMEN - NUZKY - PAPIR");
-        Console.WriteLine("========================================"); Console.WriteLine(""); Console.WriteLine("Hrajeme na dve vitezna kola."); Console.WriteLine("");
-        Console.WriteLine("Muzete zadat:"); Console.WriteLine("  kamen / k"); Console.WriteLine("  nuzky / n"); Console.WriteLine("  papir / p"); Console.WriteLine("");
+    // Выводим правила игры и допустимые варианты ввода.
+    static void ShowIntro() {
+        ClearScreen(); Console.WriteLine("========================================"); Console.WriteLine("         ROCK - SCISSORS - PAPER");
+        Console.WriteLine("========================================"); Console.WriteLine(""); Console.WriteLine("The first to win two rounds wins the game."); Console.WriteLine("");
+        Console.WriteLine("You can enter:"); Console.WriteLine("  rock / r"); Console.WriteLine("  scissors / s"); Console.WriteLine("  paper / p"); Console.WriteLine("");
     }
     // Ничья не меняет счёт. Игра заканчивается после двух побед одной стороны.
-    static void hraj_hru() {
-        int skore_hrac=0,skore_pocitac=0;
-        zobraz_uvod();
-        while (skore_hrac < 2 && skore_pocitac < 2) {
-            Tah hrac;
+    static void PlayGame() {
+        int playerScore=0,computerScore=0;
+        ShowIntro();
+        while (playerScore < 2 && computerScore < 2) {
+            Move player;
             while (true) {
-                Tah? tah=nacti_tah_hrace();
-                if (tah.HasValue) { hrac=tah.Value; break; }
-                Console.WriteLine(""); Console.WriteLine("Tento tah je neplatny."); Console.WriteLine("");
+                Move? move=ReadPlayerMove();
+                if (move.HasValue) { player=move.Value; break; }
+                Console.WriteLine(""); Console.WriteLine("Invalid move."); Console.WriteLine("");
             }
-            Tah pocitac=tah_pocitace();
-            animace(); vycisti_obrazovku(); zobraz_tahy(hrac,pocitac);
-            Vysledek vysledek=vysledek_kola(hrac,pocitac);
-            if (vysledek==Vysledek.Nerozhodne) Console.WriteLine("Toto kolo je nerozhodne.");
-            else if (vysledek==Vysledek.Hrac) { Console.WriteLine("Toto kolo vyhral hrac."); skore_hrac += 1; }
-            else { Console.WriteLine("Toto kolo vyhral pocitac."); skore_pocitac += 1; }
-            zobraz_skore(skore_hrac,skore_pocitac);
-            if (skore_hrac < 2 && skore_pocitac < 2) pause(1200);
+            Move computer=ComputerMove();
+            AnimateMoves(); ClearScreen(); ShowMoves(player,computer);
+            RoundResult result=GetRoundResult(player,computer);
+            if (result==RoundResult.Draw) Console.WriteLine("This round is a draw.");
+            else if (result==RoundResult.Player) { Console.WriteLine("The player won this round."); playerScore += 1; }
+            else { Console.WriteLine("The computer won this round."); computerScore += 1; }
+            ShowScore(playerScore,computerScore);
+            if (playerScore < 2 && computerScore < 2) Pause(1200);
         }
         Console.WriteLine("");
-        if (skore_hrac==2) Console.WriteLine("CELKOVYM VITEZEM JE HRAC!");
-        else Console.WriteLine("CELKOVYM VITEZEM JE POCITAC!");
+        if (playerScore==2) Console.WriteLine("THE PLAYER WINS THE GAME!");
+        else Console.WriteLine("THE COMPUTER WINS THE GAME!");
         Console.WriteLine("");
     }
-    static bool chce_hrat_znovu() {
-        Console.Write("Hrat znovu? [a/n]: "); Console.Out.Flush();
-        string vstup=read_line();
-        return vstup == "a" || vstup == "ano";
+    // Читаем ответ: y или yes означает повторную игру.
+    static bool WantsToPlayAgain() {
+        Console.Write("Play again? [y/n]: "); Console.Out.Flush();
+        string input=ReadLine();
+        return input == "y" || input == "yes";
     }
+    // Запускаем пример из упражнения и выводим результаты.
     public static void Main() {
         CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
         while (true) {
-            hraj_hru();
-            if (!chce_hrat_znovu()) break;
+            PlayGame();
+            if (!WantsToPlayAgain()) break;
         }
-        Console.WriteLine(""); Console.WriteLine("Diky za hru.");
+        Console.WriteLine(""); Console.WriteLine("Thanks for playing.");
     }
 }

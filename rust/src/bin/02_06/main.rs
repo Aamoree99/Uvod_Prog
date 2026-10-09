@@ -42,11 +42,11 @@ i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden
 // и увеличил предел до 100000. Это расширенный вариант для изучения.
 // Он использует Vec (динамический массив) и отличается от ограничений исходного задания.
 fn main() {
-    println!("Poznamka:");
-    println!("Ulohu by bylo mozne vyresit jednoduchym prochazenim cisel v cyklu");
-    println!("a u kazdeho cisla zkouset vsechny mozne delitele.");
-    println!("Takove reseni by ale nebylo moc zajimave, proto pouzijeme Eratosthenovo sito");
-    println!("a zvysime limit z 1000 na 100000.");
+    println!("Note:");
+    println!("This exercise can be solved by looping through the numbers");
+    println!("and testing all possible divisors for each number.");
+    println!("This implementation uses the sieve of Eratosthenes");
+    println!("and increases the limit from 1000 to 100000.");
     println!();
 
     let limit: usize = 100000;
@@ -77,7 +77,7 @@ fn main() {
         number += 1;
     }
 
-    println!("Prvocisla mensi nez {limit}:");
+    println!("Prime numbers less than {limit}:");
     println!();
 
     let mut number = 2;
@@ -102,5 +102,5 @@ fn main() {
     }
 
     println!();
-    println!("Celkovy pocet prvocisel: {count}");
+    println!("Total prime count: {count}");
 }

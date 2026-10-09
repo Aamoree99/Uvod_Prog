@@ -62,17 +62,18 @@ import java.math.BigInteger;
 
 // Каждый файл Main.java компилируется отдельно в свой каталог.
 public class Main {
+    // Запускаем пример из упражнения и выводим результаты.
     public static void main(String[] args) {
         int age = 9;
 
         // Проверяем тарифы по порядку. После первой ветки уже известно, что возраст >= 6.
         // Во второй ветке скидку получают дети до 15 лет либо люди от 60 лет включительно.
         if (age < 6) {
-            System.out.printf(Locale.ROOT, "Cestující ve věku %s let zaplatí jízdné 0 Kč.%n", age);
+            System.out.printf(Locale.ROOT, "A passenger aged %s pays a fare of 0 CZK.%n", age);
         } else if (age < 15 || age >= 60) {
-            System.out.printf(Locale.ROOT, "Cestující ve věku %s let zaplatí jízdné 12 Kč.%n", age);
+            System.out.printf(Locale.ROOT, "A passenger aged %s pays a fare of 12 CZK.%n", age);
         } else {
-            System.out.printf(Locale.ROOT, "Cestující ve věku %s let zaplatí jízdné 24 Kč.%n", age);
+            System.out.printf(Locale.ROOT, "A passenger aged %s pays a fare of 24 CZK.%n", age);
         }
     }
 }

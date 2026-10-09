@@ -47,6 +47,7 @@ import java.math.BigInteger;
 
 // Каждый файл Main.java компилируется отдельно в свой каталог.
 public class Main {
+    // Запускаем пример из упражнения и выводим результаты.
     public static void main(String[] args) {
         int a = 8;
         int b = 22;
@@ -56,6 +57,6 @@ public class Main {
         // Сумма этих единиц — количество подходящих чисел. Само число 10 не подходит.
         var count = (a < 10 ? 1 : 0) + (b < 10 ? 1 : 0) + (c < 10 ? 1 : 0);
 
-        System.out.printf(Locale.ROOT, "Byla zadána čísla %s, %s a %s. Počet čísel s hodnotou menší než 10 je %s.%n", a, b, c, count);
+        System.out.printf(Locale.ROOT, "The entered numbers are %s, %s and %s. The count of numbers less than 10 is %s.%n", a, b, c, count);
     }
 }

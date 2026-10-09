@@ -45,28 +45,30 @@ i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden
 #include <sstream>
 
 template<class T>
-std::string array_text(const T& values) {
+// Возвращаем текстовое представление массива с разделителями.
+std::string array_text(const T& elements) {
     std::ostringstream out;
     out << "[";
     std::size_t i = 0;
-    while (i < values.size()) {
+    while (i < elements.size()) {
         if (i) out << ", ";
-        out << values[i++];
+        out << elements[i++];
     }
     out << "]";
     return out.str();
 }
 
 // Обмен крайних элементов разворачивает массив без вспомогательного массива.
-static void obrat_pole(std::vector<int>& pole) {
-    int levy=0, pravy=static_cast<int>(pole.size())-1;
-    while (levy < pravy) {
-        int pomocna=pole[levy]; pole[levy]=pole[pravy]; pole[pravy]=pomocna;
-        levy += 1; pravy -= 1;
+static void reverse_array(std::vector<int>& array) {
+    int left=0, right=static_cast<int>(array.size())-1;
+    while (left < right) {
+        int saved_number=array[left]; array[left]=array[right]; array[right]=saved_number;
+        left += 1; right -= 1;
     }
 }
+// Запускаем пример из упражнения и выводим результаты.
 int main() {
     std::cout << std::boolalpha;
-    std::vector<int> pole = {5,7,2,1,0,6};
-    std::cout << "Pred: " << array_text(pole) << '\n'; obrat_pole(pole); std::cout << "Po:   " << array_text(pole) << '\n';
+    std::vector<int> array = {5,7,2,1,0,6};
+    std::cout << "Before: " << array_text(array) << '\n'; reverse_array(array); std::cout << "After:   " << array_text(array) << '\n';
 }

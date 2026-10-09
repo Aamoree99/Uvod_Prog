@@ -46,32 +46,34 @@ i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden
 #include <cmath>
 
 template<class T>
-std::string array_text(const T& values) {
+// Возвращаем текстовое представление массива с разделителями.
+std::string array_text(const T& elements) {
     std::ostringstream out;
     out << "[";
     std::size_t i = 0;
-    while (i < values.size()) {
+    while (i < elements.size()) {
         if (i) out << ", ";
-        out << values[i++];
+        out << elements[i++];
     }
     out << "]";
     return out.str();
 }
 
 // Возвращаем новый массив из четырёх элементов, как в исходном примере.
-static std::vector<int> zaokrouhli_pole(const std::vector<double>& pole) {
-    std::vector<int> vysledek = {0,0,0,0};
+static std::vector<int> round_array(const std::vector<double>& array) {
+    std::vector<int> result = {0,0,0,0};
     int i=0;
-    while (i < static_cast<int>(pole.size())) {
+    while (i < static_cast<int>(array.size())) {
         // В Rust половины округляются от нуля; выбираем такое же правило в каждом языке.
-        vysledek[i] = static_cast<int>(std::round(pole[i]));
+        result[i] = static_cast<int>(std::round(array[i]));
         i += 1;
     }
-    return vysledek;
+    return result;
 }
+// Запускаем пример из упражнения и выводим результаты.
 int main() {
     std::cout << std::boolalpha;
-    std::vector<double> pole = {5.12,-3.5996,156.0,7.9};
-    std::vector<int> zaokrouhlene=zaokrouhli_pole(pole);
-    std::cout << "Puvodni:      " << array_text(pole) << '\n'; std::cout << "Zaokrouhlene: " << array_text(zaokrouhlene) << '\n';
+    std::vector<double> array = {5.12,-3.5996,156.0,7.9};
+    std::vector<int> rounded=round_array(array);
+    std::cout << "Original:      " << array_text(array) << '\n'; std::cout << "Rounded: " << array_text(rounded) << '\n';
 }

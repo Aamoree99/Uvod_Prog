@@ -41,6 +41,7 @@ Projekty.
 i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden příkaz.
 */
 
+// Запускаем пример из упражнения и выводим результаты.
 fn main() {
     let a: i32 = 8;
     let b: i32 = 22;
@@ -50,5 +51,7 @@ fn main() {
     // Сумма этих единиц — количество подходящих чисел. Само число 10 не подходит.
     let count = (a < 10) as i32 + (b < 10) as i32 + (c < 10) as i32;
 
-    println!("Byla zadána čísla {a}, {b} a {c}. Počet čísel s hodnotou menší než 10 je {count}.");
+    println!(
+        "The entered numbers are {a}, {b} and {c}. The count of numbers less than 10 is {count}."
+    );
 }

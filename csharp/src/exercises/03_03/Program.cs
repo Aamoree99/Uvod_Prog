@@ -72,7 +72,7 @@ internal static class Program
 
     // Произведение от 1 до n; 0! равно 1. Как в Rust, отрицательный n даёт условный ответ 0.
     // double позволяет хранить большие значения, но для них теряется точность.
-    static double factorial(int n) {
+    static double Factorial(int n) {
         if (n < 0) return 0.0;
         double result = 1.0;
         int i = 1;
@@ -80,28 +80,30 @@ internal static class Program
         return result;
     }
     // Степень — повторное умножение. По условию exponent должен быть неотрицательным.
-    static double power(double number, int exponent) {
+    static double Power(double number, int exponent) {
         double result = 1.0;
         int i = 0;
         while (i < exponent) { result *= number; i += 1; }
         return result;
     }
     // Складываем 101 член ряда, от k = 0 до k = 100 включительно: приближение e^n.
-    static double expression(double n) {
+    static double ExponentialSeries(double n) {
         double sum = 0.0;
         int k = 0;
-        while (k <= 100) { sum += power(n, k) / factorial(k); k += 1; }
+        while (k <= 100) { sum += Power(n, k) / Factorial(k); k += 1; }
         return sum;
     }
-    static double combination(int n, int k) {
+    // Возвращаем число сочетаний n по k через факториалы; требуется n >= k >= 0.
+    static double Combination(int n, int k) {
         // Комбинации допустимы только при n >= k >= 0.
         if (n < k || k < 0) return 0.0;
-        return factorial(n) / (factorial(k) * factorial(n - k));
+        return Factorial(n) / (Factorial(k) * Factorial(n - k));
     }
+    // Запускаем пример из упражнения и выводим результаты.
     public static void Main() {
         CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
-        double x = factorial(11), y = power(5.0, 3), z = power(2.69, 7);
-        double a = expression(5.14), b = combination(49, 6);
+        double x = Factorial(11), y = Power(5.0, 3), z = Power(2.69, 7);
+        double a = ExponentialSeries(5.14), b = Combination(49, 6);
         Console.WriteLine("11! = {0:F0}", x); Console.WriteLine("5^3 = {0:F1}", y); Console.WriteLine("2.69^7 = {0:F3}", z);
         Console.WriteLine("e^5.14 ≈ {0:F3}", a); Console.WriteLine("C(49, 6) = {0:F1}", b);
     }

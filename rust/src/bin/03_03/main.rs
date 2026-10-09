@@ -100,7 +100,7 @@ fn power(number: f64, exponent: i32) -> f64 {
 
 // Складываем 101 член ряда от k = 0 до k = 100 включительно.
 // Используем написанные выше функции; это приближение e^n, а не точное равенство.
-fn expression(n: f64) -> f64 {
+fn exponential_series(n: f64) -> f64 {
     let mut sum: f64 = 0.0;
     let mut k: i32 = 0;
 
@@ -122,11 +122,12 @@ fn combination(n: i32, k: i32) -> f64 {
     return factorial(n) / (factorial(k) * factorial(n - k));
 }
 
+// Запускаем пример из упражнения и выводим результаты.
 fn main() {
     let x = factorial(11);
     let y = power(5.0, 3);
     let z = power(2.69, 7);
-    let a = expression(5.14);
+    let a = exponential_series(5.14);
     let b = combination(49, 6);
 
     println!("11! = {x:.0}");

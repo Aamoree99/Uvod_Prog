@@ -47,17 +47,18 @@ i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden
 // std::io нужен для чтения с клавиатуры. В этом примере вводим целые числа по одному на строке.
 use std::io;
 
+// Запускаем пример из упражнения и выводим результаты.
 fn main() {
-    println!("Setridime dve cisla sestupne");
+    println!("Sort two numbers in descending order");
 
-    println!("Zadejte prvni cislo:");
+    println!("Enter the first number:");
     // read_line добавляет строку в input; trim убирает пробелы и перевод строки,
     // parse превращает текст в число. unwrap завершит программу при некорректном вводе.
     let mut input = String::new();
     io::stdin().read_line(&mut input).unwrap();
     let mut a: i32 = input.trim().parse().unwrap();
 
-    println!("Zadejte druhe cislo:");
+    println!("Enter the second number:");
     // Очищаем буфер перед следующим чтением, иначе новая строка добавится к старой.
     input.clear();
     io::stdin().read_line(&mut input).unwrap();
@@ -66,10 +67,10 @@ fn main() {
     // Для убывающего порядка первое число должно быть не меньше второго.
     // Временная переменная сохраняет a, чтобы оно не потерялось при обмене.
     if a < b {
-        let temp = a;
+        let saved_number = a;
         a = b;
-        b = temp;
+        b = saved_number;
     }
 
-    println!("Setridena cisla jsou {a}, {b}");
+    println!("The sorted numbers are {a}, {b}");
 }

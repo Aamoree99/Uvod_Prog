@@ -48,6 +48,7 @@ import java.math.BigInteger;
 
 // Каждый файл Main.java компилируется отдельно в свой каталог.
 public class Main {
+    // Запускаем пример из упражнения и выводим результаты.
     public static void main(String[] args) {
         int a = 9;
         int b = 2;
@@ -79,11 +80,11 @@ public class Main {
 
         // После распределения чисел сравниваем суммы; учитываем больше, меньше и равенство.
         if (odd > even) {
-            System.out.printf(Locale.ROOT, "Zadaná čísla %s, %s a %s mají součet lichých hodnot %s vyšší než součet sudých hodnot %s.%n", a, b, c, odd, even);
+            System.out.printf(Locale.ROOT, "The numbers %s, %s and %s have an odd-number sum of %s greater than the even-number sum of %s.%n", a, b, c, odd, even);
         } else if (odd < even) {
-            System.out.printf(Locale.ROOT, "Zadaná čísla %s, %s a %s mají součet lichých hodnot %s nižší než součet sudých hodnot %s.%n", a, b, c, odd, even);
+            System.out.printf(Locale.ROOT, "The numbers %s, %s and %s have an odd-number sum of %s less than the even-number sum of %s.%n", a, b, c, odd, even);
         } else {
-            System.out.printf(Locale.ROOT, "Zadaná čísla %s, %s a %s mají součet lichých hodnot %s stejný jako součet sudých hodnot %s.%n", a, b, c, odd, even);
+            System.out.printf(Locale.ROOT, "The numbers %s, %s and %s have an odd-number sum of %s equal to the even-number sum of %s.%n", a, b, c, odd, even);
         }
     }
 }

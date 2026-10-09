@@ -61,17 +61,18 @@ int read_int() {
 
 // Стандартный ввод нужен для чтения с клавиатуры. В этом примере вводим целые числа по одному на строке.
 
+// Запускаем пример из упражнения и выводим результаты.
 int main() {
     std::cout << std::boolalpha;
-    std::cout << "Setridime dve cisla sestupne" << '\n';
+    std::cout << "Sort two numbers in descending order" << '\n';
 
-    std::cout << "Zadejte prvni cislo:" << '\n';
+    std::cout << "Enter the first number:" << '\n';
     // Читаем строку со стандартного ввода и убираем окружающие пробелы;
     // преобразуем её в целое число. Некорректный ввод вызывает ошибку.
 
     int a = read_int();
 
-    std::cout << "Zadejte druhe cislo:" << '\n';
+    std::cout << "Enter the second number:" << '\n';
     // Следующее число читается отдельно, без накопления предыдущего ввода.
 
     int b = read_int();
@@ -79,11 +80,11 @@ int main() {
     // Для убывающего порядка первое число должно быть не меньше второго.
     // Временная переменная сохраняет a, чтобы оно не потерялось при обмене.
     if (a < b) {
-        auto temp = a;
+        auto saved_number = a;
         a = b;
-        b = temp;
+        b = saved_number;
     }
 
-    std::cout << "Setridena cisla jsou " << a << ", " << b << '\n';
+    std::cout << "The sorted numbers are " << a << ", " << b << '\n';
     return 0;
 }

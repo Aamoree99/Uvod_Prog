@@ -49,6 +49,7 @@ using System.Numerics;
 internal static class Program
 {
 
+    // Запускаем пример из упражнения и выводим результаты.
     public static void Main() {
         CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
         int a = 14;
@@ -57,6 +58,6 @@ internal static class Program
         // получаем делимую часть числа; остаток — разность с a. Делитель b не должен быть нулём.
         var result = a - (a / b) * b;
 
-        Console.WriteLine("Zbytek po celočíselném dělení čísla {0} číslem {1} je {2}.", a, b, result);
+        Console.WriteLine("The remainder of dividing {0} by {1} is {2}.", a, b, result);
     }
 }

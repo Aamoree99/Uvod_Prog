@@ -42,6 +42,7 @@ Projekty.
 i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden příkaz.
 */
 
+// Запускаем пример из упражнения и выводим результаты.
 fn main() {
     let a: i32 = 4;
     let b: i32 = 13;
@@ -50,12 +51,12 @@ fn main() {
     // Любое из трёх чисел может оказаться суммой двух других, поэтому проверяем три варианта.
     // Цепочка else if выводит только первое найденное совпадение.
     if a + b == c {
-        println!("Ze zadaných čísel {a}, {b} a {c} je číslo {c} součtem čísel {a} a {b}.");
+        println!("Among the numbers {a}, {b} and {c} the number {c} is the sum of {a} and {b}.");
     } else if a + c == b {
-        println!("Ze zadaných čísel {a}, {b} a {c} je číslo {b} součtem čísel {a} a {c}.");
+        println!("Among the numbers {a}, {b} and {c} the number {b} is the sum of {a} and {c}.");
     } else if b + c == a {
-        println!("Ze zadaných čísel {a}, {b} a {c} je číslo {a} součtem čísel {b} a {c}.");
+        println!("Among the numbers {a}, {b} and {c} the number {a} is the sum of {b} and {c}.");
     } else {
-        println!("Ze zadaných čísel {a}, {b} a {c} žádná dvě čísla netvoří součet třetího čísla.");
+        println!("Among the numbers {a}, {b} and {c} no two numbers sum to the third.");
     }
 }

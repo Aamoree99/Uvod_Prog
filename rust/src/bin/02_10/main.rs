@@ -82,8 +82,9 @@ i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden
 
 use std::io;
 
+// Запускаем пример из упражнения и выводим результаты.
 fn main() {
-    println!("Zjistime druh posloupnosti.");
+    println!("Determine the sequence type.");
 
     let mut count: i32 = 0;
     let mut previous: i32 = 0;
@@ -95,7 +96,7 @@ fn main() {
     let mut has_equal: bool = false;
 
     loop {
-        println!("Zadejte cislo:");
+        println!("Enter a number:");
 
         let mut input = String::new();
         io::stdin().read_line(&mut input).unwrap();
@@ -127,18 +128,18 @@ fn main() {
     // Классифицируем по сочетаниям флагов. Рост вместе со спадом означает немонотонность;
     // равенство без роста и спада — постоянную последовательность.
     if count <= 1 {
-        println!("Posloupnost je kratka.");
+        println!("The sequence is too short.");
     } else if has_equal == true && has_up == false && has_down == false {
-        println!("Posloupnost je konstantni.");
+        println!("The sequence is constant.");
     } else if has_up == true && has_down == false && has_equal == false {
-        println!("Posloupnost je rostouci.");
+        println!("The sequence is strictly increasing.");
     } else if has_down == true && has_up == false && has_equal == false {
-        println!("Posloupnost je klesajici.");
+        println!("The sequence is strictly decreasing.");
     } else if has_up == true && has_equal == true && has_down == false {
-        println!("Posloupnost je neklesajici.");
+        println!("The sequence is nondecreasing.");
     } else if has_down == true && has_equal == true && has_up == false {
-        println!("Posloupnost je nerostouci.");
+        println!("The sequence is nonincreasing.");
     } else {
-        println!("Posloupnost neni monotonni.");
+        println!("The sequence is not monotonic.");
     }
 }

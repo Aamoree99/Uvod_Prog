@@ -80,6 +80,7 @@ internal static class Program
     // Читаем одну строку, как в Rust-примере; ошибки ввода не скрываем.
     private static int ReadInt() => int.Parse(Console.ReadLine() ?? throw new InvalidOperationException("End of input"), CultureInfo.InvariantCulture);
 
+    // Запускаем пример из упражнения и выводим результаты.
     public static void Main() {
         CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
         int count = 0;
@@ -88,13 +89,13 @@ internal static class Program
         // Начальные границы позволяют первому числу заменить максимум и минимум.
         // В этой задаче вводятся только положительные числа, поэтому границы не совпадут с вводом.
         int max = int.MinValue;
-        int sec_max = int.MinValue;
+        int secMax = int.MinValue;
 
         int min = int.MaxValue;
-        int sec_min = int.MaxValue;
+        int secMin = int.MaxValue;
 
         while ((true)) {
-            Console.WriteLine("Zadejte cislo:");
+            Console.WriteLine("Enter a number:");
 
             // Читаем одно целое число на строке. trim убирает пробелы, parse разбирает число;
             // Предполагается корректный ввод.
@@ -112,28 +113,28 @@ internal static class Program
             // место. Иначе кандидат может улучшить только второй максимум. Порядок присваиваний важен.
             // Повторы учитываются: для 9, 9, 5 оба максимума равны 9.
             if (a > max) {
-                sec_max = max;
+                secMax = max;
                 max = a;
-            } else if (a > sec_max) {
-                sec_max = a;
+            } else if (a > secMax) {
+                secMax = a;
             }
 
             // С минимумами делаем то же самое, но сравнения направлены в другую сторону.
             if (a < min) {
-                sec_min = min;
+                secMin = min;
                 min = a;
-            } else if (a < sec_min) {
-                sec_min = a;
+            } else if (a < secMin) {
+                secMin = a;
             }
         }
 
-        Console.WriteLine("Delka posloupnosti je {0}.", count);
+        Console.WriteLine("The sequence length is {0}.", count);
 
         // При нуле или одном элементе по условию выводим только длину последовательности.
         if (count > 1) {
-            Console.WriteLine("Soucet prvku posloupnosti je {0}.", sum);
-            Console.WriteLine("Nejmensi prvek posloupnosti je {0}, druhy nejmensi je {1}.", min, sec_min);
-            Console.WriteLine("Nejvetsi prvek posloupnosti je {0}, druhy nejvetsi je {1}.", max, sec_max);
+            Console.WriteLine("The sum of the sequence is {0}.", sum);
+            Console.WriteLine("The smallest sequence element is {0}, the second smallest is {1}.", min, secMin);
+            Console.WriteLine("The largest sequence element is {0}, the second largest is {1}.", max, secMax);
         }
     }
 }

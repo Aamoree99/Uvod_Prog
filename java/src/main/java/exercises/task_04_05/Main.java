@@ -53,25 +53,26 @@ import java.math.BigInteger;
 public class Main {
     // По условию числа неотрицательные, поэтому начальные максимумы равны нулю.
     // Повторы учитываются; для короткого массива незаполненные места остаются нулевыми.
-    static void max_pole(int[] pole, int[] maxima) {
+    static void arrayMaxima(int[] array, int[] maxima) {
         maxima[0]=0; maxima[1]=0; maxima[2]=0;
         int i=0;
-        while (i < pole.length) {
-            int cislo=pole[i];
+        while (i < array.length) {
+            int number=array[i];
             // Сдвигаем значения справа налево, чтобы не потерять прежние максимумы.
-            if (cislo > maxima[0]) { maxima[2]=maxima[1]; maxima[1]=maxima[0]; maxima[0]=cislo; }
-            else if (cislo > maxima[1]) { maxima[2]=maxima[1]; maxima[1]=cislo; }
-            else if (cislo > maxima[2]) { maxima[2]=cislo; }
+            if (number > maxima[0]) { maxima[2]=maxima[1]; maxima[1]=maxima[0]; maxima[0]=number; }
+            else if (number > maxima[1]) { maxima[2]=maxima[1]; maxima[1]=number; }
+            else if (number > maxima[2]) { maxima[2]=number; }
             i += 1;
         }
     }
+    // Запускаем пример из упражнения и выводим результаты.
     public static void main(String[] args) {
-        int[] pole = new int[] {2,5,7,1,4,6,9,8,2};
+        int[] array = new int[] {2,5,7,1,4,6,9,8,2};
         int[] maxima=new int[3];
-        max_pole(pole,maxima);
-        System.out.printf(Locale.ROOT, "Pole: %s%n", Arrays.toString(pole));
-        System.out.printf(Locale.ROOT, "Nejvetsi:       %s%n", maxima[0]);
-        System.out.printf(Locale.ROOT, "Druhe nejvetsi: %s%n", maxima[1]);
-        System.out.printf(Locale.ROOT, "Treti nejvetsi: %s%n", maxima[2]);
+        arrayMaxima(array,maxima);
+        System.out.printf(Locale.ROOT, "Array: %s%n", Arrays.toString(array));
+        System.out.printf(Locale.ROOT, "Largest:       %s%n", maxima[0]);
+        System.out.printf(Locale.ROOT, "Second largest: %s%n", maxima[1]);
+        System.out.printf(Locale.ROOT, "Third largest: %s%n", maxima[2]);
     }
 }

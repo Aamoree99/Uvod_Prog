@@ -90,12 +90,14 @@ i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden
 #include <stdexcept>
 
 // Возможные ходы и результаты раунда представлены перечислениями.
-enum class Tah { Kamen, Nuzky, Papir };
-enum class Vysledek { Nerozhodne, Hrac, Pocitac };
+enum class Move { Rock, Scissors, Paper };
+enum class RoundResult { Draw, Player, Computer };
+// Возвращаем случайное число от 0 до 2 для выбора хода.
 static int random_move() {
     static std::mt19937 rng(std::random_device{}());
     return std::uniform_int_distribution<int>(0,2)(rng);
 }
+// Читаем строку и убираем окружающие пробелы.
 static std::string read_line() {
     std::string value;
     if (!std::getline(std::cin,value)) throw std::runtime_error("End of input");
@@ -106,102 +108,112 @@ static std::string read_line() {
     while (i < value.size()) { value[i]=static_cast<char>(std::tolower(static_cast<unsigned char>(value[i]))); ++i; }
     return value;
 }
+// Приостанавливаем выполнение на заданное число миллисекунд.
 static void pause(int ms) { std::this_thread::sleep_for(std::chrono::milliseconds(ms)); }
 // ANSI-последовательности очищают экран и перемещают курсор в левый верхний угол.
-static void vycisti_obrazovku() { std::cout << "\x1B[2J\x1B[1;1H" << std::flush; }
-static std::string tah_na_text(Tah tah) {
-    if (tah==Tah::Kamen) return "Kamen";
-    if (tah==Tah::Nuzky) return "Nuzky";
-    return "Papir";
+static void clear_screen() { std::cout << "\x1B[2J\x1B[1;1H" << std::flush; }
+// Возвращаем английское название выбранного хода.
+static std::string move_text(Move move) {
+    if (move==Move::Rock) return "Rock";
+    if (move==Move::Scissors) return "Scissors";
+    return "Paper";
 }
-static std::string tah_emoji(Tah tah) {
-    if (tah==Tah::Kamen) return "🪨";
-    if (tah==Tah::Nuzky) return "✂️";
+// Возвращаем символ для выбранного хода.
+static std::string move_emoji(Move move) {
+    if (move==Move::Rock) return "🪨";
+    if (move==Move::Scissors) return "✂️";
     return "📄";
 }
 // Многострочные рисунки соответствуют исходной Rust-версии.
-static std::string tah_ascii(Tah tah) {
-    if (tah==Tah::Kamen) return "\n    _______\n---'   ____)\n      (_____)\n      (_____)\n      (____)\n---.__(___)\n";
-    if (tah==Tah::Nuzky) return "\n    _______\n---'   ____)____\n          ______)\n       __________)\n      (____)\n---.__(___)\n";
+static std::string move_ascii(Move move) {
+    if (move==Move::Rock) return "\n    _______\n---'   ____)\n      (_____)\n      (_____)\n      (____)\n---.__(___)\n";
+    if (move==Move::Scissors) return "\n    _______\n---'   ____)____\n          ______)\n       __________)\n      (____)\n---.__(___)\n";
     return "\n    _______\n---'   ____)____\n          ______)\n          _______)\n         _______)\n---.__________)\n";
 }
 // Три кадра с той же паузой 600 мс, что в Rust.
-static void animace() {
-    vycisti_obrazovku(); std::cout << '\n'; std::cout << "             KAMEN!" << '\n'; std::cout << '\n'; std::cout << tah_ascii(Tah::Kamen) << '\n'; pause(600);
-    vycisti_obrazovku(); std::cout << '\n'; std::cout << "             NUZKY!" << '\n'; std::cout << '\n'; std::cout << tah_ascii(Tah::Nuzky) << '\n'; pause(600);
-    vycisti_obrazovku(); std::cout << '\n'; std::cout << "             PAPIR!" << '\n'; std::cout << '\n'; std::cout << tah_ascii(Tah::Papir) << '\n'; pause(600);
+static void animate_moves() {
+    clear_screen(); std::cout << '\n'; std::cout << "             ROCK!" << '\n'; std::cout << '\n'; std::cout << move_ascii(Move::Rock) << '\n'; pause(600);
+    clear_screen(); std::cout << '\n'; std::cout << "             SCISSORS!" << '\n'; std::cout << '\n'; std::cout << move_ascii(Move::Scissors) << '\n'; pause(600);
+    clear_screen(); std::cout << '\n'; std::cout << "             PAPER!" << '\n'; std::cout << '\n'; std::cout << move_ascii(Move::Paper) << '\n'; pause(600);
 }
 // Неизвестное слово даёт отсутствующий ход; вызывающая функция повторяет запрос.
-static std::optional<Tah> nacti_tah_hrace() {
-    std::cout << "Zadejte svuj tah [kamen / nuzky / papir]: "; std::cout.flush();
-    std::string vstup=read_line();
-    if (vstup == "kamen" || vstup == "k") return Tah::Kamen;
-    if (vstup == "nuzky" || vstup == "n") return Tah::Nuzky;
-    if (vstup == "papir" || vstup == "p") return Tah::Papir;
+static std::optional<Move> read_player_move() {
+    std::cout << "Enter your move [rock / scissors / paper]: "; std::cout.flush();
+    std::string input=read_line();
+    if (input == "rock" || input == "r") return Move::Rock;
+    if (input == "scissors" || input == "s") return Move::Scissors;
+    if (input == "paper" || input == "p") return Move::Paper;
     return std::nullopt;
 }
 // Случайное целое 0, 1 или 2 определяет ход компьютера.
-static Tah tah_pocitace() {
-    int cislo=random_move();
-    if (cislo==0) return Tah::Kamen;
-    if (cislo==1) return Tah::Nuzky;
-    return Tah::Papir;
+static Move computer_move() {
+    int number=random_move();
+    if (number==0) return Move::Rock;
+    if (number==1) return Move::Scissors;
+    return Move::Paper;
 }
-static Vysledek vysledek_kola(Tah hrac,Tah pocitac) {
-    if (hrac==pocitac) return Vysledek::Nerozhodne;
-    if ((hrac==Tah::Kamen && pocitac==Tah::Nuzky) || (hrac==Tah::Nuzky && pocitac==Tah::Papir) || (hrac==Tah::Papir && pocitac==Tah::Kamen)) return Vysledek::Hrac;
-    return Vysledek::Pocitac;
+// Возвращаем исход раунда по ходам игрока и компьютера.
+static RoundResult round_result(Move player,Move computer) {
+    if (player==computer) return RoundResult::Draw;
+    if ((player==Move::Rock && computer==Move::Scissors) || (player==Move::Scissors && computer==Move::Paper) || (player==Move::Paper && computer==Move::Rock)) return RoundResult::Player;
+    return RoundResult::Computer;
 }
-static void zobraz_skore(int skore_hrac,int skore_pocitac) {
+// Выводим текущие очки игрока и компьютера.
+static void show_score(int player_score,int computer_score) {
     std::cout << '\n'; std::cout << "========================================" << '\n';
-    std::cout << "        HRAC " << skore_hrac << " : " << skore_pocitac << " POCITAC" << '\n';
+    std::cout << "        PLAYER " << player_score << " : " << computer_score << " COMPUTER" << '\n';
     std::cout << "========================================" << '\n'; std::cout << '\n';
 }
-static void zobraz_tahy(Tah hrac,Tah pocitac) {
-    std::cout << '\n'; std::cout << "HRAC                         POCITAC" << '\n';
-    std::cout << tah_emoji(hrac) << " " << tah_na_text(hrac) << "                     " << tah_na_text(pocitac) << " " << tah_emoji(pocitac) << '\n';
-    std::cout << '\n'; std::cout << "HRAC:" << '\n'; std::cout << tah_ascii(hrac) << '\n'; std::cout << "POCITAC:" << '\n'; std::cout << tah_ascii(pocitac) << '\n';
+// Выводим названия, символы и рисунки обоих ходов.
+static void show_moves(Move player,Move computer) {
+    std::cout << '\n'; std::cout << "PLAYER                         COMPUTER" << '\n';
+    // Возвращаем символ для выбранного хода.
+    std::cout << move_emoji(player) << " " << move_text(player) << "                     " << move_text(computer) << " " << move_emoji(computer) << '\n';
+    std::cout << '\n'; std::cout << "PLAYER:" << '\n'; std::cout << move_ascii(player) << '\n'; std::cout << "COMPUTER:" << '\n'; std::cout << move_ascii(computer) << '\n';
 }
-static void zobraz_uvod() {
-    vycisti_obrazovku(); std::cout << "========================================" << '\n'; std::cout << "         KAMEN - NUZKY - PAPIR" << '\n';
-    std::cout << "========================================" << '\n'; std::cout << '\n'; std::cout << "Hrajeme na dve vitezna kola." << '\n'; std::cout << '\n';
-    std::cout << "Muzete zadat:" << '\n'; std::cout << "  kamen / k" << '\n'; std::cout << "  nuzky / n" << '\n'; std::cout << "  papir / p" << '\n'; std::cout << '\n';
+// Выводим правила игры и допустимые варианты ввода.
+static void show_intro() {
+    clear_screen(); std::cout << "========================================" << '\n'; std::cout << "         ROCK - SCISSORS - PAPER" << '\n';
+    std::cout << "========================================" << '\n'; std::cout << '\n'; std::cout << "The first to win two rounds wins the game." << '\n'; std::cout << '\n';
+    std::cout << "You can enter:" << '\n'; std::cout << "  rock / r" << '\n'; std::cout << "  scissors / s" << '\n'; std::cout << "  paper / p" << '\n'; std::cout << '\n';
 }
 // Ничья не меняет счёт. Игра заканчивается после двух побед одной стороны.
-static void hraj_hru() {
-    int skore_hrac=0,skore_pocitac=0;
-    zobraz_uvod();
-    while (skore_hrac < 2 && skore_pocitac < 2) {
-        Tah hrac;
+static void play_game() {
+    int player_score=0,computer_score=0;
+    show_intro();
+    while (player_score < 2 && computer_score < 2) {
+        Move player;
         while (true) {
-            std::optional<Tah> tah=nacti_tah_hrace();
-            if (tah.has_value()) { hrac=tah.value(); break; }
-            std::cout << '\n'; std::cout << "Tento tah je neplatny." << '\n'; std::cout << '\n';
+            std::optional<Move> move=read_player_move();
+            if (move.has_value()) { player=move.value(); break; }
+            std::cout << '\n'; std::cout << "Invalid move." << '\n'; std::cout << '\n';
         }
-        Tah pocitac=tah_pocitace();
-        animace(); vycisti_obrazovku(); zobraz_tahy(hrac,pocitac);
-        Vysledek vysledek=vysledek_kola(hrac,pocitac);
-        if (vysledek==Vysledek::Nerozhodne) std::cout << "Toto kolo je nerozhodne." << '\n';
-        else if (vysledek==Vysledek::Hrac) { std::cout << "Toto kolo vyhral hrac." << '\n'; skore_hrac += 1; }
-        else { std::cout << "Toto kolo vyhral pocitac." << '\n'; skore_pocitac += 1; }
-        zobraz_skore(skore_hrac,skore_pocitac);
-        if (skore_hrac < 2 && skore_pocitac < 2) pause(1200);
+        Move computer=computer_move();
+        animate_moves(); clear_screen(); show_moves(player,computer);
+        RoundResult result=round_result(player,computer);
+        if (result==RoundResult::Draw) std::cout << "This round is a draw." << '\n';
+        else if (result==RoundResult::Player) { std::cout << "The player won this round." << '\n'; player_score += 1; }
+        else { std::cout << "The computer won this round." << '\n'; computer_score += 1; }
+        show_score(player_score,computer_score);
+        if (player_score < 2 && computer_score < 2) pause(1200);
     }
     std::cout << '\n';
-    if (skore_hrac==2) std::cout << "CELKOVYM VITEZEM JE HRAC!" << '\n';
-    else std::cout << "CELKOVYM VITEZEM JE POCITAC!" << '\n';
+    if (player_score==2) std::cout << "THE PLAYER WINS THE GAME!" << '\n';
+    else std::cout << "THE COMPUTER WINS THE GAME!" << '\n';
     std::cout << '\n';
 }
-static bool chce_hrat_znovu() {
-    std::cout << "Hrat znovu? [a/n]: "; std::cout.flush();
-    std::string vstup=read_line();
-    return vstup == "a" || vstup == "ano";
+// Читаем ответ: y или yes означает повторную игру.
+static bool wants_to_play_again() {
+    std::cout << "Play again? [y/n]: "; std::cout.flush();
+    std::string input=read_line();
+    return input == "y" || input == "yes";
 }
+// Запускаем пример из упражнения и выводим результаты.
 int main() {
     std::cout << std::boolalpha;
     while (true) {
-        hraj_hru();
-        if (!chce_hrat_znovu()) break;
+        play_game();
+        if (!wants_to_play_again()) break;
     }
-    std::cout << '\n'; std::cout << "Diky za hru." << '\n';
+    std::cout << '\n'; std::cout << "Thanks for playing." << '\n';
 }

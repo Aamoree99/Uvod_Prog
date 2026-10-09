@@ -43,38 +43,40 @@ Projekty.
 i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden příkaz.
 */
 
+// Запускаем пример из упражнения и выводим результаты.
 fn main() {
-    let x = dph1(56.20, 21.0);
-    let y1 = dph2(115.0, Dph::Zakladni);
-    let y2 = dph2(115.0, Dph::PrvniSnizena);
-    let y3 = dph2(115.0, Dph::DruhaSnizena);
+    let x = price_with_vat(56.20, 21.0);
+    let y1 = price_with_vat_rate(115.0, VatRate::Standard);
+    let y2 = price_with_vat_rate(115.0, VatRate::FirstReduced);
+    let y3 = price_with_vat_rate(115.0, VatRate::SecondReduced);
 
-    println!("Cena 56.20 Kč se sazbou DPH 21 % je {x:.2} Kč.");
-    println!("Cena 115.00 Kč se základní sazbou DPH 21 % je {y1:.2} Kč.");
-    println!("Cena 115.00 Kč s první sníženou sazbou DPH 15 % je {y2:.2} Kč.");
-    println!("Cena 115.00 Kč s druhou sníženou sazbou DPH 10 % je {y3:.2} Kč.");
+    println!("The price 56.20 CZK with 21 % VAT is {x:.2} CZK.");
+    println!("The price 115.00 CZK with the standard 21 % VAT rate is {y1:.2} CZK.");
+    println!("The price 115.00 CZK with the first reduced 15 % VAT rate is {y2:.2} CZK.");
+    println!("The price 115.00 CZK with the second reduced 10 % VAT rate is {y3:.2} CZK.");
 }
 
 // enum ограничивает выбор тремя именованными вариантами ставки из учебного задания.
-enum Dph {
-    Zakladni,
-    PrvniSnizena,
-    DruhaSnizena,
+enum VatRate {
+    Standard,
+    FirstReduced,
+    SecondReduced,
 }
 
 // Функция принимает цену и процент и возвращает f64. Налог = цена * процент / 100.
 // Прибавляем налог к исходной цене; ставки здесь взяты из условия упражнения.
-fn dph1(price: f64, dph: f64) -> f64 {
-    return price + price * dph / 100.0;
+fn price_with_vat(price: f64, vat: f64) -> f64 {
+    return price + price * vat / 100.0;
 }
 
-fn dph2(price: f64, dph: Dph) -> f64 {
+// Возвращаем цену с налогом по именованной ставке учебного задания.
+fn price_with_vat_rate(price: f64, vat: VatRate) -> f64 {
     // match переводит выбранный вариант enum в числовой процент.
     // Формат :.2 в main округляет только отображение, а не результат функции.
-    let percent: f64 = match dph {
-        Dph::Zakladni => 21.0,
-        Dph::PrvniSnizena => 15.0,
-        Dph::DruhaSnizena => 10.0,
+    let percent: f64 = match vat {
+        VatRate::Standard => 21.0,
+        VatRate::FirstReduced => 15.0,
+        VatRate::SecondReduced => 10.0,
     };
 
     return price + price * percent / 100.0;

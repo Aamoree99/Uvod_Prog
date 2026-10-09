@@ -47,19 +47,20 @@ import java.math.BigInteger;
 // Каждый файл Main.java компилируется отдельно в свой каталог.
 public class Main {
     // Возвращаем новый массив из четырёх элементов, как в исходном примере.
-    static int[] zaokrouhli_pole(double[] pole) {
-        int[] vysledek = new int[] {0,0,0,0};
+    static int[] roundArray(double[] array) {
+        int[] result = new int[] {0,0,0,0};
         int i=0;
-        while (i < pole.length) {
+        while (i < array.length) {
             // В Rust половины округляются от нуля; выбираем такое же правило в каждом языке.
-            vysledek[i] = (int)Math.copySign(Math.floor(Math.abs(pole[i]) + 0.5), pole[i]);
+            result[i] = (int)Math.copySign(Math.floor(Math.abs(array[i]) + 0.5), array[i]);
             i += 1;
         }
-        return vysledek;
+        return result;
     }
+    // Запускаем пример из упражнения и выводим результаты.
     public static void main(String[] args) {
-        double[] pole = new double[] {5.12,-3.5996,156.0,7.9};
-        int[] zaokrouhlene=zaokrouhli_pole(pole);
-        System.out.printf(Locale.ROOT, "Puvodni:      %s%n", Arrays.toString(pole)); System.out.printf(Locale.ROOT, "Zaokrouhlene: %s%n", Arrays.toString(zaokrouhlene));
+        double[] array = new double[] {5.12,-3.5996,156.0,7.9};
+        int[] rounded=roundArray(array);
+        System.out.printf(Locale.ROOT, "Original:      %s%n", Arrays.toString(array)); System.out.printf(Locale.ROOT, "Rounded: %s%n", Arrays.toString(rounded));
     }
 }

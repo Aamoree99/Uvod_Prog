@@ -58,8 +58,276 @@ Projekty.
 
 i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden příkaz.
 */
+use rand::Rng;
 
-// Решение пока не написано. Этот entrypoint нужен только для сборки Cargo.
+// Проверяем правильность билета.
+//
+// Игрок должен выбрать ровно 6 разных чисел
+// в диапазоне от 1 до 49.
+fn validate_ticket(ticket: &[i32; 6]) -> bool {
+    let mut i = 0;
+
+    while i < ticket.len() {
+        // Проверяем, что число находится от 1 до 49.
+        if ticket[i] < 1 || ticket[i] > 49 {
+            return false;
+        }
+
+        // Проверяем, что число не повторяется.
+        // Сравниваем его только с последующими элементами.
+        let mut j = i + 1;
+
+        while j < ticket.len() {
+            if ticket[i] == ticket[j] {
+                return false;
+            }
+
+            j += 1;
+        }
+
+        i += 1;
+    }
+
+    // Если все проверки прошли, билет правильный.
+    true
+}
+
+// Генерируем семь различных случайных чисел.
+//
+// Первые шесть — основные выигрышные числа.
+// Седьмое — дополнительное число.
+fn generate_draw() -> [i32; 7] {
+    // Создаём массив из семи нулей.
+    let mut numbers = [0; 7];
+
+    // Генератор случайных чисел.
+    let mut rng = rand::thread_rng();
+
+    let mut i = 0;
+
+    // Заполняем массив случайными числами.
+    while i < numbers.len() {
+        // Генерируем число от 1 до 49 включительно.
+        let number = rng.gen_range(1..=49);
+
+        // Предполагаем, что число ещё не встречалось.
+        let mut duplicate = false;
+
+        // Проверяем уже заполненные элементы массива.
+        let mut j = 0;
+
+        while j < i {
+            if numbers[j] == number {
+                duplicate = true;
+                break;
+            }
+
+            j += 1;
+        }
+
+        // Если число не повторяется, сохраняем его.
+        if duplicate == false {
+            numbers[i] = number;
+            i += 1;
+        }
+
+        // Если число уже было, i не увеличиваем.
+        // На следующем проходе генерируем новое число.
+    }
+
+    numbers
+}
+
+// Сравниваем билет игрока с выигрышными числами.
+//
+// Возвращаем два значения:
+// matches — количество совпавших основных чисел.
+// bonus   — совпало ли дополнительное число.
+fn count_matches(ticket: &[i32; 6], draw: &[i32; 7]) -> (i32, bool) {
+    let mut matches = 0;
+    let mut bonus = false;
+
+    let mut i = 0;
+
+    // Проверяем каждое число билета.
+    while i < ticket.len() {
+        let mut j = 0;
+
+        // Первые шесть чисел тиража — основные.
+        while j < 6 {
+            if ticket[i] == draw[j] {
+                matches += 1;
+            }
+
+            j += 1;
+        }
+
+        // Седьмое число — дополнительное.
+        if ticket[i] == draw[6] {
+            bonus = true;
+        }
+
+        i += 1;
+    }
+
+    // Возвращаем оба результата.
+    (matches, bonus)
+}
+
+// Определяем выигрыш за один тираж.
+//
+// Выплачиваем только одну, самую высокую награду.
+fn calculate_prize(matches: i32, bonus: bool) -> i64 {
+    // Совпали все шесть основных чисел.
+    if matches == 6 {
+        return 15_382_198;
+    }
+
+    // Совпали пять основных и дополнительное.
+    if matches == 5 && bonus == true {
+        return 815_723;
+    }
+
+    // Совпали пять основных чисел.
+    if matches == 5 {
+        return 24_971;
+    }
+
+    // Совпали четыре основных числа.
+    if matches == 4 {
+        return 619;
+    }
+
+    // Совпали три основных числа.
+    if matches == 3 {
+        return 113;
+    }
+
+    // Меньше трёх совпадений — выигрыша нет.
+    return 0;
+}
+
+// Главная функция лотереи.
+//
+// ticket — шесть чисел игрока.
+// draws  — количество розыгрышей.
+//
+// Каждый розыгрыш стоит 20 CZK
+// и состоит из двух независимых тиражей.
+//
+// Функция возвращает итоговый финансовый результат:
+// положительное число — прибыль,
+// отрицательное число — убыток.
+fn sportka(ticket: &[i32; 6], draws: i32) -> i64 {
+    // Неправильный билет не участвует в лотерее.
+    // Ставка возвращается, финансовый результат равен нулю.
+    if validate_ticket(ticket) == false {
+        return 0;
+    }
+
+    // Не проводим розыгрыши при нулевом
+    // или отрицательном их количестве.
+    if draws <= 0 {
+        return 0;
+    }
+
+    // Цена одного розыгрыша — 20 CZK.
+    //
+    // Переводим draws в i64, чтобы безопаснее
+    // работать с крупными суммами.
+    let cost = draws as i64 * 20;
+
+    // Начинаем с отрицательного баланса:
+    // игрок сначала оплачивает все розыгрыши.
+    let mut balance: i64 = -cost;
+
+    let mut i = 0;
+
+    // Проводим указанное количество розыгрышей.
+    while i < draws {
+        // В каждом розыгрыше два независимых тиража.
+        let mut round = 0;
+
+        while round < 2 {
+            // Генерируем новый набор случайных чисел.
+            let draw = generate_draw();
+
+            // Сравниваем билет с выпавшими числами.
+            let (matches, bonus) = count_matches(ticket, &draw);
+
+            // Вычисляем выигрыш за этот тираж.
+            let prize = calculate_prize(matches, bonus);
+
+            // Добавляем выигрыш к общему балансу.
+            balance += prize;
+
+            // Переходим ко второму тиражу.
+            round += 1;
+        }
+
+        // Переходим к следующему розыгрышу.
+        i += 1;
+    }
+
+    // Возвращаем итоговую прибыль или убыток.
+    return balance;
+}
+
 fn main() {
-    println!("Reseni teto ulohy zatim neni implementovano.");
+    // Числа игрока из задания.
+    let ticket = [7, 9, 22, 6, 14, 48];
+
+    // Количество розыгрышей.
+    let draws = 5000;
+
+    // Проверяем правильность билета.
+    println!("SPORTKA LOTTERY");
+    println!("========================================");
+    println!("Your ticket: {:?}", ticket);
+    println!("Number of drawings: {}", draws);
+    println!("Price per drawing: 20 CZK");
+    println!();
+
+    if validate_ticket(&ticket) == false {
+        println!("Invalid ticket. Your money has been refunded.");
+        return;
+    }
+
+    // Считаем стоимость всех розыгрышей.
+    let total_cost = draws as i64 * 20;
+
+    // Запускаем симуляцию.
+    let result = sportka(&ticket, draws);
+
+    // Считаем общую сумму выигрышей.
+    // result = winnings - cost
+    // значит winnings = result + cost
+    let total_winnings = result + total_cost;
+
+    println!("Ticket validation: VALID");
+    println!("Total cost: {} CZK", total_cost);
+    println!("Total winnings: {} CZK", total_winnings);
+    println!("----------------------------------------");
+
+    // Выводим итоговый результат.
+    if result > 0 {
+        println!("Net profit: +{} CZK", result);
+    } else if result < 0 {
+        println!("Net loss: {} CZK", result);
+    } else {
+        println!("You broke even.");
+    }
+
+    println!("========================================");
+
+    // Дополнительная проверка неправильного билета.
+    let invalid_ticket = [7, 9, 22, 6, 14, 14];
+
+    println!();
+    println!("INVALID TICKET TEST");
+    println!("Ticket: {:?}", invalid_ticket);
+
+    let invalid_result = sportka(&invalid_ticket, draws);
+
+    println!("Financial result: {} CZK", invalid_result);
 }

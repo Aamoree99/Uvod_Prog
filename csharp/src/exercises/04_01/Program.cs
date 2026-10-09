@@ -47,14 +47,15 @@ internal static class Program
 {
 
     // Передаём оба числа по ссылке, чтобы обмен изменил переменные вызывающей функции.
-    static void setrid_sestupne(ref int a,ref int b) {
-        if (a < b) { int pomocna=a; a=b; b=pomocna; }
+    static void SortDescending(ref int a,ref int b) {
+        if (a < b) { int savedNumber=a; a=b; b=savedNumber; }
     }
+    // Запускаем пример из упражнения и выводим результаты.
     public static void Main() {
         CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
         int a=5,b=7;
-        Console.WriteLine("Pred: a = {0}, b = {1}", a, b);
-        setrid_sestupne(ref a,ref b);
-        Console.WriteLine("Po:   a = {0}, b = {1}", a, b);
+        Console.WriteLine("Before: a = {0}, b = {1}", a, b);
+        SortDescending(ref a,ref b);
+        Console.WriteLine("After:   a = {0}, b = {1}", a, b);
     }
 }

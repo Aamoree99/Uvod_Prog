@@ -52,18 +52,19 @@ internal static class Program
     // Читаем одну строку, как в Rust-примере; ошибки ввода не скрываем.
     private static int ReadInt() => int.Parse(Console.ReadLine() ?? throw new InvalidOperationException("End of input"), CultureInfo.InvariantCulture);
 
+    // Запускаем пример из упражнения и выводим результаты.
     public static void Main() {
         CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
-        Console.WriteLine("Zadejte cislo:");
+        Console.WriteLine("Enter a number:");
 
         // trim убирает перевод строки, parse преобразует текст в int. Ввод должен быть целым числом.
         int a = ReadInt();
 
         // Факториал определён для неотрицательных целых. В Rust 34! помещается в u128, а 35! уже нет; сохраняем этот предел и здесь.
         if (a < 0) {
-            Console.WriteLine("Faktorial zaporneho cisla neni definovan.");
+            Console.WriteLine("The factorial of a negative number is undefined.");
         } else if (a > 34) {
-            Console.WriteLine("Hodnota je prilis vysoka pro datovy typ u128.");
+            Console.WriteLine("The number is too large for a 128-bit unsigned integer.");
         } else {
             // Начинаем произведение с 1. Для 0 цикл не выполняется, поэтому 0! = 1.
             BigInteger factorial = 1; // int вмещает 12!, но уже не вмещает 13!.
@@ -75,7 +76,7 @@ internal static class Program
                 number -= 1;
             }
 
-            Console.WriteLine("Faktorial je {0}", factorial);
+            Console.WriteLine("The factorial is {0}", factorial);
         }
     }
 }

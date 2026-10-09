@@ -42,12 +42,11 @@ Projekty.
 i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden příkaz.
 */
 
+// Запускаем пример из упражнения и выводим результаты.
 fn main() {
     let a: i32 = 11;
     let b: i32 = 18;
     let c: i32 = 5;
-
-    // let middle = a + b + c - a.max(b).max(c) - a.min(b).min(c);
 
     // Среднее по порядку число — второе наибольшее, а не среднее арифметическое.
     let middle: i32;
@@ -63,5 +62,5 @@ fn main() {
         middle = c;
     }
 
-    println!("Prostřední z hodnot {a}, {b} a {c} je {middle}.");
+    println!("The middle of {a}, {b} and {c} is {middle}.");
 }

@@ -40,6 +40,7 @@ i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden
 
 #include <iostream>
 
+// Запускаем пример из упражнения и выводим результаты.
 int main() {
     std::cout << std::boolalpha;
     int limit = 100000;
@@ -48,23 +49,23 @@ int main() {
 
     while (number < limit) {
         // Работаем с копией, чтобы исходное number сохранилось для сравнения.
-        int temp = number;
+        int remaining_digits = number;
         int digits = 0;
 
         // Целочисленное деление на 10 удаляет последнюю цифру. Первый цикл считает цифры.
-        while (temp > 0) {
+        while (remaining_digits > 0) {
             digits += 1;
-            temp /= 10;
+            remaining_digits /= 10;
         }
 
-        temp = number;
+        remaining_digits = number;
 
         int sum = 0;
 
-        while (temp > 0) {
+        while (remaining_digits > 0) {
             // Остаток % 10 извлекает последнюю цифру. Во втором цикле возводим каждую цифру
             // в степень digits повторным умножением и складываем результаты.
-            auto digit = temp % 10;
+            auto digit = remaining_digits % 10;
 
             int power = 1;
             int count = 0;
@@ -76,7 +77,7 @@ int main() {
 
             sum += power;
 
-            temp /= 10;
+            remaining_digits /= 10;
         }
 
         // Если сумма степеней цифр совпала с исходным числом, оно является числом Армстронга.

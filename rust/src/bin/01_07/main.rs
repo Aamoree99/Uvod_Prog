@@ -42,6 +42,7 @@ Projekty.
 i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden příkaz.
 */
 
+// Запускаем пример из упражнения и выводим результаты.
 fn main() {
     let a: i32 = 9;
     let b: i32 = 2;
@@ -74,15 +75,15 @@ fn main() {
     // После распределения чисел сравниваем суммы; учитываем больше, меньше и равенство.
     if odd > even {
         println!(
-            "Zadaná čísla {a}, {b} a {c} mají součet lichých hodnot {odd} vyšší než součet sudých hodnot {even}."
+            "The numbers {a}, {b} and {c} have an odd-number sum of {odd} greater than the even-number sum of {even}."
         );
     } else if odd < even {
         println!(
-            "Zadaná čísla {a}, {b} a {c} mají součet lichých hodnot {odd} nižší než součet sudých hodnot {even}."
+            "The numbers {a}, {b} and {c} have an odd-number sum of {odd} less than the even-number sum of {even}."
         );
     } else {
         println!(
-            "Zadaná čísla {a}, {b} a {c} mají součet lichých hodnot {odd} stejný jako součet sudých hodnot {even}."
+            "The numbers {a}, {b} and {c} have an odd-number sum of {odd} equal to the even-number sum of {even}."
         );
     }
 }

@@ -48,16 +48,17 @@ internal static class Program
 {
 
     // Обмен крайних элементов разворачивает массив без вспомогательного массива.
-    static void obrat_pole(int[] pole) {
-        int levy=0, pravy=pole.Length-1;
-        while (levy < pravy) {
-            int pomocna=pole[levy]; pole[levy]=pole[pravy]; pole[pravy]=pomocna;
-            levy += 1; pravy -= 1;
+    static void ReverseArray(int[] array) {
+        int left=0, right=array.Length-1;
+        while (left < right) {
+            int savedNumber=array[left]; array[left]=array[right]; array[right]=savedNumber;
+            left += 1; right -= 1;
         }
     }
+    // Запускаем пример из упражнения и выводим результаты.
     public static void Main() {
         CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
-        int[] pole = new int[] {5,7,2,1,0,6};
-        Console.WriteLine("Pred: {0}", "[" + string.Join(", ", pole) + "]"); obrat_pole(pole); Console.WriteLine("Po:   {0}", "[" + string.Join(", ", pole) + "]");
+        int[] array = new int[] {5,7,2,1,0,6};
+        Console.WriteLine("Before: {0}", "[" + string.Join(", ", array) + "]"); ReverseArray(array); Console.WriteLine("After:   {0}", "[" + string.Join(", ", array) + "]");
     }
 }

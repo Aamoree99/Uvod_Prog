@@ -38,8 +38,9 @@ Projekty.
 i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden příkaz.
 */
 
+// Запускаем пример из упражнения и выводим результаты.
 fn main() {
-    println!("Vsechna dokonala cisla mensi nez 10000:");
+    println!("All perfect numbers less than 10000:");
 
     // Совершенное число равно сумме своих положительных делителей, кроме самого себя.
     let mut number: i32 = 2;

@@ -86,20 +86,22 @@ public class Main {
         return result;
     }
     // Складываем 101 член ряда, от k = 0 до k = 100 включительно: приближение e^n.
-    static double expression(double n) {
+    static double exponentialSeries(double n) {
         double sum = 0.0;
         int k = 0;
         while (k <= 100) { sum += power(n, k) / factorial(k); k += 1; }
         return sum;
     }
+    // Возвращаем число сочетаний n по k через факториалы; требуется n >= k >= 0.
     static double combination(int n, int k) {
         // Комбинации допустимы только при n >= k >= 0.
         if (n < k || k < 0) return 0.0;
         return factorial(n) / (factorial(k) * factorial(n - k));
     }
+    // Запускаем пример из упражнения и выводим результаты.
     public static void main(String[] args) {
         double x = factorial(11), y = power(5.0, 3), z = power(2.69, 7);
-        double a = expression(5.14), b = combination(49, 6);
+        double a = exponentialSeries(5.14), b = combination(49, 6);
         System.out.printf(Locale.ROOT, "11! = %.0f%n", x); System.out.printf(Locale.ROOT, "5^3 = %.1f%n", y); System.out.printf(Locale.ROOT, "2.69^7 = %.3f%n", z);
         System.out.printf(Locale.ROOT, "e^5.14 ≈ %.3f%n", a); System.out.printf(Locale.ROOT, "C(49, 6) = %.1f%n", b);
     }

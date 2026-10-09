@@ -45,28 +45,30 @@ i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden
 #include <sstream>
 
 template<class T>
-std::string array_text(const T& values) {
+// Возвращаем текстовое представление массива с разделителями.
+std::string array_text(const T& elements) {
     std::ostringstream out;
     out << "[";
     std::size_t i = 0;
-    while (i < values.size()) {
+    while (i < elements.size()) {
         if (i) out << ", ";
-        out << values[i++];
+        out << elements[i++];
     }
     out << "]";
     return out.str();
 }
 
 // Массив передаётся без копирования; изменяем каждый отрицательный элемент на месте.
-static void absolutni_hodnota_pole(std::vector<int>& pole) {
+static void absolute_array(std::vector<int>& array) {
     int i=0;
-    while (i < static_cast<int>(pole.size())) {
-        if (pole[i] < 0) pole[i] = -pole[i];
+    while (i < static_cast<int>(array.size())) {
+        if (array[i] < 0) array[i] = -array[i];
         i += 1;
     }
 }
+// Запускаем пример из упражнения и выводим результаты.
 int main() {
     std::cout << std::boolalpha;
-    std::vector<int> pole = {5,-2,0,-1,7,-12,2,4};
-    std::cout << "Pred: " << array_text(pole) << '\n'; absolutni_hodnota_pole(pole); std::cout << "Po:   " << array_text(pole) << '\n';
+    std::vector<int> array = {5,-2,0,-1,7,-12,2,4};
+    std::cout << "Before: " << array_text(array) << '\n'; absolute_array(array); std::cout << "After:   " << array_text(array) << '\n';
 }

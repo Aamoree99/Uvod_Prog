@@ -49,6 +49,7 @@ using System.Numerics;
 internal static class Program
 {
 
+    // Запускаем пример из упражнения и выводим результаты.
     public static void Main() {
         CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
         int a = 11;
@@ -69,6 +70,6 @@ internal static class Program
             middle = c;
         }
 
-        Console.WriteLine("Prostřední z hodnot {0}, {1} a {2} je {3}.", a, b, c, middle);
+        Console.WriteLine("The middle of {0}, {1} and {2} is {3}.", a, b, c, middle);
     }
 }

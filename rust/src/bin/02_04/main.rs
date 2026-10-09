@@ -45,8 +45,9 @@ i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden
 
 use std::io;
 
+// Запускаем пример из упражнения и выводим результаты.
 fn main() {
-    println!("Zadejte cislo:");
+    println!("Enter a number:");
 
     let mut input = String::new();
     io::stdin().read_line(&mut input).unwrap();
@@ -56,9 +57,9 @@ fn main() {
 
     // Факториал определён для неотрицательных целых. 34! помещается в u128, а 35! уже нет.
     if a < 0 {
-        println!("Faktorial zaporneho cisla neni definovan.");
+        println!("The factorial of a negative number is undefined.");
     } else if a > 34 {
-        println!("Hodnota je prilis vysoka pro datovy typ u128.");
+        println!("The number is too large for a 128-bit unsigned integer.");
     } else {
         // Начинаем произведение с 1. Для 0 цикл не выполняется, поэтому 0! = 1.
         let mut factorial: u128 = 1; // i32 вмещает 12!, но уже не вмещает 13!.
@@ -70,6 +71,6 @@ fn main() {
             number -= 1;
         }
 
-        println!("Faktorial je {factorial}");
+        println!("The factorial is {factorial}");
     }
 }

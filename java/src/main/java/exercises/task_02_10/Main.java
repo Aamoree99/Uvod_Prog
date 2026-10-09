@@ -87,23 +87,25 @@ import java.math.BigInteger;
 // Каждый файл Main.java компилируется отдельно в свой каталог.
 public class Main {
     private static final Scanner INPUT = new Scanner(System.in);
-    private static int read_int() { return Integer.parseInt(INPUT.nextLine().trim()); }
+    // Читаем одно целое число из строки ввода.
+    private static int readInt() { return Integer.parseInt(INPUT.nextLine().trim()); }
+    // Запускаем пример из упражнения и выводим результаты.
     public static void main(String[] args) {
-        System.out.printf(Locale.ROOT, "Zjistime druh posloupnosti.%n");
+        System.out.printf(Locale.ROOT, "Determine the sequence type.%n");
 
         int count = 0;
         int previous = 0;
 
         // Флаги запоминают, встречались ли рост, спад и равенство соседних элементов.
         // Нам не нужно хранить всю последовательность — достаточно предыдущего числа.
-        boolean has_up = false;
-        boolean has_down = false;
-        boolean has_equal = false;
+        boolean hasUp = false;
+        boolean hasDown = false;
+        boolean hasEqual = false;
 
         while ((true)) {
-            System.out.printf(Locale.ROOT, "Zadejte cislo:%n");
+            System.out.printf(Locale.ROOT, "Enter a number:%n");
 
-            int current = read_int();
+            int current = readInt();
 
             // Это признак конца ввода; само число в последовательность не включаем.
             if (current <= 0) {
@@ -115,11 +117,11 @@ public class Main {
             // У первого элемента ещё нет предыдущего, поэтому сравниваем начиная со второго.
             if (count > 1) {
                 if (current > previous) {
-                    has_up = true;
+                    hasUp = true;
                 } else if (current < previous) {
-                    has_down = true;
+                    hasDown = true;
                 } else {
-                    has_equal = true;
+                    hasEqual = true;
                 }
             }
 
@@ -130,19 +132,19 @@ public class Main {
         // Классифицируем по сочетаниям флагов. Рост вместе со спадом означает немонотонность;
         // равенство без роста и спада — постоянную последовательность.
         if (count <= 1) {
-            System.out.printf(Locale.ROOT, "Posloupnost je kratka.%n");
-        } else if (has_equal == true && has_up == false && has_down == false) {
-            System.out.printf(Locale.ROOT, "Posloupnost je konstantni.%n");
-        } else if (has_up == true && has_down == false && has_equal == false) {
-            System.out.printf(Locale.ROOT, "Posloupnost je rostouci.%n");
-        } else if (has_down == true && has_up == false && has_equal == false) {
-            System.out.printf(Locale.ROOT, "Posloupnost je klesajici.%n");
-        } else if (has_up == true && has_equal == true && has_down == false) {
-            System.out.printf(Locale.ROOT, "Posloupnost je neklesajici.%n");
-        } else if (has_down == true && has_equal == true && has_up == false) {
-            System.out.printf(Locale.ROOT, "Posloupnost je nerostouci.%n");
+            System.out.printf(Locale.ROOT, "The sequence is too short.%n");
+        } else if (hasEqual == true && hasUp == false && hasDown == false) {
+            System.out.printf(Locale.ROOT, "The sequence is constant.%n");
+        } else if (hasUp == true && hasDown == false && hasEqual == false) {
+            System.out.printf(Locale.ROOT, "The sequence is strictly increasing.%n");
+        } else if (hasDown == true && hasUp == false && hasEqual == false) {
+            System.out.printf(Locale.ROOT, "The sequence is strictly decreasing.%n");
+        } else if (hasUp == true && hasEqual == true && hasDown == false) {
+            System.out.printf(Locale.ROOT, "The sequence is nondecreasing.%n");
+        } else if (hasDown == true && hasEqual == true && hasUp == false) {
+            System.out.printf(Locale.ROOT, "The sequence is nonincreasing.%n");
         } else {
-            System.out.printf(Locale.ROOT, "Posloupnost neni monotonni.%n");
+            System.out.printf(Locale.ROOT, "The sequence is not monotonic.%n");
         }
     }
 }

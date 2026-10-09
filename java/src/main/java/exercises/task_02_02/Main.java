@@ -53,46 +53,48 @@ import java.math.BigInteger;
 // Каждый файл Main.java компилируется отдельно в свой каталог.
 public class Main {
     private static final Scanner INPUT = new Scanner(System.in);
-    private static int read_int() { return Integer.parseInt(INPUT.nextLine().trim()); }
+    // Читаем одно целое число из строки ввода.
+    private static int readInt() { return Integer.parseInt(INPUT.nextLine().trim()); }
     // Вводим три целых числа, каждое на своей строке; Предполагается корректный ввод.
 
+    // Запускаем пример из упражнения и выводим результаты.
     public static void main(String[] args) {
-        System.out.printf(Locale.ROOT, "Setridime tri cisla vzestupne%n");
+        System.out.printf(Locale.ROOT, "Sort three numbers in ascending order%n");
 
-        System.out.printf(Locale.ROOT, "Zadejte prvni cislo:%n");
+        System.out.printf(Locale.ROOT, "Enter the first number:%n");
 
-        int a = read_int();
+        int a = readInt();
 
-        System.out.printf(Locale.ROOT, "Zadejte druhe cislo:%n");
+        System.out.printf(Locale.ROOT, "Enter the second number:%n");
         // Каждое число читается отдельно.
 
-        int b = read_int();
+        int b = readInt();
 
-        System.out.printf(Locale.ROOT, "Zadejte treti cislo:%n");
+        System.out.printf(Locale.ROOT, "Enter the third number:%n");
 
-        int c = read_int();
+        int c = readInt();
 
         // Три сравнения с обменом упорядочивают числа: сначала a и b, затем b и c,
         // потом снова a и b, потому что второй обмен мог нарушить их порядок.
-        // В temp сохраняем заменяемое значение, чтобы не потерять его.
+        // В savedNumber сохраняем заменяемое значение, чтобы не потерять его.
         if (a > b) {
-            var temp = a;
+            var savedNumber = a;
             a = b;
-            b = temp;
+            b = savedNumber;
         }
 
         if (b > c) {
-            var temp = b;
+            var savedNumber = b;
             b = c;
-            c = temp;
+            c = savedNumber;
         }
 
         if (a > b) {
-            var temp = a;
+            var savedNumber = a;
             a = b;
-            b = temp;
+            b = savedNumber;
         }
 
-        System.out.printf(Locale.ROOT, "Setridena cisla jsou %s, %s, %s%n", a, b, c);
+        System.out.printf(Locale.ROOT, "The sorted numbers are %s, %s, %s%n", a, b, c);
     }
 }

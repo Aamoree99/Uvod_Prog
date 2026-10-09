@@ -51,31 +51,33 @@ import java.math.BigInteger;
 // Каждый файл Main.java компилируется отдельно в свой каталог.
 public class Main {
     private static final Scanner INPUT = new Scanner(System.in);
-    private static int read_int() { return Integer.parseInt(INPUT.nextLine().trim()); }
+    // Читаем одно целое число из строки ввода.
+    private static int readInt() { return Integer.parseInt(INPUT.nextLine().trim()); }
     // Стандартный ввод нужен для чтения с клавиатуры. В этом примере вводим целые числа по одному на строке.
 
+    // Запускаем пример из упражнения и выводим результаты.
     public static void main(String[] args) {
-        System.out.printf(Locale.ROOT, "Setridime dve cisla sestupne%n");
+        System.out.printf(Locale.ROOT, "Sort two numbers in descending order%n");
 
-        System.out.printf(Locale.ROOT, "Zadejte prvni cislo:%n");
+        System.out.printf(Locale.ROOT, "Enter the first number:%n");
         // Читаем строку со стандартного ввода и убираем окружающие пробелы;
         // преобразуем её в целое число. Некорректный ввод вызывает ошибку.
 
-        int a = read_int();
+        int a = readInt();
 
-        System.out.printf(Locale.ROOT, "Zadejte druhe cislo:%n");
+        System.out.printf(Locale.ROOT, "Enter the second number:%n");
         // Следующее число читается отдельно, без накопления предыдущего ввода.
 
-        int b = read_int();
+        int b = readInt();
 
         // Для убывающего порядка первое число должно быть не меньше второго.
         // Временная переменная сохраняет a, чтобы оно не потерялось при обмене.
         if (a < b) {
-            var temp = a;
+            var savedNumber = a;
             a = b;
-            b = temp;
+            b = savedNumber;
         }
 
-        System.out.printf(Locale.ROOT, "Setridena cisla jsou %s, %s%n", a, b);
+        System.out.printf(Locale.ROOT, "The sorted numbers are %s, %s%n", a, b);
     }
 }

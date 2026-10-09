@@ -78,7 +78,9 @@ import java.math.BigInteger;
 // Каждый файл Main.java компилируется отдельно в свой каталог.
 public class Main {
     private static final Scanner INPUT = new Scanner(System.in);
-    private static int read_int() { return Integer.parseInt(INPUT.nextLine().trim()); }
+    // Читаем одно целое число из строки ввода.
+    private static int readInt() { return Integer.parseInt(INPUT.nextLine().trim()); }
+    // Запускаем пример из упражнения и выводим результаты.
     public static void main(String[] args) {
         int count = 0;
         int sum = 0;
@@ -86,17 +88,17 @@ public class Main {
         // Начальные границы позволяют первому числу заменить максимум и минимум.
         // В этой задаче вводятся только положительные числа, поэтому границы не совпадут с вводом.
         int max = Integer.MIN_VALUE;
-        int sec_max = Integer.MIN_VALUE;
+        int secMax = Integer.MIN_VALUE;
 
         int min = Integer.MAX_VALUE;
-        int sec_min = Integer.MAX_VALUE;
+        int secMin = Integer.MAX_VALUE;
 
         while ((true)) {
-            System.out.printf(Locale.ROOT, "Zadejte cislo:%n");
+            System.out.printf(Locale.ROOT, "Enter a number:%n");
 
             // Читаем одно целое число на строке. trim убирает пробелы, parse разбирает число;
             // Предполагается корректный ввод.
-            int a = read_int();
+            int a = readInt();
 
             // Неположительное число завершает ввод и не входит ни в сумму, ни в количество.
             if (a <= 0) {
@@ -110,28 +112,28 @@ public class Main {
             // место. Иначе кандидат может улучшить только второй максимум. Порядок присваиваний важен.
             // Повторы учитываются: для 9, 9, 5 оба максимума равны 9.
             if (a > max) {
-                sec_max = max;
+                secMax = max;
                 max = a;
-            } else if (a > sec_max) {
-                sec_max = a;
+            } else if (a > secMax) {
+                secMax = a;
             }
 
             // С минимумами делаем то же самое, но сравнения направлены в другую сторону.
             if (a < min) {
-                sec_min = min;
+                secMin = min;
                 min = a;
-            } else if (a < sec_min) {
-                sec_min = a;
+            } else if (a < secMin) {
+                secMin = a;
             }
         }
 
-        System.out.printf(Locale.ROOT, "Delka posloupnosti je %s.%n", count);
+        System.out.printf(Locale.ROOT, "The sequence length is %s.%n", count);
 
         // При нуле или одном элементе по условию выводим только длину последовательности.
         if (count > 1) {
-            System.out.printf(Locale.ROOT, "Soucet prvku posloupnosti je %s.%n", sum);
-            System.out.printf(Locale.ROOT, "Nejmensi prvek posloupnosti je %s, druhy nejmensi je %s.%n", min, sec_min);
-            System.out.printf(Locale.ROOT, "Nejvetsi prvek posloupnosti je %s, druhy nejvetsi je %s.%n", max, sec_max);
+            System.out.printf(Locale.ROOT, "The sum of the sequence is %s.%n", sum);
+            System.out.printf(Locale.ROOT, "The smallest sequence element is %s, the second smallest is %s.%n", min, secMin);
+            System.out.printf(Locale.ROOT, "The largest sequence element is %s, the second largest is %s.%n", max, secMax);
         }
     }
 }

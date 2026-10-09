@@ -44,9 +44,10 @@ using System.Numerics;
 internal static class Program
 {
 
+    // Запускаем пример из упражнения и выводим результаты.
     public static void Main() {
         CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
-        Console.WriteLine("Vsechna dvojciferna cisla jsou:");
+        Console.WriteLine("All two-digit numbers:");
 
         // Начинаем с 10 — первого положительного двузначного числа.
         int number = 10;

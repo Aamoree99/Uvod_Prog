@@ -51,5 +51,5 @@ fn main() {
     // Сначала умножаем второе число на третье, затем вычитаем первое: b * c - a.
     let result = b * c - a;
 
-    println!("Výsledek výrazu {b}*{c}-{a} je {result}");
+    println!("The result of the expression {b}*{c}-{a} is {result}");
 }

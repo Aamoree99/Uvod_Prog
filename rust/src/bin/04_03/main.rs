@@ -42,15 +42,15 @@ i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden
 
 // Функция получает массив вещественных чисел
 // и возвращает новый массив целых чисел.
-fn zaokrouhli_pole(pole: [f64; 4]) -> [i32; 4] {
+fn round_array(array: [f64; 4]) -> [i32; 4] {
     // Создаём новый массив из четырёх нулей.
     // Сюда будем записывать округлённые значения.
-    let mut vysledek = [0; 4];
+    let mut result = [0; 4];
 
     let mut i = 0;
 
     // Проходим по всем элементам исходного массива.
-    while i < pole.len() {
+    while i < array.len() {
         // round() округляет число до ближайшего целого.
         //
         // Например:
@@ -60,25 +60,26 @@ fn zaokrouhli_pole(pole: [f64; 4]) -> [i32; 4] {
         //
         // После round() тип всё ещё f64,
         // поэтому через "as i32" превращаем его в целое число.
-        vysledek[i] = pole[i].round() as i32;
+        result[i] = array[i].round() as i32;
 
         i += 1;
     }
 
     // Возвращаем готовый массив.
-    vysledek
+    result
 }
 
+// Запускаем пример из упражнения и выводим результаты.
 fn main() {
     // Исходный массив вещественных чисел.
-    let pole: [f64; 4] = [5.12, -3.5996, 156.0, 7.9];
+    let array: [f64; 4] = [5.12, -3.5996, 156.0, 7.9];
 
     // Вызываем функцию и сохраняем новый массив.
-    let zaokrouhlene = zaokrouhli_pole(pole);
+    let rounded = round_array(array);
 
     // Показываем исходный массив.
-    println!("Puvodni:      {:?}", pole);
+    println!("Original:      {:?}", array);
 
     // Показываем округлённый массив.
-    println!("Zaokrouhlene: {:?}", zaokrouhlene);
+    println!("Rounded: {:?}", rounded);
 }

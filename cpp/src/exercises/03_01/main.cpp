@@ -46,24 +46,26 @@ i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden
 #include <iomanip>
 
 // Перечисление ограничивает выбор учебными ставками из условия.
-enum class Dph { Zakladni, PrvniSnizena, DruhaSnizena };
+enum class VatRate { Standard, FirstReduced, SecondReduced };
 // Прибавляем к цене налог, вычисленный как цена * процент / 100.
-static double dph1(double price, double dph) { return price + price * dph / 100.0; }
-static double dph2(double price, Dph dph) {
+static double price_with_vat(double price, double vat) { return price + price * vat / 100.0; }
+// Возвращаем цену с налогом по именованной ставке учебного задания.
+static double price_with_vat_rate(double price, VatRate vat) {
     double percent;
-    if (dph == Dph::Zakladni) percent = 21.0;
-    else if (dph == Dph::PrvniSnizena) percent = 15.0;
+    if (vat == VatRate::Standard) percent = 21.0;
+    else if (vat == VatRate::FirstReduced) percent = 15.0;
     else percent = 10.0;
     return price + price * percent / 100.0;
 }
+// Запускаем пример из упражнения и выводим результаты.
 int main() {
     std::cout << std::boolalpha;
-    double x = dph1(56.20, 21.0);
-    double y1 = dph2(115.0, Dph::Zakladni);
-    double y2 = dph2(115.0, Dph::PrvniSnizena);
-    double y3 = dph2(115.0, Dph::DruhaSnizena);
-    std::cout << "Cena 56.20 Kč se sazbou DPH 21 % je " << std::fixed << std::setprecision(2) << x << std::defaultfloat << " Kč." << '\n';
-    std::cout << "Cena 115.00 Kč se základní sazbou DPH 21 % je " << std::fixed << std::setprecision(2) << y1 << std::defaultfloat << " Kč." << '\n';
-    std::cout << "Cena 115.00 Kč s první sníženou sazbou DPH 15 % je " << std::fixed << std::setprecision(2) << y2 << std::defaultfloat << " Kč." << '\n';
-    std::cout << "Cena 115.00 Kč s druhou sníženou sazbou DPH 10 % je " << std::fixed << std::setprecision(2) << y3 << std::defaultfloat << " Kč." << '\n';
+    double x = price_with_vat(56.20, 21.0);
+    double y1 = price_with_vat_rate(115.0, VatRate::Standard);
+    double y2 = price_with_vat_rate(115.0, VatRate::FirstReduced);
+    double y3 = price_with_vat_rate(115.0, VatRate::SecondReduced);
+    std::cout << "The price 56.20 CZK with 21 % VAT is " << std::fixed << std::setprecision(2) << x << std::defaultfloat << " CZK." << '\n';
+    std::cout << "The price 115.00 CZK with the standard 21 % VAT rate is " << std::fixed << std::setprecision(2) << y1 << std::defaultfloat << " CZK." << '\n';
+    std::cout << "The price 115.00 CZK with the first reduced 15 % VAT rate is " << std::fixed << std::setprecision(2) << y2 << std::defaultfloat << " CZK." << '\n';
+    std::cout << "The price 115.00 CZK with the second reduced 10 % VAT rate is " << std::fixed << std::setprecision(2) << y3 << std::defaultfloat << " CZK." << '\n';
 }

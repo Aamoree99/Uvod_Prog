@@ -46,6 +46,7 @@ using System.Numerics;
 internal static class Program
 {
 
+    // Запускаем пример из упражнения и выводим результаты.
     public static void Main() {
         CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
         int limit = 100000;
@@ -54,23 +55,23 @@ internal static class Program
 
         while (number < limit) {
             // Работаем с копией, чтобы исходное number сохранилось для сравнения.
-            int temp = number;
+            int remainingDigits = number;
             int digits = 0;
 
             // Целочисленное деление на 10 удаляет последнюю цифру. Первый цикл считает цифры.
-            while (temp > 0) {
+            while (remainingDigits > 0) {
                 digits += 1;
-                temp /= 10;
+                remainingDigits /= 10;
             }
 
-            temp = number;
+            remainingDigits = number;
 
             int sum = 0;
 
-            while (temp > 0) {
+            while (remainingDigits > 0) {
                 // Остаток % 10 извлекает последнюю цифру. Во втором цикле возводим каждую цифру
                 // в степень digits повторным умножением и складываем результаты.
-                var digit = temp % 10;
+                var digit = remainingDigits % 10;
 
                 int power = 1;
                 int count = 0;
@@ -82,7 +83,7 @@ internal static class Program
 
                 sum += power;
 
-                temp /= 10;
+                remainingDigits /= 10;
             }
 
             // Если сумма степеней цифр совпала с исходным числом, оно является числом Армстронга.

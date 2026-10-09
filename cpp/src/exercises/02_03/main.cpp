@@ -38,9 +38,10 @@ i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden
 
 #include <iostream>
 
+// Запускаем пример из упражнения и выводим результаты.
 int main() {
     std::cout << std::boolalpha;
-    std::cout << "Vsechna dvojciferna cisla jsou:" << '\n';
+    std::cout << "All two-digit numbers:" << '\n';
 
     // Начинаем с 10 — первого положительного двузначного числа.
     int number = 10;

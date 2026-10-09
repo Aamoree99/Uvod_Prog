@@ -47,40 +47,41 @@ i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden
 #include <iomanip>
 
 // Дата хранит день, месяц и год.
-struct Datum { int den; int mesic; int rok; };
+struct Date { int day; int month; int year; };
 // Год високосный при делимости на 400 либо на 4, но не на 100.
-static bool je_prestupny_rok(int rok) {
-    if (rok % 400 == 0) return true;
-    if (rok % 100 == 0) return false;
-    if (rok % 4 == 0) return true;
+static bool is_leap_year(int year) {
+    if (year % 400 == 0) return true;
+    if (year % 100 == 0) return false;
+    if (year % 4 == 0) return true;
     return false;
 }
 // Февраль зависит от года; остальные месяцы имеют фиксированную длину.
-static int pocet_dnu_v_mesici(int mesic, int rok) {
-    if (mesic == 1 || mesic == 3 || mesic == 5 || mesic == 7 || mesic == 8 || mesic == 10 || mesic == 12) return 31;
-    if (mesic == 4 || mesic == 6 || mesic == 9 || mesic == 11) return 30;
-    return je_prestupny_rok(rok) ? 29 : 28;
+static int days_in_month(int month, int year) {
+    if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) return 31;
+    if (month == 4 || month == 6 || month == 9 || month == 11) return 30;
+    return is_leap_year(year) ? 29 : 28;
 }
 // Переносим дату по месяцам, а не перебираем каждый отдельный день.
-static Datum nasledne_datum(Datum datum, int pocet_dnu) {
+static Date date_after_days(Date date, int day_count) {
     // Структура передаётся по значению, поэтому изменяем только локальную копию.
-    while (pocet_dnu > 0) {
-        int zbyva = pocet_dnu_v_mesici(datum.mesic, datum.rok) - datum.den;
-        if (pocet_dnu <= zbyva) { datum.den += pocet_dnu; pocet_dnu = 0; }
+    while (day_count > 0) {
+        int remaining_days = days_in_month(date.month, date.year) - date.day;
+        if (day_count <= remaining_days) { date.day += day_count; day_count = 0; }
         else {
             // Переход на первое число следующего месяца тоже занимает один день.
-            pocet_dnu -= zbyva + 1; datum.den = 1; datum.mesic += 1;
-            if (datum.mesic > 12) { datum.mesic = 1; datum.rok += 1; }
+            day_count -= remaining_days + 1; date.day = 1; date.month += 1;
+            if (date.month > 12) { date.month = 1; date.year += 1; }
         }
     }
-    return datum;
+    return date;
 }
+// Запускаем пример из упражнения и выводим результаты.
 int main() {
     std::cout << std::boolalpha;
-    Datum d=Datum{16,7,2015};
-    int pocet_dnu=500;
-    Datum d1=nasledne_datum(d,pocet_dnu);
-    std::cout << "Puvodni datum:   " << std::setfill('0') << std::setw(2) << d.den << std::setfill(' ') << "." << std::setfill('0') << std::setw(2) << d.mesic << std::setfill(' ') << "." << d.rok << '\n';
-    std::cout << "Pocet dni:       " << pocet_dnu << '\n';
-    std::cout << "Nasledne datum:  " << std::setfill('0') << std::setw(2) << d1.den << std::setfill(' ') << "." << std::setfill('0') << std::setw(2) << d1.mesic << std::setfill(' ') << "." << d1.rok << '\n';
+    Date d=Date{16,7,2015};
+    int day_count=500;
+    Date d1=date_after_days(d,day_count);
+    std::cout << "Original date:   " << std::setfill('0') << std::setw(2) << d.day << std::setfill(' ') << "." << std::setfill('0') << std::setw(2) << d.month << std::setfill(' ') << "." << d.year << '\n';
+    std::cout << "Number of days:       " << day_count << '\n';
+    std::cout << "Date after days:  " << std::setfill('0') << std::setw(2) << d1.day << std::setfill(' ') << "." << std::setfill('0') << std::setw(2) << d1.month << std::setfill(' ') << "." << d1.year << '\n';
 }

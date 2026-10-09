@@ -52,26 +52,28 @@ import java.math.BigInteger;
 // Каждый файл Main.java компилируется отдельно в свой каталог.
 public class Main {
     private static final Scanner INPUT = new Scanner(System.in);
-    private static int read_int() { return Integer.parseInt(INPUT.nextLine().trim()); }
+    // Читаем одно целое число из строки ввода.
+    private static int readInt() { return Integer.parseInt(INPUT.nextLine().trim()); }
+    // Запускаем пример из упражнения и выводим результаты.
     public static void main(String[] args) {
-        System.out.printf(Locale.ROOT, "Zadej prvni cislo:%n");
+        System.out.printf(Locale.ROOT, "Enter the first number:%n");
 
-        int a = read_int();
+        int a = readInt();
 
-        System.out.printf(Locale.ROOT, "Zadej druhe cislo:%n");
+        System.out.printf(Locale.ROOT, "Enter the second number:%n");
 
-        int b = read_int();
+        int b = readInt();
 
         // Этот алгоритм рассчитан на положительные a и b. b = 0 вызывает ошибку деления,
         // a = 0 сразу даёт 0; отрицательные значения не подходят для этого способа поиска.
-        var nasobek = a;
+        var multiple = a;
 
         // Перебираем a, 2a, 3a, ... — они уже делятся на a. Первый такой кандидат,
         // который делится и на b без остатка, является наименьшим общим кратным.
-        while (nasobek % b != 0) {
-            nasobek += a;
+        while (multiple % b != 0) {
+            multiple += a;
         }
 
-        System.out.printf(Locale.ROOT, "Nejmensi spolecny nasobek je %s%n", nasobek);
+        System.out.printf(Locale.ROOT, "The least common multiple is %s%n", multiple);
     }
 }

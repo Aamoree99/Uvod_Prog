@@ -54,26 +54,27 @@ internal static class Program
     // Читаем одну строку, как в Rust-примере; ошибки ввода не скрываем.
     private static int ReadInt() => int.Parse(Console.ReadLine() ?? throw new InvalidOperationException("End of input"), CultureInfo.InvariantCulture);
 
+    // Запускаем пример из упражнения и выводим результаты.
     public static void Main() {
         CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
-        Console.WriteLine("Zadej prvni cislo:");
+        Console.WriteLine("Enter the first number:");
 
         int a = ReadInt();
 
-        Console.WriteLine("Zadej druhe cislo:");
+        Console.WriteLine("Enter the second number:");
 
         int b = ReadInt();
 
         // Этот алгоритм рассчитан на положительные a и b. b = 0 вызывает ошибку деления,
         // a = 0 сразу даёт 0; отрицательные значения не подходят для этого способа поиска.
-        var nasobek = a;
+        var multiple = a;
 
         // Перебираем a, 2a, 3a, ... — они уже делятся на a. Первый такой кандидат,
         // который делится и на b без остатка, является наименьшим общим кратным.
-        while (nasobek % b != 0) {
-            nasobek += a;
+        while (multiple % b != 0) {
+            multiple += a;
         }
 
-        Console.WriteLine("Nejmensi spolecny nasobek je {0}", nasobek);
+        Console.WriteLine("The least common multiple is {0}", multiple);
     }
 }

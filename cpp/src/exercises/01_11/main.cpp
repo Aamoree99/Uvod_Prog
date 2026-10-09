@@ -52,24 +52,25 @@ i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden
 
 #include <iostream>
 
+// Запускаем пример из упражнения и выводим результаты.
 int main() {
     std::cout << std::boolalpha;
     int speed = 146;
 
     // Границы диапазонов важны: 60 и 130 входят в диапазон без штрафа, 150 — в следующий.
     if (speed < 60) {
-        std::cout << "Rychlost " << speed << " km/h je pokutována částkou 1000 Kč." << '\n';
+        std::cout << "A speed of " << speed << " km/h incurs a fine of 1000 CZK." << '\n';
     } else if (speed <= 130) {
-        std::cout << "Rychlost " << speed << " km/h není pokutována." << '\n';
+        std::cout << "A speed of " << speed << " km/h incurs no fine." << '\n';
     } else if (speed <= 150) {
-        std::cout << "Rychlost " << speed << " km/h je pokutována částkou 2000 Kč." << '\n';
+        std::cout << "A speed of " << speed << " km/h incurs a fine of 2000 CZK." << '\n';
     } else {
         // Считаем количество начатых пятёрок сверх 150. Добавление 4 перед целочисленным
         // делением округляет вверх: превышение на 1–5 даёт одну пятёрку, на 6–10 — две.
         auto extra = (speed - 150 + 4) / 5;
         auto fine = 2000 + extra * 500;
 
-        std::cout << "Rychlost " << speed << " km/h je pokutována částkou " << fine << " Kč." << '\n';
+        std::cout << "A speed of " << speed << " km/h incurs a fine of " << fine << " CZK." << '\n';
     }
     return 0;
 }

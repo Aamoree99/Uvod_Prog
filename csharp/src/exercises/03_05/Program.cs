@@ -92,55 +92,59 @@ using System.Numerics;
 internal static class Program
 {
 
-    static string bool_text(bool value) { return value ? "true" : "false"; }
+    // Возвращаем английское представление логического результата.
+    static string BoolText(bool booleanResult) { return booleanResult ? "true" : "false"; }
     // Точка хранит две координаты; треугольник — три точки.
-    struct Bod {
+    struct Point {
         public double x; public double y;
-        public Bod(double x, double y) { this.x=x; this.y=y; }
+        public Point(double x, double y) { this.x=x; this.y=y; }
     }
-    struct Trojuhelnik {
-        public Bod a; public Bod b; public Bod c;
-        public Trojuhelnik(Bod a, Bod b, Bod c) { this.a=a; this.b=b; this.c=c; }
+    struct Triangle {
+        public Point a; public Point b; public Point c;
+        public Triangle(Point a, Point b, Point c) { this.a=a; this.b=b; this.c=c; }
     }
     // Абсолютная погрешность позволяет сравнивать результаты вычислений double.
-    static bool priblizna_rovnost(double a, double b) { return Math.Abs(a-b) <= 1e-13; }
+    static bool ApproximatelyEqual(double a, double b) { return Math.Abs(a-b) <= 1e-13; }
     // Расстояние между точками: квадратный корень из суммы квадратов разностей координат.
-    static double delka_usecky(Bod a, Bod b) {
-        double rozdil_x = b.x - a.x, rozdil_y = b.y - a.y;
-        return Math.Sqrt(rozdil_x*rozdil_x + rozdil_y*rozdil_y);
+    static double SegmentLength(Point a, Point b) {
+        double differenceX = b.x - a.x, differenceY = b.y - a.y;
+        return Math.Sqrt(differenceX*differenceX + differenceY*differenceY);
     }
-    static bool je_trojuhelnik(Bod a, Bod b, Bod c) {
-        double ab = delka_usecky(a,b), bc = delka_usecky(b,c), ca = delka_usecky(c,a);
-        double nejdelsi, kratka1, kratka2;
+    // Проверяем, образуют ли точки a, b и c невырожденный треугольник.
+    static bool IsTriangle(Point a, Point b, Point c) {
+        double ab = SegmentLength(a,b), bc = SegmentLength(b,c), ca = SegmentLength(c,a);
+        double longest, shortSide1, shortSide2;
         // Выбираем самую длинную сторону; остальные две должны в сумме быть больше неё.
-        if (ab >= bc && ab >= ca) { nejdelsi=ab; kratka1=bc; kratka2=ca; }
-        else if (bc >= ab && bc >= ca) { nejdelsi=bc; kratka1=ab; kratka2=ca; }
-        else { nejdelsi=ca; kratka1=ab; kratka2=bc; }
+        if (ab >= bc && ab >= ca) { longest=ab; shortSide1=bc; shortSide2=ca; }
+        else if (bc >= ab && bc >= ca) { longest=bc; shortSide1=ab; shortSide2=ca; }
+        else { longest=ca; shortSide1=ab; shortSide2=bc; }
         // Почти равная сумма означает три точки на одной прямой.
-        if (priblizna_rovnost(kratka1+kratka2, nejdelsi)) return false;
-        return kratka1+kratka2 > nejdelsi;
+        if (ApproximatelyEqual(shortSide1+shortSide2, longest)) return false;
+        return shortSide1+shortSide2 > longest;
     }
     // Периметр — сумма трёх сторон.
-    static double obvod_trojuhelniku(Trojuhelnik t) { return delka_usecky(t.a,t.b)+delka_usecky(t.b,t.c)+delka_usecky(t.c,t.a); }
-    static bool trojuhelnik_je_pravouhly(Trojuhelnik t) {
-        double ab=delka_usecky(t.a,t.b), bc=delka_usecky(t.b,t.c), ca=delka_usecky(t.c,t.a);
-        double nejdelsi, kratka1, kratka2;
-        if (ab >= bc && ab >= ca) { nejdelsi=ab; kratka1=bc; kratka2=ca; }
-        else if (bc >= ab && bc >= ca) { nejdelsi=bc; kratka1=ab; kratka2=ca; }
-        else { nejdelsi=ca; kratka1=ab; kratka2=bc; }
+    static double TrianglePerimeter(Triangle t) { return SegmentLength(t.a,t.b)+SegmentLength(t.b,t.c)+SegmentLength(t.c,t.a); }
+    // Проверяем равенство суммы квадратов коротких сторон квадрату длинной.
+    static bool IsRightTriangle(Triangle t) {
+        double ab=SegmentLength(t.a,t.b), bc=SegmentLength(t.b,t.c), ca=SegmentLength(t.c,t.a);
+        double longest, shortSide1, shortSide2;
+        if (ab >= bc && ab >= ca) { longest=ab; shortSide1=bc; shortSide2=ca; }
+        else if (bc >= ab && bc >= ca) { longest=bc; shortSide1=ab; shortSide2=ca; }
+        else { longest=ca; shortSide1=ab; shortSide2=bc; }
         // Проверяем теорему Пифагора с той же абсолютной погрешностью, что в Rust.
-        return priblizna_rovnost(kratka1*kratka1+kratka2*kratka2, nejdelsi*nejdelsi);
+        return ApproximatelyEqual(shortSide1*shortSide1+shortSide2*shortSide2, longest*longest);
     }
+    // Запускаем пример из упражнения и выводим результаты.
     public static void Main() {
         CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
-        Bod b1=new Bod(7.2,-2.0), b2=new Bod(-2.9,-6.23), b3=new Bod(2.0,5.0);
-        Bod b4=new Bod(-1.0,-2.5), b5=new Bod(3.0,7.5), b6=new Bod(3.0,-2.6), b7=new Bod(5.2,-2.6);
-        Trojuhelnik t1=new Trojuhelnik(b1,b2,b3), t2=new Trojuhelnik(b5,b6,b7);
-        Console.WriteLine("Priblizna rovnost: {0}", bool_text(priblizna_rovnost(5.0,4.99999999999992)));
-        Console.WriteLine("Delka b1-b2: {0:F3}", delka_usecky(b1,b2));
-        Console.WriteLine("b1, b2, b3 tvori trojuhelnik: {0}", bool_text(je_trojuhelnik(b1,b2,b3)));
-        Console.WriteLine("b4, b3, b5 tvori trojuhelnik: {0}", bool_text(je_trojuhelnik(b4,b3,b5)));
-        Console.WriteLine("Obvod t1: {0:F3}", obvod_trojuhelniku(t1)); Console.WriteLine("Obvod t2: {0:F3}", obvod_trojuhelniku(t2));
-        Console.WriteLine("t2 je pravouhly: {0}", bool_text(trojuhelnik_je_pravouhly(t2)));
+        Point b1=new Point(7.2,-2.0), b2=new Point(-2.9,-6.23), b3=new Point(2.0,5.0);
+        Point b4=new Point(-1.0,-2.5), b5=new Point(3.0,7.5), b6=new Point(3.0,-2.6), b7=new Point(5.2,-2.6);
+        Triangle t1=new Triangle(b1,b2,b3), t2=new Triangle(b5,b6,b7);
+        Console.WriteLine("Approximate equality: {0}", BoolText(ApproximatelyEqual(5.0,4.99999999999992)));
+        Console.WriteLine("Length b1-b2: {0:F3}", SegmentLength(b1,b2));
+        Console.WriteLine("b1, b2, b3 form a triangle: {0}", BoolText(IsTriangle(b1,b2,b3)));
+        Console.WriteLine("b4, b3, b5 form a triangle: {0}", BoolText(IsTriangle(b4,b3,b5)));
+        Console.WriteLine("Perimeter t1: {0:F3}", TrianglePerimeter(t1)); Console.WriteLine("Perimeter t2: {0:F3}", TrianglePerimeter(t2));
+        Console.WriteLine("t2 is right-angled: {0}", BoolText(IsRightTriangle(t2)));
     }
 }

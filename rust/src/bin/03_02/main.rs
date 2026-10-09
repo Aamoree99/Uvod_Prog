@@ -62,57 +62,59 @@ i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden
 
 // enum хранит категорию результата вместо произвольной строки.
 enum BmiType {
-    TezkaPodvyziva,
-    Podvaha,
-    OptimalniVaha,
-    Nadvaha,
-    ObezitaPrvnihoStupne,
-    ObezitaDruhehoStupne,
-    ObezitaTretihoStupne,
+    SevereUnderweight,
+    Underweight,
+    NormalWeight,
+    Overweight,
+    ObesityClassOne,
+    ObesityClassTwo,
+    ObesityClassThree,
 }
 
 // По учебной формуле делим вес в килограммах на квадрат роста в метрах.
 // Для этих функций предполагаются положительный рост и неотрицательный вес.
-fn bmi1(height: f64, weight: f64) -> f64 {
+fn calculate_bmi(height: f64, weight: f64) -> f64 {
     return weight / (height * height);
 }
 
-fn bmi2(height: f64, weight: f64) -> BmiType {
+// Возвращаем категорию индекса массы тела по границам из задания.
+fn classify_bmi(height: f64, weight: f64) -> BmiType {
     let bmi = weight / (height * height);
 
     // Проверяем верхние границы по возрастанию. Предыдущие ветки уже исключили меньшие
     // значения, поэтому нижнюю границу повторно проверять не нужно. 25 относится к следующей категории.
     if bmi < 16.5 {
-        return BmiType::TezkaPodvyziva;
+        return BmiType::SevereUnderweight;
     } else if bmi < 18.5 {
-        return BmiType::Podvaha;
+        return BmiType::Underweight;
     } else if bmi < 25.0 {
-        return BmiType::OptimalniVaha;
+        return BmiType::NormalWeight;
     } else if bmi < 30.0 {
-        return BmiType::Nadvaha;
+        return BmiType::Overweight;
     } else if bmi < 35.0 {
-        return BmiType::ObezitaPrvnihoStupne;
+        return BmiType::ObesityClassOne;
     } else if bmi < 40.0 {
-        return BmiType::ObezitaDruhehoStupne;
+        return BmiType::ObesityClassTwo;
     } else {
-        return BmiType::ObezitaTretihoStupne;
+        return BmiType::ObesityClassThree;
     }
 }
 
+// Запускаем пример из упражнения и выводим результаты.
 fn main() {
-    let x: f64 = bmi1(1.70, 61.5);
-    let y: BmiType = bmi2(1.67, 80.0);
+    let x: f64 = calculate_bmi(1.70, 61.5);
+    let y: BmiType = classify_bmi(1.67, 80.0);
 
-    println!("BMI je {x:.2}.");
+    println!("BMI is {x:.2}.");
 
     // match сопоставляет возвращённую категорию с текстом для вывода.
     match y {
-        BmiType::TezkaPodvyziva => println!("Kategorie BMI: tezka podvyziva."),
-        BmiType::Podvaha => println!("Kategorie BMI: podvaha."),
-        BmiType::OptimalniVaha => println!("Kategorie BMI: optimalni vaha."),
-        BmiType::Nadvaha => println!("Kategorie BMI: nadvaha."),
-        BmiType::ObezitaPrvnihoStupne => println!("Kategorie BMI: obezita prvniho stupne."),
-        BmiType::ObezitaDruhehoStupne => println!("Kategorie BMI: obezita druheho stupne."),
-        BmiType::ObezitaTretihoStupne => println!("Kategorie BMI: obezita tretiho stupne."),
+        BmiType::SevereUnderweight => println!("BMI category: severe underweight."),
+        BmiType::Underweight => println!("BMI category: underweight."),
+        BmiType::NormalWeight => println!("BMI category: normal weight."),
+        BmiType::Overweight => println!("BMI category: overweight."),
+        BmiType::ObesityClassOne => println!("BMI category: class I obesity."),
+        BmiType::ObesityClassTwo => println!("BMI category: class II obesity."),
+        BmiType::ObesityClassThree => println!("BMI category: class III obesity."),
     }
 }

@@ -43,6 +43,7 @@ i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden
 
 #include <iostream>
 
+// Запускаем пример из упражнения и выводим результаты.
 int main() {
     std::cout << std::boolalpha;
     int a = 11;
@@ -63,6 +64,6 @@ int main() {
         middle = c;
     }
 
-    std::cout << "Prostřední z hodnot " << a << ", " << b << " a " << c << " je " << middle << "." << '\n';
+    std::cout << "The middle of " << a << ", " << b << " and " << c << " is " << middle << "." << '\n';
     return 0;
 }

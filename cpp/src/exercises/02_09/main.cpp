@@ -87,6 +87,7 @@ int read_int() {
     return number;
 }
 
+// Запускаем пример из упражнения и выводим результаты.
 int main() {
     std::cout << std::boolalpha;
     int count = 0;
@@ -101,7 +102,7 @@ int main() {
     int sec_min = std::numeric_limits<int>::max();
 
     while ((true)) {
-        std::cout << "Zadejte cislo:" << '\n';
+        std::cout << "Enter a number:" << '\n';
 
         // Читаем одно целое число на строке. trim убирает пробелы, parse разбирает число;
         // Предполагается корректный ввод.
@@ -134,13 +135,13 @@ int main() {
         }
     }
 
-    std::cout << "Delka posloupnosti je " << count << "." << '\n';
+    std::cout << "The sequence length is " << count << "." << '\n';
 
     // При нуле или одном элементе по условию выводим только длину последовательности.
     if (count > 1) {
-        std::cout << "Soucet prvku posloupnosti je " << sum << "." << '\n';
-        std::cout << "Nejmensi prvek posloupnosti je " << min << ", druhy nejmensi je " << sec_min << "." << '\n';
-        std::cout << "Nejvetsi prvek posloupnosti je " << max << ", druhy nejvetsi je " << sec_max << "." << '\n';
+        std::cout << "The sum of the sequence is " << sum << "." << '\n';
+        std::cout << "The smallest sequence element is " << min << ", the second smallest is " << sec_min << "." << '\n';
+        std::cout << "The largest sequence element is " << max << ", the second largest is " << sec_max << "." << '\n';
     }
     return 0;
 }

@@ -49,6 +49,7 @@ using System.Numerics;
 internal static class Program
 {
 
+    // Запускаем пример из упражнения и выводим результаты.
     public static void Main() {
         CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
         int a = 4;
@@ -58,13 +59,13 @@ internal static class Program
         // Любое из трёх чисел может оказаться суммой двух других, поэтому проверяем три варианта.
         // Цепочка else if выводит только первое найденное совпадение.
         if (a + b == c) {
-            Console.WriteLine("Ze zadaných čísel {0}, {1} a {2} je číslo {3} součtem čísel {4} a {5}.", a, b, c, c, a, b);
+            Console.WriteLine("Among the numbers {0}, {1} and {2} the number {3} is the sum of {4} and {5}.", a, b, c, c, a, b);
         } else if (a + c == b) {
-            Console.WriteLine("Ze zadaných čísel {0}, {1} a {2} je číslo {3} součtem čísel {4} a {5}.", a, b, c, b, a, c);
+            Console.WriteLine("Among the numbers {0}, {1} and {2} the number {3} is the sum of {4} and {5}.", a, b, c, b, a, c);
         } else if (b + c == a) {
-            Console.WriteLine("Ze zadaných čísel {0}, {1} a {2} je číslo {3} součtem čísel {4} a {5}.", a, b, c, a, b, c);
+            Console.WriteLine("Among the numbers {0}, {1} and {2} the number {3} is the sum of {4} and {5}.", a, b, c, a, b, c);
         } else {
-            Console.WriteLine("Ze zadaných čísel {0}, {1} a {2} žádná dvě čísla netvoří součet třetího čísla.", a, b, c);
+            Console.WriteLine("Among the numbers {0}, {1} and {2} no two numbers sum to the third.", a, b, c);
         }
     }
 }

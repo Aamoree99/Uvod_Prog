@@ -46,6 +46,7 @@ i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden
 
 #include <iostream>
 
+// Запускаем пример из упражнения и выводим результаты.
 int main() {
     std::cout << std::boolalpha;
     int a = 25;
@@ -55,9 +56,9 @@ int main() {
     // Все три пары должны различаться одновременно. != означает «не равно».
     // Одной проверки a != b недостаточно: например, a и c могут совпадать.
     if (a != b && a != c && b != c) {
-        std::cout << "Hodnoty " << a << ", " << b << " a " << c << " jsou navzájem různé." << '\n';
+        std::cout << "The numbers " << a << ", " << b << " and " << c << " are pairwise distinct." << '\n';
     } else {
-        std::cout << "Hodnoty " << a << ", " << b << " a " << c << " nejsou navzájem různé." << '\n';
+        std::cout << "The numbers " << a << ", " << b << " and " << c << " are not pairwise distinct." << '\n';
     }
     return 0;
 }

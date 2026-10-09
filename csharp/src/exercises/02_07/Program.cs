@@ -45,9 +45,10 @@ using System.Numerics;
 internal static class Program
 {
 
+    // Запускаем пример из упражнения и выводим результаты.
     public static void Main() {
         CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
-        Console.WriteLine("Vsechna dokonala cisla mensi nez 10000:");
+        Console.WriteLine("All perfect numbers less than 10000:");
 
         // Совершенное число равно сумме своих положительных делителей, кроме самого себя.
         int number = 2;

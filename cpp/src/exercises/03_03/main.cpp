@@ -82,21 +82,23 @@ static double power(double number, int exponent) {
     return result;
 }
 // Складываем 101 член ряда, от k = 0 до k = 100 включительно: приближение e^n.
-static double expression(double n) {
+static double exponential_series(double n) {
     double sum = 0.0;
     int k = 0;
     while (k <= 100) { sum += power(n, k) / factorial(k); k += 1; }
     return sum;
 }
+// Возвращаем число сочетаний n по k через факториалы; требуется n >= k >= 0.
 static double combination(int n, int k) {
     // Комбинации допустимы только при n >= k >= 0.
     if (n < k || k < 0) return 0.0;
     return factorial(n) / (factorial(k) * factorial(n - k));
 }
+// Запускаем пример из упражнения и выводим результаты.
 int main() {
     std::cout << std::boolalpha;
     double x = factorial(11), y = power(5.0, 3), z = power(2.69, 7);
-    double a = expression(5.14), b = combination(49, 6);
+    double a = exponential_series(5.14), b = combination(49, 6);
     std::cout << "11! = " << std::fixed << std::setprecision(0) << x << std::defaultfloat << '\n'; std::cout << "5^3 = " << std::fixed << std::setprecision(1) << y << std::defaultfloat << '\n'; std::cout << "2.69^7 = " << std::fixed << std::setprecision(3) << z << std::defaultfloat << '\n';
     std::cout << "e^5.14 ≈ " << std::fixed << std::setprecision(3) << a << std::defaultfloat << '\n'; std::cout << "C(49, 6) = " << std::fixed << std::setprecision(1) << b << std::defaultfloat << '\n';
 }

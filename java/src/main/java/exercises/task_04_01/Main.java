@@ -46,13 +46,14 @@ import java.math.BigInteger;
 // Каждый файл Main.java компилируется отдельно в свой каталог.
 public class Main {
     // Java передаёт примитивы по значению: используем массив как изменяемую пару.
-    static void setrid_sestupne(int[] pair) {
-        if (pair[0] < pair[1]) { int pomocna=pair[0]; pair[0]=pair[1]; pair[1]=pomocna; }
+    static void sortDescending(int[] pair) {
+        if (pair[0] < pair[1]) { int savedNumber=pair[0]; pair[0]=pair[1]; pair[1]=savedNumber; }
     }
+    // Запускаем пример из упражнения и выводим результаты.
     public static void main(String[] args) {
         int a=5,b=7;
-        System.out.printf("Pred: a = %d, b = %d%n",a,b);
-        int[] pair={a,b}; setrid_sestupne(pair); a=pair[0]; b=pair[1];
-        System.out.printf("Po:   a = %d, b = %d%n",a,b);
+        System.out.printf("Before: a = %d, b = %d%n",a,b);
+        int[] pair={a,b}; sortDescending(pair); a=pair[0]; b=pair[1];
+        System.out.printf("After:   a = %d, b = %d%n",a,b);
     }
 }

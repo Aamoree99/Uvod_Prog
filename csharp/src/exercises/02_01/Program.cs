@@ -55,17 +55,18 @@ internal static class Program
 
     // Стандартный ввод нужен для чтения с клавиатуры. В этом примере вводим целые числа по одному на строке.
 
+    // Запускаем пример из упражнения и выводим результаты.
     public static void Main() {
         CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
-        Console.WriteLine("Setridime dve cisla sestupne");
+        Console.WriteLine("Sort two numbers in descending order");
 
-        Console.WriteLine("Zadejte prvni cislo:");
+        Console.WriteLine("Enter the first number:");
         // Читаем строку со стандартного ввода и убираем окружающие пробелы;
         // преобразуем её в целое число. Некорректный ввод вызывает ошибку.
 
         int a = ReadInt();
 
-        Console.WriteLine("Zadejte druhe cislo:");
+        Console.WriteLine("Enter the second number:");
         // Следующее число читается отдельно, без накопления предыдущего ввода.
 
         int b = ReadInt();
@@ -73,11 +74,11 @@ internal static class Program
         // Для убывающего порядка первое число должно быть не меньше второго.
         // Временная переменная сохраняет a, чтобы оно не потерялось при обмене.
         if (a < b) {
-            var temp = a;
+            var savedNumber = a;
             a = b;
-            b = temp;
+            b = savedNumber;
         }
 
-        Console.WriteLine("Setridena cisla jsou {0}, {1}", a, b);
+        Console.WriteLine("The sorted numbers are {0}, {1}", a, b);
     }
 }

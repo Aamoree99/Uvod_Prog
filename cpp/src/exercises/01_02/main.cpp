@@ -43,6 +43,7 @@ i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden
 
 #include <iostream>
 
+// Запускаем пример из упражнения и выводим результаты.
 int main() {
     std::cout << std::boolalpha;
     int a = 14;
@@ -51,6 +52,6 @@ int main() {
     // получаем делимую часть числа; остаток — разность с a. Делитель b не должен быть нулём.
     auto result = a - (a / b) * b;
 
-    std::cout << "Zbytek po celočíselném dělení čísla " << a << " číslem " << b << " je " << result << "." << '\n';
+    std::cout << "The remainder of dividing " << a << " by " << b << " is " << result << "." << '\n';
     return 0;
 }

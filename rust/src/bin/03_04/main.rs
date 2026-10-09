@@ -90,6 +90,7 @@ fn multiply(x: Complex, y: Complex) -> Complex {
     };
 }
 
+// Запускаем пример из упражнения и выводим результаты.
 fn main() {
     let x = Complex { re: 5.2, im: 3.25 };
     let y = Complex { re: 1.6, im: -4.0 };
@@ -110,7 +111,7 @@ fn main() {
 
     // {:+} всегда выводит знак числа:
     // положительное как +7.25, отрицательное как -0.75.
-    println!("Soucet: {:.4} {:+.4}i", a.re, a.im);
-    println!("Rozdil: {:.4} {:+.4}i", b.re, b.im);
-    println!("Soucin: {:.4} {:+.4}i", c.re, c.im);
+    println!("Sum: {:.4} {:+.4}i", a.re, a.im);
+    println!("Difference: {:.4} {:+.4}i", b.re, b.im);
+    println!("Product: {:.4} {:+.4}i", c.re, c.im);
 }

@@ -73,6 +73,7 @@ i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden
 
 use std::io;
 
+// Запускаем пример из упражнения и выводим результаты.
 fn main() {
     let mut count: i32 = 0;
     let mut sum: i32 = 0;
@@ -86,7 +87,7 @@ fn main() {
     let mut sec_min: i32 = i32::MAX;
 
     loop {
-        println!("Zadejte cislo:");
+        println!("Enter a number:");
 
         let mut input = String::new();
         io::stdin().read_line(&mut input).unwrap();
@@ -122,12 +123,12 @@ fn main() {
         }
     }
 
-    println!("Delka posloupnosti je {count}.");
+    println!("The sequence length is {count}.");
 
     // При нуле или одном элементе по условию выводим только длину последовательности.
     if count > 1 {
-        println!("Soucet prvku posloupnosti je {sum}.");
-        println!("Nejmensi prvek posloupnosti je {min}, druhy nejmensi je {sec_min}.");
-        println!("Nejvetsi prvek posloupnosti je {max}, druhy nejvetsi je {sec_max}.");
+        println!("The sum of the sequence is {sum}.");
+        println!("The smallest sequence element is {min}, the second smallest is {sec_min}.");
+        println!("The largest sequence element is {max}, the second largest is {sec_max}.");
     }
 }

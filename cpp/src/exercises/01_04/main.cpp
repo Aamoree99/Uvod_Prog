@@ -43,6 +43,7 @@ i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden
 
 #include <iostream>
 
+// Запускаем пример из упражнения и выводим результаты.
 int main() {
     std::cout << std::boolalpha;
     int a = 14;
@@ -63,6 +64,6 @@ int main() {
         max = c;
     }
 
-    std::cout << "Nejvyšší z hodnot " << a << ", " << b << " a " << c << " je " << max << "." << '\n';
+    std::cout << "The largest of " << a << ", " << b << " and " << c << " is " << max << "." << '\n';
     return 0;
 }

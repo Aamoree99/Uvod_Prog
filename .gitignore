@@ -52,19 +52,48 @@ compile_commands.json
 *.ear
 # JAR не исключаем глобально: Gradle wrapper может храниться в Git.
 
-# Дополнительные языки: типичные кеши Python и JavaScript / TypeScript.
+# Python: виртуальные окружения, кеши, отчёты тестов и пакеты.
 __pycache__/
 *.py[cod]
 .venv/
+.venv-*/
 venv/
+venv-*/
+env/
+ENV/
+.virtualenv/
+.tox/
+.nox/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
+.pyre/
+.pytype/
+.hypothesis/
+.ipynb_checkpoints/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+junit.xml
+*.egg-info/
+*.egg
+.eggs/
+/python/**/build/
+/python/**/dist/
+/python/**/wheels/
+pip-wheel-metadata/
+
+# JavaScript / TypeScript: зависимости и кеши инструментов.
 node_modules/
 .npm/
 .next/
 .nuxt/
 *.tsbuildinfo
+.yarn/cache/
+.pnpm-store/
+.parcel-cache/
+.turbo/
 
 # Локальные настройки IDE. Общие настройки VS Code сохраняем для группы.
 .idea/
@@ -82,3 +111,21 @@ node_modules/
 ._*
 Thumbs.db
 Desktop.ini
+
+# Локальные переменные окружения и журналы.
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+*.log
+
+# Временные файлы и резервные копии редакторов.
+*.tmp
+*.temp
+*.bak
+*.orig
+*.rej
+.cache/
+.Trashes/
+.Spotlight-V100/

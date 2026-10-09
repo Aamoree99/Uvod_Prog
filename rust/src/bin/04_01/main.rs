@@ -43,32 +43,33 @@ i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden
 //
 // После выполнения:
 // a >= b
-fn setrid_sestupne(a: &mut i32, b: &mut i32) {
+fn sort_descending(a: &mut i32, b: &mut i32) {
     // Если первое число меньше второго,
     // значит они стоят в неправильном порядке.
     if *a < *b {
         // Сохраняем первое значение,
         // чтобы не потерять его.
-        let pomocna = *a;
+        let saved_number = *a;
 
         // Во первое записываем второе.
         *a = *b;
 
         // Во второе записываем старое первое.
-        *b = pomocna;
+        *b = saved_number;
     }
 }
 
+// Запускаем пример из упражнения и выводим результаты.
 fn main() {
     // mut нужен, потому что функция будет менять эти переменные.
     let mut a = 5;
     let mut b = 7;
 
-    println!("Pred: a = {}, b = {}", a, b);
+    println!("Before: a = {}, b = {}", a, b);
 
     // &mut означает:
     // передаём функции возможность изменить a и b.
-    setrid_sestupne(&mut a, &mut b);
+    sort_descending(&mut a, &mut b);
 
-    println!("Po:   a = {}, b = {}", a, b);
+    println!("After:   a = {}, b = {}", a, b);
 }

@@ -62,15 +62,17 @@ public class Main {
     static record Complex(double re, double im) {}
     // Складываем и вычитаем действительные и мнимые части отдельно.
     static Complex add(Complex x, Complex y) { return new Complex(x.re + y.re, x.im + y.im); }
+    // Возвращаем разность комплексных чисел x и y.
     static Complex subtract(Complex x, Complex y) { return new Complex(x.re - y.re, x.im - y.im); }
     // Раскрываем скобки; i² = -1, поэтому действительная часть равна ac - bd.
     static Complex multiply(Complex x, Complex y) { return new Complex(x.re*y.re - x.im*y.im, x.re*y.im + x.im*y.re); }
+    // Запускаем пример из упражнения и выводим результаты.
     public static void main(String[] args) {
         Complex x = new Complex(5.2, 3.25), y = new Complex(1.6, -4.0);
         Complex a = add(x,y), b = subtract(x,y), c = multiply(x,y);
         // Четыре знака после запятой; для мнимой части явно показываем знак.
-        System.out.printf(Locale.ROOT, "Soucet: %.4f %+.4fi%n", a.re, a.im);
-        System.out.printf(Locale.ROOT, "Rozdil: %.4f %+.4fi%n", b.re, b.im);
-        System.out.printf(Locale.ROOT, "Soucin: %.4f %+.4fi%n", c.re, c.im);
+        System.out.printf(Locale.ROOT, "Sum: %.4f %+.4fi%n", a.re, a.im);
+        System.out.printf(Locale.ROOT, "Difference: %.4f %+.4fi%n", b.re, b.im);
+        System.out.printf(Locale.ROOT, "Product: %.4f %+.4fi%n", c.re, c.im);
     }
 }

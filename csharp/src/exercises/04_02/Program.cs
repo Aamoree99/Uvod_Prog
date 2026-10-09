@@ -48,16 +48,17 @@ internal static class Program
 {
 
     // Массив передаётся без копирования; изменяем каждый отрицательный элемент на месте.
-    static void absolutni_hodnota_pole(int[] pole) {
+    static void AbsoluteArray(int[] array) {
         int i=0;
-        while (i < pole.Length) {
-            if (pole[i] < 0) pole[i] = -pole[i];
+        while (i < array.Length) {
+            if (array[i] < 0) array[i] = -array[i];
             i += 1;
         }
     }
+    // Запускаем пример из упражнения и выводим результаты.
     public static void Main() {
         CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
-        int[] pole = new int[] {5,-2,0,-1,7,-12,2,4};
-        Console.WriteLine("Pred: {0}", "[" + string.Join(", ", pole) + "]"); absolutni_hodnota_pole(pole); Console.WriteLine("Po:   {0}", "[" + string.Join(", ", pole) + "]");
+        int[] array = new int[] {5,-2,0,-1,7,-12,2,4};
+        Console.WriteLine("Before: {0}", "[" + string.Join(", ", array) + "]"); AbsoluteArray(array); Console.WriteLine("After:   {0}", "[" + string.Join(", ", array) + "]");
     }
 }

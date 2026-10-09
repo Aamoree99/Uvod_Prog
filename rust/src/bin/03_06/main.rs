@@ -88,24 +88,24 @@ use std::time::Duration;
 
 // Возможные ходы.
 #[derive(Clone, Copy, PartialEq)]
-enum Tah {
-    Kamen,
-    Nuzky,
-    Papir,
+enum Move {
+    Rock,
+    Scissors,
+    Paper,
 }
 
 // Возможные результаты раунда.
-enum Vysledek {
-    Nerozhodne,
-    Hrac,
-    Pocitac,
+enum RoundResult {
+    Draw,
+    Player,
+    Computer,
 }
 
 // Очищаем терминал.
 //
 // \x1B[2J     -> очистить экран
 // \x1B[1;1H   -> переместить курсор в левый верхний угол
-fn vycisti_obrazovku() {
+fn clear_screen() {
     print!("\x1B[2J\x1B[1;1H");
 
     // print! сам по себе может не вывести текст сразу,
@@ -114,20 +114,20 @@ fn vycisti_obrazovku() {
 }
 
 // Возвращаем текстовое название хода.
-fn tah_na_text(tah: Tah) -> &'static str {
-    match tah {
-        Tah::Kamen => "Kamen",
-        Tah::Nuzky => "Nuzky",
-        Tah::Papir => "Papir",
+fn move_text(selected_move: Move) -> &'static str {
+    match selected_move {
+        Move::Rock => "Rock",
+        Move::Scissors => "Scissors",
+        Move::Paper => "Paper",
     }
 }
 
 // Возвращаем emoji для хода.
-fn tah_emoji(tah: Tah) -> &'static str {
-    match tah {
-        Tah::Kamen => "🪨",
-        Tah::Nuzky => "✂️",
-        Tah::Papir => "📄",
+fn move_emoji(selected_move: Move) -> &'static str {
+    match selected_move {
+        Move::Rock => "🪨",
+        Move::Scissors => "✂️",
+        Move::Paper => "📄",
     }
 }
 
@@ -135,9 +135,9 @@ fn tah_emoji(tah: Tah) -> &'static str {
 //
 // Функция возвращает строку &'static str,
 // потому что все картинки заранее записаны прямо в программе.
-fn tah_ascii(tah: Tah) -> &'static str {
-    match tah {
-        Tah::Kamen => {
+fn move_ascii(selected_move: Move) -> &'static str {
+    match selected_move {
+        Move::Rock => {
             r#"
     _______
 ---'   ____)
@@ -148,7 +148,7 @@ fn tah_ascii(tah: Tah) -> &'static str {
 "#
         }
 
-        Tah::Nuzky => {
+        Move::Scissors => {
             r#"
     _______
 ---'   ____)____
@@ -159,7 +159,7 @@ fn tah_ascii(tah: Tah) -> &'static str {
 "#
         }
 
-        Tah::Papir => {
+        Move::Paper => {
             r#"
     _______
 ---'   ____)____
@@ -175,16 +175,16 @@ fn tah_ascii(tah: Tah) -> &'static str {
 // Анимация перед показом результатов.
 //
 // Показываем:
-// KAMEN
-// NUZKY
-// PAPIR
+// Камень
+// Ножницы
+// Бумага
 //
 // С паузой между кадрами.
-fn animace() {
-    vycisti_obrazovku();
+fn animate_moves() {
+    clear_screen();
 
     println!();
-    println!("             KAMEN!");
+    println!("             ROCK!");
     println!();
 
     println!(
@@ -200,10 +200,10 @@ fn animace() {
 
     thread::sleep(Duration::from_millis(600));
 
-    vycisti_obrazovku();
+    clear_screen();
 
     println!();
-    println!("             NUZKY!");
+    println!("             SCISSORS!");
     println!();
 
     println!(
@@ -219,10 +219,10 @@ fn animace() {
 
     thread::sleep(Duration::from_millis(600));
 
-    vycisti_obrazovku();
+    clear_screen();
 
     println!();
-    println!("             PAPIR!");
+    println!("             PAPER!");
     println!();
 
     println!(
@@ -242,32 +242,32 @@ fn animace() {
 // Читаем ход пользователя.
 //
 // Возвращаем:
-// Some(Tah) -> если ввод правильный
+// Some(Move) -> если ввод правильный
 // None      -> если неправильный
-fn nacti_tah_hrace() -> Option<Tah> {
-    let mut vstup = String::new();
+fn read_player_move() -> Option<Move> {
+    let mut input = String::new();
 
-    print!("Zadejte svuj tah [kamen / nuzky / papir]: ");
+    print!("Enter your move [rock / scissors / paper]: ");
 
     // Чтобы prompt появился до ожидания ввода.
     io::stdout().flush().unwrap();
 
     io::stdin()
-        .read_line(&mut vstup)
-        .expect("Chyba pri cteni vstupu");
+        .read_line(&mut input)
+        .expect("Failed to read input");
 
-    let vstup = vstup.trim().to_lowercase();
+    let input = input.trim().to_lowercase();
 
-    match vstup.as_str() {
+    match input.as_str() {
         // Можно писать полное слово.
-        "kamen" => Some(Tah::Kamen),
-        "nuzky" => Some(Tah::Nuzky),
-        "papir" => Some(Tah::Papir),
+        "rock" => Some(Move::Rock),
+        "scissors" => Some(Move::Scissors),
+        "paper" => Some(Move::Paper),
 
         // И короткий вариант.
-        "k" => Some(Tah::Kamen),
-        "n" => Some(Tah::Nuzky),
-        "p" => Some(Tah::Papir),
+        "r" => Some(Move::Rock),
+        "s" => Some(Move::Scissors),
+        "p" => Some(Move::Paper),
 
         // Всё остальное неверно.
         _ => None,
@@ -275,58 +275,61 @@ fn nacti_tah_hrace() -> Option<Tah> {
 }
 
 // Компьютер случайно выбирает ход.
-fn tah_pocitace() -> Tah {
+fn computer_move() -> Move {
     // Генерируем число:
     // 0
     // 1
     // 2
-    let cislo = rand::thread_rng().gen_range(0..3);
+    let number = rand::thread_rng().gen_range(0..3);
 
-    match cislo {
-        0 => Tah::Kamen,
-        1 => Tah::Nuzky,
-        _ => Tah::Papir,
+    match number {
+        0 => Move::Rock,
+        1 => Move::Scissors,
+        _ => Move::Paper,
     }
 }
 
 // Определяем результат раунда.
-fn vysledek_kola(hrac: Tah, pocitac: Tah) -> Vysledek {
+fn round_result(player: Move, computer: Move) -> RoundResult {
     // match можно делать сразу по двум значениям.
-    match (hrac, pocitac) {
+    match (player, computer) {
         // Одинаковые ходы = ничья.
-        (Tah::Kamen, Tah::Kamen) => Vysledek::Nerozhodne,
-        (Tah::Nuzky, Tah::Nuzky) => Vysledek::Nerozhodne,
-        (Tah::Papir, Tah::Papir) => Vysledek::Nerozhodne,
+        (Move::Rock, Move::Rock) => RoundResult::Draw,
+        (Move::Scissors, Move::Scissors) => RoundResult::Draw,
+        (Move::Paper, Move::Paper) => RoundResult::Draw,
 
         // Победы игрока.
-        (Tah::Kamen, Tah::Nuzky) => Vysledek::Hrac,
-        (Tah::Nuzky, Tah::Papir) => Vysledek::Hrac,
-        (Tah::Papir, Tah::Kamen) => Vysledek::Hrac,
+        (Move::Rock, Move::Scissors) => RoundResult::Player,
+        (Move::Scissors, Move::Paper) => RoundResult::Player,
+        (Move::Paper, Move::Rock) => RoundResult::Player,
 
         // Все остальные варианты = победа компьютера.
-        _ => Vysledek::Pocitac,
+        _ => RoundResult::Computer,
     }
 }
 
 // Красиво показываем текущий счёт.
-fn zobraz_skore(skore_hrac: i32, skore_pocitac: i32) {
+fn show_score(player_score: i32, computer_score: i32) {
     println!();
     println!("========================================");
-    println!("        HRAC {} : {} POCITAC", skore_hrac, skore_pocitac);
+    println!(
+        "        PLAYER {} : {} COMPUTER",
+        player_score, computer_score
+    );
     println!("========================================");
     println!();
 }
 
 // Показываем выбор игрока и компьютера.
-fn zobraz_tahy(hrac: Tah, pocitac: Tah) {
+fn show_moves(player: Move, computer: Move) {
     println!();
-    println!("HRAC                         POCITAC");
+    println!("PLAYER                         COMPUTER");
     println!(
         "{} {}                     {} {}",
-        tah_emoji(hrac),
-        tah_na_text(hrac),
-        tah_na_text(pocitac),
-        tah_emoji(pocitac)
+        move_emoji(player),
+        move_text(player),
+        move_text(computer),
+        move_emoji(computer)
     );
 
     println!();
@@ -335,94 +338,94 @@ fn zobraz_tahy(hrac: Tah, pocitac: Tah) {
     //
     // Это проще и надёжнее, чем пытаться
     // склеивать многострочные строки по горизонтали.
-    println!("HRAC:");
-    println!("{}", tah_ascii(hrac));
+    println!("PLAYER:");
+    println!("{}", move_ascii(player));
 
-    println!("POCITAC:");
-    println!("{}", tah_ascii(pocitac));
+    println!("COMPUTER:");
+    println!("{}", move_ascii(computer));
 }
 
 // Главное меню перед игрой.
-fn zobraz_uvod() {
-    vycisti_obrazovku();
+fn show_intro() {
+    clear_screen();
 
     println!("========================================");
-    println!("         KAMEN - NUZKY - PAPIR");
+    println!("         ROCK - SCISSORS - PAPER");
     println!("========================================");
     println!();
-    println!("Hrajeme na dve vitezna kola.");
+    println!("The first to win two rounds wins the game.");
     println!();
-    println!("Muzete zadat:");
-    println!("  kamen / k");
-    println!("  nuzky / n");
-    println!("  papir / p");
+    println!("You can enter:");
+    println!("  rock / r");
+    println!("  scissors / s");
+    println!("  paper / p");
     println!();
 }
 
 // Одна целая игра до двух побед.
-fn hraj_hru() {
-    let mut skore_hrac = 0;
-    let mut skore_pocitac = 0;
+fn play_game() {
+    let mut player_score = 0;
+    let mut computer_score = 0;
 
-    zobraz_uvod();
+    show_intro();
 
     // Игра продолжается,
-    // пока кто-то не získá 2 победы.
-    while skore_hrac < 2 && skore_pocitac < 2 {
-        let hrac;
+    // пока кто-то не одержит 2 победы.
+    while player_score < 2 && computer_score < 2 {
+        let player;
 
         // Запрашиваем ввод,
         // пока пользователь не введёт допустимый ход.
         loop {
-            match nacti_tah_hrace() {
-                Some(tah) => {
-                    hrac = tah;
+            match read_player_move() {
+                Some(selected_move) => {
+                    player = selected_move;
                     break;
                 }
 
                 None => {
                     println!();
-                    println!("Tento tah je neplatny.");
+                    println!("Invalid move.");
                     println!();
                 }
             }
         }
 
         // Компьютер выбирает ход.
-        let pocitac = tah_pocitace();
+        let computer = computer_move();
 
         // Показываем небольшую анимацию.
-        animace();
+        animate_moves();
 
         // Очищаем экран после анимации
         // и показываем реальные ходы.
-        vycisti_obrazovku();
+        clear_screen();
 
-        zobraz_tahy(hrac, pocitac);
+        show_moves(player, computer);
 
         // Определяем победителя.
-        match vysledek_kola(hrac, pocitac) {
-            Vysledek::Nerozhodne => {
-                println!("Toto kolo je nerozhodne.");
+        match round_result(player, computer) {
+            RoundResult::Draw => {
+                println!("This round is a draw.");
             }
 
-            Vysledek::Hrac => {
-                println!("Toto kolo vyhral hrac.");
-                skore_hrac += 1;
+            RoundResult::Player => {
+                println!("The player won this round.");
+                player_score += 1;
             }
 
-            Vysledek::Pocitac => {
-                println!("Toto kolo vyhral pocitac.");
-                skore_pocitac += 1;
+            RoundResult::Computer => {
+                println!("The computer won this round.");
+                computer_score += 1;
             }
         }
 
         // Показываем счёт.
-        zobraz_skore(skore_hrac, skore_pocitac);
+        show_score(player_score, computer_score);
 
         // Если игра ещё не закончена,
         // небольшая пауза перед следующим раундом.
-        if skore_hrac < 2 && skore_pocitac < 2 {
+        if player_score < 2 && computer_score < 2 {
             thread::sleep(Duration::from_millis(1200));
         }
     }
@@ -430,44 +433,45 @@ fn hraj_hru() {
     // Финальный результат.
     println!();
 
-    if skore_hrac == 2 {
-        println!("CELKOVYM VITEZEM JE HRAC!");
+    if player_score == 2 {
+        println!("THE PLAYER WINS THE GAME!");
     } else {
-        println!("CELKOVYM VITEZEM JE POCITAC!");
+        println!("THE COMPUTER WINS THE GAME!");
     }
 
     println!();
 }
 
 // Спрашиваем, хочет ли пользователь сыграть ещё раз.
-fn chce_hrat_znovu() -> bool {
-    let mut vstup = String::new();
+fn wants_to_play_again() -> bool {
+    let mut input = String::new();
 
-    print!("Hrat znovu? [a/n]: ");
+    print!("Play again? [y/n]: ");
     io::stdout().flush().unwrap();
 
     io::stdin()
-        .read_line(&mut vstup)
-        .expect("Chyba pri cteni vstupu");
+        .read_line(&mut input)
+        .expect("Failed to read input");
 
-    let vstup = vstup.trim().to_lowercase();
+    let input = input.trim().to_lowercase();
 
-    if vstup == "a" || vstup == "ano" {
+    if input == "y" || input == "yes" {
         return true;
     }
 
     false
 }
 
+// Запускаем пример из упражнения и выводим результаты.
 fn main() {
     loop {
-        hraj_hru();
+        play_game();
 
-        if chce_hrat_znovu() == false {
+        if wants_to_play_again() == false {
             break;
         }
     }
 
     println!();
-    println!("Diky za hru.");
+    println!("Thanks for playing.");
 }

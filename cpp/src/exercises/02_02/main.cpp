@@ -63,44 +63,45 @@ int read_int() {
 
 // Вводим три целых числа, каждое на своей строке; Предполагается корректный ввод.
 
+// Запускаем пример из упражнения и выводим результаты.
 int main() {
     std::cout << std::boolalpha;
-    std::cout << "Setridime tri cisla vzestupne" << '\n';
+    std::cout << "Sort three numbers in ascending order" << '\n';
 
-    std::cout << "Zadejte prvni cislo:" << '\n';
+    std::cout << "Enter the first number:" << '\n';
 
     int a = read_int();
 
-    std::cout << "Zadejte druhe cislo:" << '\n';
+    std::cout << "Enter the second number:" << '\n';
     // Каждое число читается отдельно.
 
     int b = read_int();
 
-    std::cout << "Zadejte treti cislo:" << '\n';
+    std::cout << "Enter the third number:" << '\n';
 
     int c = read_int();
 
     // Три сравнения с обменом упорядочивают числа: сначала a и b, затем b и c,
     // потом снова a и b, потому что второй обмен мог нарушить их порядок.
-    // В temp сохраняем заменяемое значение, чтобы не потерять его.
+    // В saved_number сохраняем заменяемое значение, чтобы не потерять его.
     if (a > b) {
-        auto temp = a;
+        auto saved_number = a;
         a = b;
-        b = temp;
+        b = saved_number;
     }
 
     if (b > c) {
-        auto temp = b;
+        auto saved_number = b;
         b = c;
-        c = temp;
+        c = saved_number;
     }
 
     if (a > b) {
-        auto temp = a;
+        auto saved_number = a;
         a = b;
-        b = temp;
+        b = saved_number;
     }
 
-    std::cout << "Setridena cisla jsou " << a << ", " << b << ", " << c << '\n';
+    std::cout << "The sorted numbers are " << a << ", " << b << ", " << c << '\n';
     return 0;
 }

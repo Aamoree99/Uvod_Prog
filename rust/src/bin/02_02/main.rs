@@ -48,45 +48,46 @@ i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden
 // Вводим три целых числа, каждое на своей строке; unwrap предполагает корректный ввод.
 use std::io;
 
+// Запускаем пример из упражнения и выводим результаты.
 fn main() {
-    println!("Setridime tri cisla vzestupne");
+    println!("Sort three numbers in ascending order");
 
-    println!("Zadejte prvni cislo:");
+    println!("Enter the first number:");
     let mut input = String::new();
     io::stdin().read_line(&mut input).unwrap();
     let mut a: i32 = input.trim().parse().unwrap();
 
-    println!("Zadejte druhe cislo:");
+    println!("Enter the second number:");
     // read_line дописывает текст, поэтому перед следующим числом очищаем input.
     input.clear();
     io::stdin().read_line(&mut input).unwrap();
     let mut b: i32 = input.trim().parse().unwrap();
 
-    println!("Zadejte treti cislo:");
+    println!("Enter the third number:");
     input.clear();
     io::stdin().read_line(&mut input).unwrap();
     let mut c: i32 = input.trim().parse().unwrap();
 
     // Три сравнения с обменом упорядочивают числа: сначала a и b, затем b и c,
     // потом снова a и b, потому что второй обмен мог нарушить их порядок.
-    // В temp сохраняем заменяемое значение, чтобы не потерять его.
+    // В saved_number сохраняем заменяемое значение, чтобы не потерять его.
     if a > b {
-        let temp = a;
+        let saved_number = a;
         a = b;
-        b = temp;
+        b = saved_number;
     }
 
     if b > c {
-        let temp = b;
+        let saved_number = b;
         b = c;
-        c = temp;
+        c = saved_number;
     }
 
     if a > b {
-        let temp = a;
+        let saved_number = a;
         a = b;
-        b = temp;
+        b = saved_number;
     }
 
-    println!("Setridena cisla jsou {a}, {b}, {c}");
+    println!("The sorted numbers are {a}, {b}, {c}");
 }

@@ -57,6 +57,6 @@ public class Main {
         // Сначала умножаем второе число на третье, затем вычитаем первое: b * c - a.
         var result = b * c - a;
 
-        System.out.printf(Locale.ROOT, "Výsledek výrazu %s*%s-%s je %s%n", b, c, a, result);
+        System.out.printf(Locale.ROOT, "The result of the expression %s*%s-%s is %s%n", b, c, a, result);
     }
 }

@@ -48,35 +48,35 @@ public class Main {
     // и увеличил предел до 100000. Это расширенный вариант для изучения.
     // Он использует массив и отличается от ограничений исходного задания.
     public static void main(String[] args) {
-        System.out.printf(Locale.ROOT, "Poznamka:%n");
-        System.out.printf(Locale.ROOT, "Ulohu by bylo mozne vyresit jednoduchym prochazenim cisel v cyklu%n");
-        System.out.printf(Locale.ROOT, "a u kazdeho cisla zkouset vsechny mozne delitele.%n");
-        System.out.printf(Locale.ROOT, "Takove reseni by ale nebylo moc zajimave, proto pouzijeme Eratosthenovo sito%n");
-        System.out.printf(Locale.ROOT, "a zvysime limit z 1000 na 100000.%n");
+        System.out.printf(Locale.ROOT, "Note:%n");
+        System.out.printf(Locale.ROOT, "This exercise can be solved by looping through the numbers%n");
+        System.out.printf(Locale.ROOT, "and testing all possible divisors for each number.%n");
+        System.out.printf(Locale.ROOT, "This implementation uses the sieve of Eratosthenes%n");
+        System.out.printf(Locale.ROOT, "and increases the limit from 1000 to 100000.%n");
         System.out.printf(Locale.ROOT, "%n");
 
         int limit = 100000;
 
         // Индекс — само число; true означает, что число пока считается простым.
         // 0 и 1 исключаем отдельно: они не являются простыми.
-        boolean[] is_prime = new boolean[limit];
-        Arrays.fill(is_prime, true);
+        boolean[] isPrime = new boolean[limit];
+        Arrays.fill(isPrime, true);
 
-        is_prime[0] = false;
-        is_prime[1] = false;
+        isPrime[0] = false;
+        isPrime[1] = false;
 
         var number = 2;
 
         // Достаточно обработать делители до квадратного корня из предела: у каждого
         // составного числа есть делитель не больше его корня.
         while (number * number < limit) {
-            if (is_prime[number]) {
+            if (isPrime[number]) {
                 // Начинаем вычёркивание с number²: меньшие кратные уже вычеркнули предыдущие простые.
                 // Шаг number перебирает все следующие кратные.
                 var multiple = number * number;
 
                 while (multiple < limit) {
-                    is_prime[multiple] = false;
+                    isPrime[multiple] = false;
                     multiple += number;
                 }
             }
@@ -84,7 +84,7 @@ public class Main {
             number += 1;
         }
 
-        System.out.printf(Locale.ROOT, "Prvocisla mensi nez %s:%n", limit);
+        System.out.printf(Locale.ROOT, "Prime numbers less than %s:%n", limit);
         System.out.printf(Locale.ROOT, "%n");
 
         number = 2;
@@ -92,7 +92,7 @@ public class Main {
         var count = 0;
 
         while (number < limit) {
-            if (is_prime[number]) {
+            if (isPrime[number]) {
                 System.out.printf(Locale.ROOT, "%6d", number);
                 count += 1;
 
@@ -109,6 +109,6 @@ public class Main {
         }
 
         System.out.printf(Locale.ROOT, "%n");
-        System.out.printf(Locale.ROOT, "Celkovy pocet prvocisel: %s%n", count);
+        System.out.printf(Locale.ROOT, "Total prime count: %s%n", count);
     }
 }

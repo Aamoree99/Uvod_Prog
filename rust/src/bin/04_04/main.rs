@@ -42,37 +42,38 @@ i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden
 
 // Функция получает изменяемый массив
 // и разворачивает его на месте.
-fn obrat_pole(pole: &mut [i32]) {
+fn reverse_array(array: &mut [i32]) {
     // Индекс слева.
-    let mut levy = 0;
+    let mut left = 0;
 
     // Индекс справа.
-    let mut pravy = pole.len() - 1;
+    let mut right = array.len() - 1;
 
     // Пока левый индекс меньше правого,
     // меняем элементы местами.
-    while levy < pravy {
+    while left < right {
         // Временно сохраняем левый элемент.
-        let pomocna = pole[levy];
+        let saved_number = array[left];
 
         // На место левого ставим правый.
-        pole[levy] = pole[pravy];
+        array[left] = array[right];
 
         // На место правого ставим старый левый.
-        pole[pravy] = pomocna;
+        array[right] = saved_number;
 
         // Сдвигаемся к центру.
-        levy += 1;
-        pravy -= 1;
+        left += 1;
+        right -= 1;
     }
 }
 
+// Запускаем пример из упражнения и выводим результаты.
 fn main() {
-    let mut pole = [5, 7, 2, 1, 0, 6];
+    let mut array = [5, 7, 2, 1, 0, 6];
 
-    println!("Pred: {:?}", pole);
+    println!("Before: {:?}", array);
 
-    obrat_pole(&mut pole);
+    reverse_array(&mut array);
 
-    println!("Po:   {:?}", pole);
+    println!("After:   {:?}", array);
 }

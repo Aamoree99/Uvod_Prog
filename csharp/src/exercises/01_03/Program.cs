@@ -48,6 +48,7 @@ using System.Numerics;
 internal static class Program
 {
 
+    // Запускаем пример из упражнения и выводим результаты.
     public static void Main() {
         CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
         int a = 8;
@@ -58,6 +59,6 @@ internal static class Program
         // Сумма этих единиц — количество подходящих чисел. Само число 10 не подходит.
         var count = (a < 10 ? 1 : 0) + (b < 10 ? 1 : 0) + (c < 10 ? 1 : 0);
 
-        Console.WriteLine("Byla zadána čísla {0}, {1} a {2}. Počet čísel s hodnotou menší než 10 je {3}.", a, b, c, count);
+        Console.WriteLine("The entered numbers are {0}, {1} and {2}. The count of numbers less than 10 is {3}.", a, b, c, count);
     }
 }

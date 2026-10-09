@@ -50,13 +50,14 @@ i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden
 #include <sstream>
 
 template<class T>
-std::string array_text(const T& values) {
+// Возвращаем текстовое представление массива с разделителями.
+std::string array_text(const T& elements) {
     std::ostringstream out;
     out << "[";
     std::size_t i = 0;
-    while (i < values.size()) {
+    while (i < elements.size()) {
         if (i) out << ", ";
-        out << values[i++];
+        out << elements[i++];
     }
     out << "]";
     return out.str();
@@ -64,24 +65,25 @@ std::string array_text(const T& values) {
 
 // По условию числа неотрицательные, поэтому начальные максимумы равны нулю.
 // Повторы учитываются; для короткого массива незаполненные места остаются нулевыми.
-static void max_pole(const std::vector<int>& pole, int& max, int& max2, int& max3) {
-    max=0; max2=0; max3=0;
+static void array_maxima(const std::vector<int>& array, int& largest, int& second_largest, int& third_largest) {
+    largest=0; second_largest=0; third_largest=0;
     int i=0;
-    while (i < static_cast<int>(pole.size())) {
-        int cislo=pole[i];
+    while (i < static_cast<int>(array.size())) {
+        int number=array[i];
         // Сдвигаем значения справа налево, чтобы не потерять прежние максимумы.
-        if (cislo > max) { max3=max2; max2=max; max=cislo; }
-        else if (cislo > max2) { max3=max2; max2=cislo; }
-        else if (cislo > max3) { max3=cislo; }
+        if (number > largest) { third_largest=second_largest; second_largest=largest; largest=number; }
+        else if (number > second_largest) { third_largest=second_largest; second_largest=number; }
+        else if (number > third_largest) { third_largest=number; }
         i += 1;
     }
 }
+// Запускаем пример из упражнения и выводим результаты.
 int main() {
-    std::vector<int> pole={2,5,7,1,4,6,9,8,2};
-    int max=0,max2=0,max3=0;
-    max_pole(pole,max,max2,max3);
-    std::cout << "Pole: " << array_text(pole) << '\n';
-    std::cout << "Nejvetsi:       " << max << '\n';
-    std::cout << "Druhe nejvetsi: " << max2 << '\n';
-    std::cout << "Treti nejvetsi: " << max3 << '\n';
+    std::vector<int> array={2,5,7,1,4,6,9,8,2};
+    int largest=0,second_largest=0,third_largest=0;
+    array_maxima(array,largest,second_largest,third_largest);
+    std::cout << "Array: " << array_text(array) << '\n';
+    std::cout << "Largest:       " << largest << '\n';
+    std::cout << "Second largest: " << second_largest << '\n';
+    std::cout << "Third largest: " << third_largest << '\n';
 }

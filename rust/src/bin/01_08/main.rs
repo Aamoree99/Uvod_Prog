@@ -47,6 +47,7 @@ Projekty.
 i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden příkaz.
 */
 
+// Запускаем пример из упражнения и выводим результаты.
 fn main() {
     let a: i32 = 2;
     let b: i32 = 6;
@@ -58,38 +59,38 @@ fn main() {
     // Проверяем все шесть направлений делимости между тремя числами.
     // Условие слева от && проверяется первым: при нулевом делителе остаток не вычисляется.
     if a != 0 && b % a == 0 {
-        println!("Číslo {a} je dělitelem čísla {b}.");
+        println!("The number {a} is a divisor of {b}.");
         found = true;
     }
 
     if b != 0 && a % b == 0 {
-        println!("Číslo {b} je dělitelem čísla {a}.");
+        println!("The number {b} is a divisor of {a}.");
         found = true;
     }
 
     if a != 0 && c % a == 0 {
-        println!("Číslo {a} je dělitelem čísla {c}.");
+        println!("The number {a} is a divisor of {c}.");
         found = true;
     }
 
     if c != 0 && a % c == 0 {
-        println!("Číslo {c} je dělitelem čísla {a}.");
+        println!("The number {c} is a divisor of {a}.");
         found = true;
     }
 
     if b != 0 && c % b == 0 {
-        println!("Číslo {b} je dělitelem čísla {c}.");
+        println!("The number {b} is a divisor of {c}.");
         found = true;
     }
 
     if c != 0 && b % c == 0 {
-        println!("Číslo {c} je dělitelem čísla {b}.");
+        println!("The number {c} is a divisor of {b}.");
         found = true;
     }
 
     // Сообщение об отсутствии делителей выводим только после проверки всех пар.
     // Этот вариант выводит все найденные пары, хотя по условию достаточно одной.
     if found == false {
-        println!("Ze zadaných čísel {a}, {b} a {c} není žádné číslo dělitelem jiného čísla.");
+        println!("Among the numbers {a}, {b} and {c} no number divides another.");
     }
 }

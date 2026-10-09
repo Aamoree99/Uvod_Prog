@@ -48,6 +48,7 @@ import java.math.BigInteger;
 
 // Каждый файл Main.java компилируется отдельно в свой каталог.
 public class Main {
+    // Запускаем пример из упражнения и выводим результаты.
     public static void main(String[] args) {
         int a = 14;
         int b = 6;
@@ -67,6 +68,6 @@ public class Main {
             max = c;
         }
 
-        System.out.printf(Locale.ROOT, "Nejvyšší z hodnot %s, %s a %s je %s.%n", a, b, c, max);
+        System.out.printf(Locale.ROOT, "The largest of %s, %s and %s is %s.%n", a, b, c, max);
     }
 }

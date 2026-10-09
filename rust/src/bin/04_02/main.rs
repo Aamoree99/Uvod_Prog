@@ -41,28 +41,29 @@ i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden
 */
 
 // Получаем изменяемый массив чисел.
-fn absolutni_hodnota_pole(pole: &mut [i32]) {
+fn absolute_array(array: &mut [i32]) {
     let mut i = 0;
 
     // Проходим по всем элементам массива.
-    while i < pole.len() {
+    while i < array.len() {
         // Если число отрицательное...
-        if pole[i] < 0 {
+        if array[i] < 0 {
             // ...меняем знак.
-            pole[i] = -pole[i];
+            array[i] = -array[i];
         }
 
         i += 1;
     }
 }
 
+// Запускаем пример из упражнения и выводим результаты.
 fn main() {
     // mut нужен, потому что функция изменит массив.
-    let mut pole = [5, -2, 0, -1, 7, -12, 2, 4];
+    let mut array = [5, -2, 0, -1, 7, -12, 2, 4];
 
-    println!("Pred: {:?}", pole);
+    println!("Before: {:?}", array);
 
-    absolutni_hodnota_pole(&mut pole);
+    absolute_array(&mut array);
 
-    println!("Po:   {:?}", pole);
+    println!("After:   {:?}", array);
 }

@@ -49,6 +49,7 @@ using System.Numerics;
 internal static class Program
 {
 
+    // Запускаем пример из упражнения и выводим результаты.
     public static void Main() {
         CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
         int a = 9;
@@ -81,11 +82,11 @@ internal static class Program
 
         // После распределения чисел сравниваем суммы; учитываем больше, меньше и равенство.
         if (odd > even) {
-            Console.WriteLine("Zadaná čísla {0}, {1} a {2} mají součet lichých hodnot {3} vyšší než součet sudých hodnot {4}.", a, b, c, odd, even);
+            Console.WriteLine("The numbers {0}, {1} and {2} have an odd-number sum of {3} greater than the even-number sum of {4}.", a, b, c, odd, even);
         } else if (odd < even) {
-            Console.WriteLine("Zadaná čísla {0}, {1} a {2} mají součet lichých hodnot {3} nižší než součet sudých hodnot {4}.", a, b, c, odd, even);
+            Console.WriteLine("The numbers {0}, {1} and {2} have an odd-number sum of {3} less than the even-number sum of {4}.", a, b, c, odd, even);
         } else {
-            Console.WriteLine("Zadaná čísla {0}, {1} a {2} mají součet lichých hodnot {3} stejný jako součet sudých hodnot {4}.", a, b, c, odd, even);
+            Console.WriteLine("The numbers {0}, {1} and {2} have an odd-number sum of {3} equal to the even-number sum of {4}.", a, b, c, odd, even);
         }
     }
 }

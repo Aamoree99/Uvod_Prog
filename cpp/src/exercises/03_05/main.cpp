@@ -89,48 +89,52 @@ i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden
 #include <string>
 #include <cmath>
 
-static std::string bool_text(bool value) { return value ? "true" : "false"; }
+// Возвращаем английское представление логического результата.
+static std::string bool_text(bool boolean_result) { return boolean_result ? "true" : "false"; }
 // Точка хранит две координаты; треугольник — три точки.
-struct Bod { double x; double y; };
-struct Trojuhelnik { Bod a; Bod b; Bod c; };
+struct Point { double x; double y; };
+struct Triangle { Point a; Point b; Point c; };
 // Абсолютная погрешность позволяет сравнивать результаты вычислений double.
-static bool priblizna_rovnost(double a, double b) { return std::abs(a-b) <= 1e-13; }
+static bool approximately_equal(double a, double b) { return std::abs(a-b) <= 1e-13; }
 // Расстояние между точками: квадратный корень из суммы квадратов разностей координат.
-static double delka_usecky(Bod a, Bod b) {
-    double rozdil_x = b.x - a.x, rozdil_y = b.y - a.y;
-    return std::sqrt(rozdil_x*rozdil_x + rozdil_y*rozdil_y);
+static double segment_length(Point a, Point b) {
+    double difference_x = b.x - a.x, difference_y = b.y - a.y;
+    return std::sqrt(difference_x*difference_x + difference_y*difference_y);
 }
-static bool je_trojuhelnik(Bod a, Bod b, Bod c) {
-    double ab = delka_usecky(a,b), bc = delka_usecky(b,c), ca = delka_usecky(c,a);
-    double nejdelsi, kratka1, kratka2;
+// Проверяем, образуют ли точки a, b и c невырожденный треугольник.
+static bool is_triangle(Point a, Point b, Point c) {
+    double ab = segment_length(a,b), bc = segment_length(b,c), ca = segment_length(c,a);
+    double longest, short_side1, short_side2;
     // Выбираем самую длинную сторону; остальные две должны в сумме быть больше неё.
-    if (ab >= bc && ab >= ca) { nejdelsi=ab; kratka1=bc; kratka2=ca; }
-    else if (bc >= ab && bc >= ca) { nejdelsi=bc; kratka1=ab; kratka2=ca; }
-    else { nejdelsi=ca; kratka1=ab; kratka2=bc; }
+    if (ab >= bc && ab >= ca) { longest=ab; short_side1=bc; short_side2=ca; }
+    else if (bc >= ab && bc >= ca) { longest=bc; short_side1=ab; short_side2=ca; }
+    else { longest=ca; short_side1=ab; short_side2=bc; }
     // Почти равная сумма означает три точки на одной прямой.
-    if (priblizna_rovnost(kratka1+kratka2, nejdelsi)) return false;
-    return kratka1+kratka2 > nejdelsi;
+    if (approximately_equal(short_side1+short_side2, longest)) return false;
+    return short_side1+short_side2 > longest;
 }
 // Периметр — сумма трёх сторон.
-static double obvod_trojuhelniku(Trojuhelnik t) { return delka_usecky(t.a,t.b)+delka_usecky(t.b,t.c)+delka_usecky(t.c,t.a); }
-static bool trojuhelnik_je_pravouhly(Trojuhelnik t) {
-    double ab=delka_usecky(t.a,t.b), bc=delka_usecky(t.b,t.c), ca=delka_usecky(t.c,t.a);
-    double nejdelsi, kratka1, kratka2;
-    if (ab >= bc && ab >= ca) { nejdelsi=ab; kratka1=bc; kratka2=ca; }
-    else if (bc >= ab && bc >= ca) { nejdelsi=bc; kratka1=ab; kratka2=ca; }
-    else { nejdelsi=ca; kratka1=ab; kratka2=bc; }
+static double triangle_perimeter(Triangle t) { return segment_length(t.a,t.b)+segment_length(t.b,t.c)+segment_length(t.c,t.a); }
+// Проверяем равенство суммы квадратов коротких сторон квадрату длинной.
+static bool is_right_triangle(Triangle t) {
+    double ab=segment_length(t.a,t.b), bc=segment_length(t.b,t.c), ca=segment_length(t.c,t.a);
+    double longest, short_side1, short_side2;
+    if (ab >= bc && ab >= ca) { longest=ab; short_side1=bc; short_side2=ca; }
+    else if (bc >= ab && bc >= ca) { longest=bc; short_side1=ab; short_side2=ca; }
+    else { longest=ca; short_side1=ab; short_side2=bc; }
     // Проверяем теорему Пифагора с той же абсолютной погрешностью, что в Rust.
-    return priblizna_rovnost(kratka1*kratka1+kratka2*kratka2, nejdelsi*nejdelsi);
+    return approximately_equal(short_side1*short_side1+short_side2*short_side2, longest*longest);
 }
+// Запускаем пример из упражнения и выводим результаты.
 int main() {
     std::cout << std::boolalpha;
-    Bod b1=Bod{7.2,-2.0}, b2=Bod{-2.9,-6.23}, b3=Bod{2.0,5.0};
-    Bod b4=Bod{-1.0,-2.5}, b5=Bod{3.0,7.5}, b6=Bod{3.0,-2.6}, b7=Bod{5.2,-2.6};
-    Trojuhelnik t1=Trojuhelnik{b1,b2,b3}, t2=Trojuhelnik{b5,b6,b7};
-    std::cout << "Priblizna rovnost: " << bool_text(priblizna_rovnost(5.0,4.99999999999992)) << '\n';
-    std::cout << "Delka b1-b2: " << std::fixed << std::setprecision(3) << delka_usecky(b1,b2) << std::defaultfloat << '\n';
-    std::cout << "b1, b2, b3 tvori trojuhelnik: " << bool_text(je_trojuhelnik(b1,b2,b3)) << '\n';
-    std::cout << "b4, b3, b5 tvori trojuhelnik: " << bool_text(je_trojuhelnik(b4,b3,b5)) << '\n';
-    std::cout << "Obvod t1: " << std::fixed << std::setprecision(3) << obvod_trojuhelniku(t1) << std::defaultfloat << '\n'; std::cout << "Obvod t2: " << std::fixed << std::setprecision(3) << obvod_trojuhelniku(t2) << std::defaultfloat << '\n';
-    std::cout << "t2 je pravouhly: " << bool_text(trojuhelnik_je_pravouhly(t2)) << '\n';
+    Point b1=Point{7.2,-2.0}, b2=Point{-2.9,-6.23}, b3=Point{2.0,5.0};
+    Point b4=Point{-1.0,-2.5}, b5=Point{3.0,7.5}, b6=Point{3.0,-2.6}, b7=Point{5.2,-2.6};
+    Triangle t1=Triangle{b1,b2,b3}, t2=Triangle{b5,b6,b7};
+    std::cout << "Approximate equality: " << bool_text(approximately_equal(5.0,4.99999999999992)) << '\n';
+    std::cout << "Length b1-b2: " << std::fixed << std::setprecision(3) << segment_length(b1,b2) << std::defaultfloat << '\n';
+    std::cout << "b1, b2, b3 form a triangle: " << bool_text(is_triangle(b1,b2,b3)) << '\n';
+    std::cout << "b4, b3, b5 form a triangle: " << bool_text(is_triangle(b4,b3,b5)) << '\n';
+    std::cout << "Perimeter t1: " << std::fixed << std::setprecision(3) << triangle_perimeter(t1) << std::defaultfloat << '\n'; std::cout << "Perimeter t2: " << std::fixed << std::setprecision(3) << triangle_perimeter(t2) << std::defaultfloat << '\n';
+    std::cout << "t2 is right-angled: " << bool_text(is_right_triangle(t2)) << '\n';
 }

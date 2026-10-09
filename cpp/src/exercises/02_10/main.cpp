@@ -95,9 +95,10 @@ int read_int() {
     return number;
 }
 
+// Запускаем пример из упражнения и выводим результаты.
 int main() {
     std::cout << std::boolalpha;
-    std::cout << "Zjistime druh posloupnosti." << '\n';
+    std::cout << "Determine the sequence type." << '\n';
 
     int count = 0;
     int previous = 0;
@@ -109,7 +110,7 @@ int main() {
     bool has_equal = false;
 
     while ((true)) {
-        std::cout << "Zadejte cislo:" << '\n';
+        std::cout << "Enter a number:" << '\n';
 
         int current = read_int();
 
@@ -138,19 +139,19 @@ int main() {
     // Классифицируем по сочетаниям флагов. Рост вместе со спадом означает немонотонность;
     // равенство без роста и спада — постоянную последовательность.
     if (count <= 1) {
-        std::cout << "Posloupnost je kratka." << '\n';
+        std::cout << "The sequence is too short." << '\n';
     } else if (has_equal == true && has_up == false && has_down == false) {
-        std::cout << "Posloupnost je konstantni." << '\n';
+        std::cout << "The sequence is constant." << '\n';
     } else if (has_up == true && has_down == false && has_equal == false) {
-        std::cout << "Posloupnost je rostouci." << '\n';
+        std::cout << "The sequence is strictly increasing." << '\n';
     } else if (has_down == true && has_up == false && has_equal == false) {
-        std::cout << "Posloupnost je klesajici." << '\n';
+        std::cout << "The sequence is strictly decreasing." << '\n';
     } else if (has_up == true && has_equal == true && has_down == false) {
-        std::cout << "Posloupnost je neklesajici." << '\n';
+        std::cout << "The sequence is nondecreasing." << '\n';
     } else if (has_down == true && has_equal == true && has_up == false) {
-        std::cout << "Posloupnost je nerostouci." << '\n';
+        std::cout << "The sequence is nonincreasing." << '\n';
     } else {
-        std::cout << "Posloupnost neni monotonni." << '\n';
+        std::cout << "The sequence is not monotonic." << '\n';
     }
     return 0;
 }

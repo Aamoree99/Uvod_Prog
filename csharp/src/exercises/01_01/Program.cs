@@ -59,6 +59,6 @@ internal static class Program
         // Сначала умножаем второе число на третье, затем вычитаем первое: b * c - a.
         var result = b * c - a;
 
-        Console.WriteLine("Výsledek výrazu {0}*{1}-{2} je {3}", b, c, a, result);
+        Console.WriteLine("The result of the expression {0}*{1}-{2} is {3}", b, c, a, result);
     }
 }

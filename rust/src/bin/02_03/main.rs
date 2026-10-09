@@ -37,8 +37,9 @@ Projekty.
 i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden příkaz.
 */
 
+// Запускаем пример из упражнения и выводим результаты.
 fn main() {
-    println!("Vsechna dvojciferna cisla jsou:");
+    println!("All two-digit numbers:");
 
     // Начинаем с 10 — первого положительного двузначного числа.
     let mut number: i32 = 10;

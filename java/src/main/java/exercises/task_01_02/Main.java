@@ -48,6 +48,7 @@ import java.math.BigInteger;
 
 // Каждый файл Main.java компилируется отдельно в свой каталог.
 public class Main {
+    // Запускаем пример из упражнения и выводим результаты.
     public static void main(String[] args) {
         int a = 14;
         int b = 3;
@@ -55,6 +56,6 @@ public class Main {
         // получаем делимую часть числа; остаток — разность с a. Делитель b не должен быть нулём.
         var result = a - (a / b) * b;
 
-        System.out.printf(Locale.ROOT, "Zbytek po celočíselném dělení čísla %s číslem %s je %s.%n", a, b, result);
+        System.out.printf(Locale.ROOT, "The remainder of dividing %s by %s is %s.%n", a, b, result);
     }
 }

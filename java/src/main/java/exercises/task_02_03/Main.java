@@ -43,8 +43,9 @@ import java.math.BigInteger;
 
 // Каждый файл Main.java компилируется отдельно в свой каталог.
 public class Main {
+    // Запускаем пример из упражнения и выводим результаты.
     public static void main(String[] args) {
-        System.out.printf(Locale.ROOT, "Vsechna dvojciferna cisla jsou:%n");
+        System.out.printf(Locale.ROOT, "All two-digit numbers:%n");
 
         // Начинаем с 10 — первого положительного двузначного числа.
         int number = 10;

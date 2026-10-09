@@ -52,6 +52,7 @@ using System.Numerics;
 internal static class Program
 {
 
+    // Запускаем пример из упражнения и выводим результаты.
     public static void Main() {
         CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
         int a = 25;
@@ -61,9 +62,9 @@ internal static class Program
         // Все три пары должны различаться одновременно. != означает «не равно».
         // Одной проверки a != b недостаточно: например, a и c могут совпадать.
         if (a != b && a != c && b != c) {
-            Console.WriteLine("Hodnoty {0}, {1} a {2} jsou navzájem různé.", a, b, c);
+            Console.WriteLine("The numbers {0}, {1} and {2} are pairwise distinct.", a, b, c);
         } else {
-            Console.WriteLine("Hodnoty {0}, {1} a {2} nejsou navzájem různé.", a, b, c);
+            Console.WriteLine("The numbers {0}, {1} and {2} are not pairwise distinct.", a, b, c);
         }
     }
 }

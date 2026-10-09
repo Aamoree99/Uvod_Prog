@@ -45,6 +45,7 @@ Projekty.
 i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden příkaz.
 */
 
+// Запускаем пример из упражнения и выводим результаты.
 fn main() {
     let a: i32 = 25;
     let b: i32 = 8;
@@ -53,8 +54,8 @@ fn main() {
     // Все три пары должны различаться одновременно. != означает «не равно».
     // Одной проверки a != b недостаточно: например, a и c могут совпадать.
     if a != b && a != c && b != c {
-        println!("Hodnoty {a}, {b} a {c} jsou navzájem různé.");
+        println!("The numbers {a}, {b} and {c} are pairwise distinct.");
     } else {
-        println!("Hodnoty {a}, {b} a {c} nejsou navzájem různé.");
+        println!("The numbers {a}, {b} and {c} are not pairwise distinct.");
     }
 }

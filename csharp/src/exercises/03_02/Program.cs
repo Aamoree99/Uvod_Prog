@@ -66,32 +66,33 @@ using System.Numerics;
 internal static class Program
 {
 
-    enum BmiType { TezkaPodvyziva, Podvaha, OptimalniVaha, Nadvaha, ObezitaPrvnihoStupne, ObezitaDruhehoStupne, ObezitaTretihoStupne }
+    enum BmiType { SevereUnderweight, Underweight, NormalWeight, Overweight, ObesityClassOne, ObesityClassTwo, ObesityClassThree }
     // Рост задаётся в метрах, вес — в килограммах. Рост должен быть положительным.
-    static double bmi1(double height, double weight) { return weight / (height * height); }
+    static double CalculateBmi(double height, double weight) { return weight / (height * height); }
     // Проверяем верхние границы по порядку: нижние уже исключены предыдущими ветками.
-    static BmiType bmi2(double height, double weight) {
+    static BmiType ClassifyBmi(double height, double weight) {
         double bmi = weight / (height * height);
-        if (bmi < 16.5) return BmiType.TezkaPodvyziva;
-        else if (bmi < 18.5) return BmiType.Podvaha;
-        else if (bmi < 25.0) return BmiType.OptimalniVaha;
-        else if (bmi < 30.0) return BmiType.Nadvaha;
-        else if (bmi < 35.0) return BmiType.ObezitaPrvnihoStupne;
-        else if (bmi < 40.0) return BmiType.ObezitaDruhehoStupne;
-        else return BmiType.ObezitaTretihoStupne;
+        if (bmi < 16.5) return BmiType.SevereUnderweight;
+        else if (bmi < 18.5) return BmiType.Underweight;
+        else if (bmi < 25.0) return BmiType.NormalWeight;
+        else if (bmi < 30.0) return BmiType.Overweight;
+        else if (bmi < 35.0) return BmiType.ObesityClassOne;
+        else if (bmi < 40.0) return BmiType.ObesityClassTwo;
+        else return BmiType.ObesityClassThree;
     }
+    // Запускаем пример из упражнения и выводим результаты.
     public static void Main() {
         CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
-        double x = bmi1(1.70, 61.5);
-        BmiType y = bmi2(1.67, 80.0);
-        Console.WriteLine("BMI je {0:F2}.", x);
+        double x = CalculateBmi(1.70, 61.5);
+        BmiType y = ClassifyBmi(1.67, 80.0);
+        Console.WriteLine("BMI is {0:F2}.", x);
         // Переводим категорию в текст для пользователя.
-        if (y == BmiType.TezkaPodvyziva) Console.WriteLine("Kategorie BMI: tezka podvyziva.");
-        else if (y == BmiType.Podvaha) Console.WriteLine("Kategorie BMI: podvaha.");
-        else if (y == BmiType.OptimalniVaha) Console.WriteLine("Kategorie BMI: optimalni vaha.");
-        else if (y == BmiType.Nadvaha) Console.WriteLine("Kategorie BMI: nadvaha.");
-        else if (y == BmiType.ObezitaPrvnihoStupne) Console.WriteLine("Kategorie BMI: obezita prvniho stupne.");
-        else if (y == BmiType.ObezitaDruhehoStupne) Console.WriteLine("Kategorie BMI: obezita druheho stupne.");
-        else Console.WriteLine("Kategorie BMI: obezita tretiho stupne.");
+        if (y == BmiType.SevereUnderweight) Console.WriteLine("BMI category: severe underweight.");
+        else if (y == BmiType.Underweight) Console.WriteLine("BMI category: underweight.");
+        else if (y == BmiType.NormalWeight) Console.WriteLine("BMI category: normal weight.");
+        else if (y == BmiType.Overweight) Console.WriteLine("BMI category: overweight.");
+        else if (y == BmiType.ObesityClassOne) Console.WriteLine("BMI category: class I obesity.");
+        else if (y == BmiType.ObesityClassTwo) Console.WriteLine("BMI category: class II obesity.");
+        else Console.WriteLine("BMI category: class III obesity.");
     }
 }

@@ -39,6 +39,7 @@ Projekty.
 i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden příkaz.
 */
 
+// Запускаем пример из упражнения и выводим результаты.
 fn main() {
     let limit: i32 = 100000;
     // Перебираем положительные числа меньше 100000, как в примере условия.
@@ -46,23 +47,23 @@ fn main() {
 
     while number < limit {
         // Работаем с копией, чтобы исходное number сохранилось для сравнения.
-        let mut temp: i32 = number;
+        let mut remaining_digits: i32 = number;
         let mut digits: i32 = 0;
 
         // Целочисленное деление на 10 удаляет последнюю цифру. Первый цикл считает цифры.
-        while temp > 0 {
+        while remaining_digits > 0 {
             digits += 1;
-            temp /= 10;
+            remaining_digits /= 10;
         }
 
-        temp = number;
+        remaining_digits = number;
 
         let mut sum: i32 = 0;
 
-        while temp > 0 {
+        while remaining_digits > 0 {
             // Остаток % 10 извлекает последнюю цифру. Во втором цикле возводим каждую цифру
             // в степень digits повторным умножением и складываем результаты.
-            let digit = temp % 10;
+            let digit = remaining_digits % 10;
 
             let mut power: i32 = 1;
             let mut count: i32 = 0;
@@ -74,7 +75,7 @@ fn main() {
 
             sum += power;
 
-            temp /= 10;
+            remaining_digits /= 10;
         }
 
         // Если сумма степеней цифр совпала с исходным числом, оно является числом Армстронга.

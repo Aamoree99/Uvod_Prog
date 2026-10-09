@@ -39,9 +39,10 @@ i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden
 
 #include <iostream>
 
+// Запускаем пример из упражнения и выводим результаты.
 int main() {
     std::cout << std::boolalpha;
-    std::cout << "Vsechna dokonala cisla mensi nez 10000:" << '\n';
+    std::cout << "All perfect numbers less than 10000:" << '\n';
 
     // Совершенное число равно сумме своих положительных делителей, кроме самого себя.
     int number = 2;

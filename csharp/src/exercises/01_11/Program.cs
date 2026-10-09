@@ -58,24 +58,25 @@ using System.Numerics;
 internal static class Program
 {
 
+    // Запускаем пример из упражнения и выводим результаты.
     public static void Main() {
         CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
         int speed = 146;
 
         // Границы диапазонов важны: 60 и 130 входят в диапазон без штрафа, 150 — в следующий.
         if (speed < 60) {
-            Console.WriteLine("Rychlost {0} km/h je pokutována částkou 1000 Kč.", speed);
+            Console.WriteLine("A speed of {0} km/h incurs a fine of 1000 CZK.", speed);
         } else if (speed <= 130) {
-            Console.WriteLine("Rychlost {0} km/h není pokutována.", speed);
+            Console.WriteLine("A speed of {0} km/h incurs no fine.", speed);
         } else if (speed <= 150) {
-            Console.WriteLine("Rychlost {0} km/h je pokutována částkou 2000 Kč.", speed);
+            Console.WriteLine("A speed of {0} km/h incurs a fine of 2000 CZK.", speed);
         } else {
             // Считаем количество начатых пятёрок сверх 150. Добавление 4 перед целочисленным
             // делением округляет вверх: превышение на 1–5 даёт одну пятёрку, на 6–10 — две.
             var extra = (speed - 150 + 4) / 5;
             var fine = 2000 + extra * 500;
 
-            Console.WriteLine("Rychlost {0} km/h je pokutována částkou {1} Kč.", speed, fine);
+            Console.WriteLine("A speed of {0} km/h incurs a fine of {1} CZK.", speed, fine);
         }
     }
 }

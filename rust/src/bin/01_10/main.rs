@@ -56,16 +56,17 @@ Projekty.
 i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden příkaz.
 */
 
+// Запускаем пример из упражнения и выводим результаты.
 fn main() {
     let age: i32 = 9;
 
     // Проверяем тарифы по порядку. После первой ветки уже известно, что возраст >= 6.
     // Во второй ветке скидку получают дети до 15 лет либо люди от 60 лет включительно.
     if age < 6 {
-        println!("Cestující ve věku {age} let zaplatí jízdné 0 Kč.");
+        println!("A passenger aged {age} pays a fare of 0 CZK.");
     } else if age < 15 || age >= 60 {
-        println!("Cestující ve věku {age} let zaplatí jízdné 12 Kč.");
+        println!("A passenger aged {age} pays a fare of 12 CZK.");
     } else {
-        println!("Cestující ve věku {age} let zaplatí jízdné 24 Kč.");
+        println!("A passenger aged {age} pays a fare of 24 CZK.");
     }
 }

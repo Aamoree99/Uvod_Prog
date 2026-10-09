@@ -46,35 +46,35 @@ i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden
 */
 
 #[derive(Clone, Copy)]
-struct Datum {
-    den: i32,
-    mesic: i32,
-    rok: i32,
+struct Date {
+    day: i32,
+    month: i32,
+    year: i32,
 }
 
 // День недели.
 #[derive(Clone, Copy)]
-enum DenVTydnu {
-    Pondeli,
-    Utery,
-    Streda,
-    Ctvrtek,
-    Patek,
-    Sobota,
-    Nedele,
+enum DayOfWeek {
+    Monday,
+    Tuesday,
+    Wednesday,
+    Thursday,
+    Friday,
+    Saturday,
+    Sunday,
 }
 
 // Проверяем високосный год.
-fn je_prestupny_rok(rok: i32) -> bool {
-    if rok % 400 == 0 {
+fn is_leap_year(year: i32) -> bool {
+    if year % 400 == 0 {
         return true;
     }
 
-    if rok % 100 == 0 {
+    if year % 100 == 0 {
         return false;
     }
 
-    if rok % 4 == 0 {
+    if year % 4 == 0 {
         return true;
     }
 
@@ -82,24 +82,24 @@ fn je_prestupny_rok(rok: i32) -> bool {
 }
 
 // Возвращаем количество дней в месяце.
-fn pocet_dnu_v_mesici(mesic: i32, rok: i32) -> i32 {
-    if mesic == 1
-        || mesic == 3
-        || mesic == 5
-        || mesic == 7
-        || mesic == 8
-        || mesic == 10
-        || mesic == 12
+fn days_in_month(month: i32, year: i32) -> i32 {
+    if month == 1
+        || month == 3
+        || month == 5
+        || month == 7
+        || month == 8
+        || month == 10
+        || month == 12
     {
         return 31;
     }
 
-    if mesic == 4 || mesic == 6 || mesic == 9 || mesic == 11 {
+    if month == 4 || month == 6 || month == 9 || month == 11 {
         return 30;
     }
 
     // Остался февраль.
-    if je_prestupny_rok(rok) == true {
+    if is_leap_year(year) == true {
         return 29;
     }
 
@@ -107,75 +107,76 @@ fn pocet_dnu_v_mesici(mesic: i32, rok: i32) -> i32 {
 }
 
 // Определяем день недели.
-fn den_v_tydnu(datum: Datum) -> DenVTydnu {
-    let mut pocet_dnu = 0;
+fn day_of_week(date: Date) -> DayOfWeek {
+    let mut day_count = 0;
 
     // Сначала считаем все дни полных лет,
     // начиная с 1900 года.
-    let mut rok = 1900;
+    let mut year = 1900;
 
-    while rok < datum.rok {
-        if je_prestupny_rok(rok) == true {
-            pocet_dnu += 366;
+    while year < date.year {
+        if is_leap_year(year) == true {
+            day_count += 366;
         } else {
-            pocet_dnu += 365;
+            day_count += 365;
         }
 
-        rok += 1;
+        year += 1;
     }
 
     // Теперь считаем дни полных месяцев
     // текущего года.
-    let mut mesic = 1;
+    let mut month = 1;
 
-    while mesic < datum.mesic {
-        pocet_dnu += pocet_dnu_v_mesici(mesic, datum.rok);
-        mesic += 1;
+    while month < date.month {
+        day_count += days_in_month(month, date.year);
+        month += 1;
     }
 
     // Добавляем дни текущего месяца.
     //
     // Например, если дата 15 марта,
     // то до неё прошло 14 полных дней марта.
-    pocet_dnu += datum.den - 1;
+    day_count += date.day - 1;
 
     // 1.1.1900 был понедельник.
     //
     // Остаток от деления на 7 показывает,
     // насколько дней мы сдвинулись от понедельника.
-    match pocet_dnu % 7 {
-        0 => DenVTydnu::Pondeli,
-        1 => DenVTydnu::Utery,
-        2 => DenVTydnu::Streda,
-        3 => DenVTydnu::Ctvrtek,
-        4 => DenVTydnu::Patek,
-        5 => DenVTydnu::Sobota,
-        _ => DenVTydnu::Nedele,
+    match day_count % 7 {
+        0 => DayOfWeek::Monday,
+        1 => DayOfWeek::Tuesday,
+        2 => DayOfWeek::Wednesday,
+        3 => DayOfWeek::Thursday,
+        4 => DayOfWeek::Friday,
+        5 => DayOfWeek::Saturday,
+        _ => DayOfWeek::Sunday,
     }
 }
 
 // Переводим enum в текст.
-fn den_na_text(den: DenVTydnu) -> &'static str {
-    match den {
-        DenVTydnu::Pondeli => "Pondeli",
-        DenVTydnu::Utery => "Utery",
-        DenVTydnu::Streda => "Streda",
-        DenVTydnu::Ctvrtek => "Ctvrtek",
-        DenVTydnu::Patek => "Patek",
-        DenVTydnu::Sobota => "Sobota",
-        DenVTydnu::Nedele => "Nedele",
+fn day_text(day: DayOfWeek) -> &'static str {
+    match day {
+        DayOfWeek::Monday => "Monday",
+        DayOfWeek::Tuesday => "Tuesday",
+        DayOfWeek::Wednesday => "Wednesday",
+        DayOfWeek::Thursday => "Thursday",
+        DayOfWeek::Friday => "Friday",
+        DayOfWeek::Saturday => "Saturday",
+        DayOfWeek::Sunday => "Sunday",
     }
 }
 
+// Запускаем пример из упражнения и выводим результаты.
 fn main() {
-    let d = Datum {
-        den: 6,
-        mesic: 10,
-        rok: 2026,
+    let d = Date {
+        day: 6,
+        month: 10,
+        year: 2026,
     };
 
-    let den = den_v_tydnu(d);
+    let day = day_of_week(d);
 
-    println!("Datum:      {:02}.{:02}.{}", d.den, d.mesic, d.rok);
-    println!("Den tydne:  {}", den_na_text(den));
+    println!("Date:      {:02}.{:02}.{}", d.day, d.month, d.year);
+    println!("Day of week:  {}", day_text(day));
 }

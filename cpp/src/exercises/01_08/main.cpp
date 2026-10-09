@@ -48,6 +48,7 @@ i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden
 
 #include <iostream>
 
+// Запускаем пример из упражнения и выводим результаты.
 int main() {
     std::cout << std::boolalpha;
     int a = 2;
@@ -60,39 +61,39 @@ int main() {
     // Проверяем все шесть направлений делимости между тремя числами.
     // Условие слева от && проверяется первым: при нулевом делителе остаток не вычисляется.
     if (a != 0 && b % a == 0) {
-        std::cout << "Číslo " << a << " je dělitelem čísla " << b << "." << '\n';
+        std::cout << "The number " << a << " is a divisor of " << b << "." << '\n';
         found = true;
     }
 
     if (b != 0 && a % b == 0) {
-        std::cout << "Číslo " << b << " je dělitelem čísla " << a << "." << '\n';
+        std::cout << "The number " << b << " is a divisor of " << a << "." << '\n';
         found = true;
     }
 
     if (a != 0 && c % a == 0) {
-        std::cout << "Číslo " << a << " je dělitelem čísla " << c << "." << '\n';
+        std::cout << "The number " << a << " is a divisor of " << c << "." << '\n';
         found = true;
     }
 
     if (c != 0 && a % c == 0) {
-        std::cout << "Číslo " << c << " je dělitelem čísla " << a << "." << '\n';
+        std::cout << "The number " << c << " is a divisor of " << a << "." << '\n';
         found = true;
     }
 
     if (b != 0 && c % b == 0) {
-        std::cout << "Číslo " << b << " je dělitelem čísla " << c << "." << '\n';
+        std::cout << "The number " << b << " is a divisor of " << c << "." << '\n';
         found = true;
     }
 
     if (c != 0 && b % c == 0) {
-        std::cout << "Číslo " << c << " je dělitelem čísla " << b << "." << '\n';
+        std::cout << "The number " << c << " is a divisor of " << b << "." << '\n';
         found = true;
     }
 
     // Сообщение об отсутствии делителей выводим только после проверки всех пар.
     // Этот вариант выводит все найденные пары, хотя по условию достаточно одной.
     if (found == false) {
-        std::cout << "Ze zadaných čísel " << a << ", " << b << " a " << c << " není žádné číslo dělitelem jiného čísla." << '\n';
+        std::cout << "Among the numbers " << a << ", " << b << " and " << c << " no number divides another." << '\n';
     }
     return 0;
 }

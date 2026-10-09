@@ -51,22 +51,23 @@ Projekty.
 i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden příkaz.
 */
 
+// Запускаем пример из упражнения и выводим результаты.
 fn main() {
     let speed: i32 = 146;
 
     // Границы диапазонов важны: 60 и 130 входят в диапазон без штрафа, 150 — в следующий.
     if speed < 60 {
-        println!("Rychlost {speed} km/h je pokutována částkou 1000 Kč.");
+        println!("A speed of {speed} km/h incurs a fine of 1000 CZK.");
     } else if speed <= 130 {
-        println!("Rychlost {speed} km/h není pokutována.");
+        println!("A speed of {speed} km/h incurs no fine.");
     } else if speed <= 150 {
-        println!("Rychlost {speed} km/h je pokutována částkou 2000 Kč.");
+        println!("A speed of {speed} km/h incurs a fine of 2000 CZK.");
     } else {
         // Считаем количество начатых пятёрок сверх 150. Добавление 4 перед целочисленным
         // делением округляет вверх: превышение на 1–5 даёт одну пятёрку, на 6–10 — две.
         let extra = (speed - 150 + 4) / 5;
         let fine = 2000 + extra * 500;
 
-        println!("Rychlost {speed} km/h je pokutována částkou {fine} Kč.");
+        println!("A speed of {speed} km/h incurs a fine of {fine} CZK.");
     }
 }

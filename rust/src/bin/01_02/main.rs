@@ -42,6 +42,7 @@ Projekty.
 i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden příkaz.
 */
 
+// Запускаем пример из упражнения и выводим результаты.
 fn main() {
     let a: i32 = 14;
     let b: i32 = 3;
@@ -49,5 +50,5 @@ fn main() {
     // получаем делимую часть числа; остаток — разность с a. Делитель b не должен быть нулём.
     let result = a - (a / b) * b;
 
-    println!("Zbytek po celočíselném dělení čísla {a} číslem {b} je {result}.");
+    println!("The remainder of dividing {a} by {b} is {result}.");
 }

@@ -91,48 +91,52 @@ import java.math.BigInteger;
 
 // Каждый файл Main.java компилируется отдельно в свой каталог.
 public class Main {
-    static String bool_text(boolean value) { return value ? "true" : "false"; }
+    // Возвращаем английское представление логического результата.
+    static String boolText(boolean booleanResult) { return booleanResult ? "true" : "false"; }
     // Точка хранит две координаты; треугольник — три точки.
-    static record Bod(double x, double y) {}
-    static record Trojuhelnik(Bod a, Bod b, Bod c) {}
+    static record Point(double x, double y) {}
+    static record Triangle(Point a, Point b, Point c) {}
     // Абсолютная погрешность позволяет сравнивать результаты вычислений double.
-    static boolean priblizna_rovnost(double a, double b) { return Math.abs(a-b) <= 1e-13; }
+    static boolean approximatelyEqual(double a, double b) { return Math.abs(a-b) <= 1e-13; }
     // Расстояние между точками: квадратный корень из суммы квадратов разностей координат.
-    static double delka_usecky(Bod a, Bod b) {
-        double rozdil_x = b.x - a.x, rozdil_y = b.y - a.y;
-        return Math.sqrt(rozdil_x*rozdil_x + rozdil_y*rozdil_y);
+    static double segmentLength(Point a, Point b) {
+        double differenceX = b.x - a.x, differenceY = b.y - a.y;
+        return Math.sqrt(differenceX*differenceX + differenceY*differenceY);
     }
-    static boolean je_trojuhelnik(Bod a, Bod b, Bod c) {
-        double ab = delka_usecky(a,b), bc = delka_usecky(b,c), ca = delka_usecky(c,a);
-        double nejdelsi, kratka1, kratka2;
+    // Проверяем, образуют ли точки a, b и c невырожденный треугольник.
+    static boolean isTriangle(Point a, Point b, Point c) {
+        double ab = segmentLength(a,b), bc = segmentLength(b,c), ca = segmentLength(c,a);
+        double longest, shortSide1, shortSide2;
         // Выбираем самую длинную сторону; остальные две должны в сумме быть больше неё.
-        if (ab >= bc && ab >= ca) { nejdelsi=ab; kratka1=bc; kratka2=ca; }
-        else if (bc >= ab && bc >= ca) { nejdelsi=bc; kratka1=ab; kratka2=ca; }
-        else { nejdelsi=ca; kratka1=ab; kratka2=bc; }
+        if (ab >= bc && ab >= ca) { longest=ab; shortSide1=bc; shortSide2=ca; }
+        else if (bc >= ab && bc >= ca) { longest=bc; shortSide1=ab; shortSide2=ca; }
+        else { longest=ca; shortSide1=ab; shortSide2=bc; }
         // Почти равная сумма означает три точки на одной прямой.
-        if (priblizna_rovnost(kratka1+kratka2, nejdelsi)) return false;
-        return kratka1+kratka2 > nejdelsi;
+        if (approximatelyEqual(shortSide1+shortSide2, longest)) return false;
+        return shortSide1+shortSide2 > longest;
     }
     // Периметр — сумма трёх сторон.
-    static double obvod_trojuhelniku(Trojuhelnik t) { return delka_usecky(t.a,t.b)+delka_usecky(t.b,t.c)+delka_usecky(t.c,t.a); }
-    static boolean trojuhelnik_je_pravouhly(Trojuhelnik t) {
-        double ab=delka_usecky(t.a,t.b), bc=delka_usecky(t.b,t.c), ca=delka_usecky(t.c,t.a);
-        double nejdelsi, kratka1, kratka2;
-        if (ab >= bc && ab >= ca) { nejdelsi=ab; kratka1=bc; kratka2=ca; }
-        else if (bc >= ab && bc >= ca) { nejdelsi=bc; kratka1=ab; kratka2=ca; }
-        else { nejdelsi=ca; kratka1=ab; kratka2=bc; }
+    static double trianglePerimeter(Triangle t) { return segmentLength(t.a,t.b)+segmentLength(t.b,t.c)+segmentLength(t.c,t.a); }
+    // Проверяем равенство суммы квадратов коротких сторон квадрату длинной.
+    static boolean isRightTriangle(Triangle t) {
+        double ab=segmentLength(t.a,t.b), bc=segmentLength(t.b,t.c), ca=segmentLength(t.c,t.a);
+        double longest, shortSide1, shortSide2;
+        if (ab >= bc && ab >= ca) { longest=ab; shortSide1=bc; shortSide2=ca; }
+        else if (bc >= ab && bc >= ca) { longest=bc; shortSide1=ab; shortSide2=ca; }
+        else { longest=ca; shortSide1=ab; shortSide2=bc; }
         // Проверяем теорему Пифагора с той же абсолютной погрешностью, что в Rust.
-        return priblizna_rovnost(kratka1*kratka1+kratka2*kratka2, nejdelsi*nejdelsi);
+        return approximatelyEqual(shortSide1*shortSide1+shortSide2*shortSide2, longest*longest);
     }
+    // Запускаем пример из упражнения и выводим результаты.
     public static void main(String[] args) {
-        Bod b1=new Bod(7.2,-2.0), b2=new Bod(-2.9,-6.23), b3=new Bod(2.0,5.0);
-        Bod b4=new Bod(-1.0,-2.5), b5=new Bod(3.0,7.5), b6=new Bod(3.0,-2.6), b7=new Bod(5.2,-2.6);
-        Trojuhelnik t1=new Trojuhelnik(b1,b2,b3), t2=new Trojuhelnik(b5,b6,b7);
-        System.out.printf(Locale.ROOT, "Priblizna rovnost: %s%n", bool_text(priblizna_rovnost(5.0,4.99999999999992)));
-        System.out.printf(Locale.ROOT, "Delka b1-b2: %.3f%n", delka_usecky(b1,b2));
-        System.out.printf(Locale.ROOT, "b1, b2, b3 tvori trojuhelnik: %s%n", bool_text(je_trojuhelnik(b1,b2,b3)));
-        System.out.printf(Locale.ROOT, "b4, b3, b5 tvori trojuhelnik: %s%n", bool_text(je_trojuhelnik(b4,b3,b5)));
-        System.out.printf(Locale.ROOT, "Obvod t1: %.3f%n", obvod_trojuhelniku(t1)); System.out.printf(Locale.ROOT, "Obvod t2: %.3f%n", obvod_trojuhelniku(t2));
-        System.out.printf(Locale.ROOT, "t2 je pravouhly: %s%n", bool_text(trojuhelnik_je_pravouhly(t2)));
+        Point b1=new Point(7.2,-2.0), b2=new Point(-2.9,-6.23), b3=new Point(2.0,5.0);
+        Point b4=new Point(-1.0,-2.5), b5=new Point(3.0,7.5), b6=new Point(3.0,-2.6), b7=new Point(5.2,-2.6);
+        Triangle t1=new Triangle(b1,b2,b3), t2=new Triangle(b5,b6,b7);
+        System.out.printf(Locale.ROOT, "Approximate equality: %s%n", boolText(approximatelyEqual(5.0,4.99999999999992)));
+        System.out.printf(Locale.ROOT, "Length b1-b2: %.3f%n", segmentLength(b1,b2));
+        System.out.printf(Locale.ROOT, "b1, b2, b3 form a triangle: %s%n", boolText(isTriangle(b1,b2,b3)));
+        System.out.printf(Locale.ROOT, "b4, b3, b5 form a triangle: %s%n", boolText(isTriangle(b4,b3,b5)));
+        System.out.printf(Locale.ROOT, "Perimeter t1: %.3f%n", trianglePerimeter(t1)); System.out.printf(Locale.ROOT, "Perimeter t2: %.3f%n", trianglePerimeter(t2));
+        System.out.printf(Locale.ROOT, "t2 is right-angled: %s%n", boolText(isRightTriangle(t2)));
     }
 }

@@ -89,21 +89,22 @@ internal static class Program
     // Читаем одну строку, как в Rust-примере; ошибки ввода не скрываем.
     private static int ReadInt() => int.Parse(Console.ReadLine() ?? throw new InvalidOperationException("End of input"), CultureInfo.InvariantCulture);
 
+    // Запускаем пример из упражнения и выводим результаты.
     public static void Main() {
         CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
-        Console.WriteLine("Zjistime druh posloupnosti.");
+        Console.WriteLine("Determine the sequence type.");
 
         int count = 0;
         int previous = 0;
 
         // Флаги запоминают, встречались ли рост, спад и равенство соседних элементов.
         // Нам не нужно хранить всю последовательность — достаточно предыдущего числа.
-        bool has_up = false;
-        bool has_down = false;
-        bool has_equal = false;
+        bool hasUp = false;
+        bool hasDown = false;
+        bool hasEqual = false;
 
         while ((true)) {
-            Console.WriteLine("Zadejte cislo:");
+            Console.WriteLine("Enter a number:");
 
             int current = ReadInt();
 
@@ -117,11 +118,11 @@ internal static class Program
             // У первого элемента ещё нет предыдущего, поэтому сравниваем начиная со второго.
             if (count > 1) {
                 if (current > previous) {
-                    has_up = true;
+                    hasUp = true;
                 } else if (current < previous) {
-                    has_down = true;
+                    hasDown = true;
                 } else {
-                    has_equal = true;
+                    hasEqual = true;
                 }
             }
 
@@ -132,19 +133,19 @@ internal static class Program
         // Классифицируем по сочетаниям флагов. Рост вместе со спадом означает немонотонность;
         // равенство без роста и спада — постоянную последовательность.
         if (count <= 1) {
-            Console.WriteLine("Posloupnost je kratka.");
-        } else if (has_equal == true && has_up == false && has_down == false) {
-            Console.WriteLine("Posloupnost je konstantni.");
-        } else if (has_up == true && has_down == false && has_equal == false) {
-            Console.WriteLine("Posloupnost je rostouci.");
-        } else if (has_down == true && has_up == false && has_equal == false) {
-            Console.WriteLine("Posloupnost je klesajici.");
-        } else if (has_up == true && has_equal == true && has_down == false) {
-            Console.WriteLine("Posloupnost je neklesajici.");
-        } else if (has_down == true && has_equal == true && has_up == false) {
-            Console.WriteLine("Posloupnost je nerostouci.");
+            Console.WriteLine("The sequence is too short.");
+        } else if (hasEqual == true && hasUp == false && hasDown == false) {
+            Console.WriteLine("The sequence is constant.");
+        } else if (hasUp == true && hasDown == false && hasEqual == false) {
+            Console.WriteLine("The sequence is strictly increasing.");
+        } else if (hasDown == true && hasUp == false && hasEqual == false) {
+            Console.WriteLine("The sequence is strictly decreasing.");
+        } else if (hasUp == true && hasEqual == true && hasDown == false) {
+            Console.WriteLine("The sequence is nondecreasing.");
+        } else if (hasDown == true && hasEqual == true && hasUp == false) {
+            Console.WriteLine("The sequence is nonincreasing.");
         } else {
-            Console.WriteLine("Posloupnost neni monotonni.");
+            Console.WriteLine("The sequence is not monotonic.");
         }
     }
 }

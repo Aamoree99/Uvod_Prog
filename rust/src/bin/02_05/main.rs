@@ -48,26 +48,27 @@ i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden
 
 use std::io;
 
+// Запускаем пример из упражнения и выводим результаты.
 fn main() {
-    println!("Zadej prvni cislo:");
+    println!("Enter the first number:");
     let mut input = String::new();
     io::stdin().read_line(&mut input).unwrap();
     let a: i32 = input.trim().parse().unwrap();
 
-    println!("Zadej druhe cislo:");
+    println!("Enter the second number:");
     input.clear();
     io::stdin().read_line(&mut input).unwrap();
     let b: i32 = input.trim().parse().unwrap();
 
     // Этот алгоритм рассчитан на положительные a и b. b = 0 вызывает ошибку деления,
     // a = 0 сразу даёт 0; отрицательные значения не подходят для этого способа поиска.
-    let mut nasobek = a;
+    let mut multiple = a;
 
     // Перебираем a, 2a, 3a, ... — они уже делятся на a. Первый такой кандидат,
     // который делится и на b без остатка, является наименьшим общим кратным.
-    while nasobek % b != 0 {
-        nasobek += a;
+    while multiple % b != 0 {
+        multiple += a;
     }
 
-    println!("Nejmensi spolecny nasobek je {nasobek}");
+    println!("The least common multiple is {multiple}");
 }

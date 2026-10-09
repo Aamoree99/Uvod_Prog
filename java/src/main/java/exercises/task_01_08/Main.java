@@ -53,6 +53,7 @@ import java.math.BigInteger;
 
 // Каждый файл Main.java компилируется отдельно в свой каталог.
 public class Main {
+    // Запускаем пример из упражнения и выводим результаты.
     public static void main(String[] args) {
         int a = 2;
         int b = 6;
@@ -64,39 +65,39 @@ public class Main {
         // Проверяем все шесть направлений делимости между тремя числами.
         // Условие слева от && проверяется первым: при нулевом делителе остаток не вычисляется.
         if (a != 0 && b % a == 0) {
-            System.out.printf(Locale.ROOT, "Číslo %s je dělitelem čísla %s.%n", a, b);
+            System.out.printf(Locale.ROOT, "The number %s is a divisor of %s.%n", a, b);
             found = true;
         }
 
         if (b != 0 && a % b == 0) {
-            System.out.printf(Locale.ROOT, "Číslo %s je dělitelem čísla %s.%n", b, a);
+            System.out.printf(Locale.ROOT, "The number %s is a divisor of %s.%n", b, a);
             found = true;
         }
 
         if (a != 0 && c % a == 0) {
-            System.out.printf(Locale.ROOT, "Číslo %s je dělitelem čísla %s.%n", a, c);
+            System.out.printf(Locale.ROOT, "The number %s is a divisor of %s.%n", a, c);
             found = true;
         }
 
         if (c != 0 && a % c == 0) {
-            System.out.printf(Locale.ROOT, "Číslo %s je dělitelem čísla %s.%n", c, a);
+            System.out.printf(Locale.ROOT, "The number %s is a divisor of %s.%n", c, a);
             found = true;
         }
 
         if (b != 0 && c % b == 0) {
-            System.out.printf(Locale.ROOT, "Číslo %s je dělitelem čísla %s.%n", b, c);
+            System.out.printf(Locale.ROOT, "The number %s is a divisor of %s.%n", b, c);
             found = true;
         }
 
         if (c != 0 && b % c == 0) {
-            System.out.printf(Locale.ROOT, "Číslo %s je dělitelem čísla %s.%n", c, b);
+            System.out.printf(Locale.ROOT, "The number %s is a divisor of %s.%n", c, b);
             found = true;
         }
 
         // Сообщение об отсутствии делителей выводим только после проверки всех пар.
         // Этот вариант выводит все найденные пары, хотя по условию достаточно одной.
         if (found == false) {
-            System.out.printf(Locale.ROOT, "Ze zadaných čísel %s, %s a %s není žádné číslo dělitelem jiného čísla.%n", a, b, c);
+            System.out.printf(Locale.ROOT, "Among the numbers %s, %s and %s no number divides another.%n", a, b, c);
         }
     }
 }

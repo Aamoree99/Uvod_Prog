@@ -53,6 +53,6 @@ int main() {
     // Сначала умножаем второе число на третье, затем вычитаем первое: b * c - a.
     auto result = b * c - a;
 
-    std::cout << "Výsledek výrazu " << b << "*" << c << "-" << a << " je " << result << '\n';
+    std::cout << "The result of the expression " << b << "*" << c << "-" << a << " is " << result << '\n';
     return 0;
 }

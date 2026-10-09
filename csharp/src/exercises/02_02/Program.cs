@@ -57,44 +57,45 @@ internal static class Program
 
     // Вводим три целых числа, каждое на своей строке; Предполагается корректный ввод.
 
+    // Запускаем пример из упражнения и выводим результаты.
     public static void Main() {
         CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
-        Console.WriteLine("Setridime tri cisla vzestupne");
+        Console.WriteLine("Sort three numbers in ascending order");
 
-        Console.WriteLine("Zadejte prvni cislo:");
+        Console.WriteLine("Enter the first number:");
 
         int a = ReadInt();
 
-        Console.WriteLine("Zadejte druhe cislo:");
+        Console.WriteLine("Enter the second number:");
         // Каждое число читается отдельно.
 
         int b = ReadInt();
 
-        Console.WriteLine("Zadejte treti cislo:");
+        Console.WriteLine("Enter the third number:");
 
         int c = ReadInt();
 
         // Три сравнения с обменом упорядочивают числа: сначала a и b, затем b и c,
         // потом снова a и b, потому что второй обмен мог нарушить их порядок.
-        // В temp сохраняем заменяемое значение, чтобы не потерять его.
+        // В savedNumber сохраняем заменяемое значение, чтобы не потерять его.
         if (a > b) {
-            var temp = a;
+            var savedNumber = a;
             a = b;
-            b = temp;
+            b = savedNumber;
         }
 
         if (b > c) {
-            var temp = b;
+            var savedNumber = b;
             b = c;
-            c = temp;
+            c = savedNumber;
         }
 
         if (a > b) {
-            var temp = a;
+            var savedNumber = a;
             a = b;
-            b = temp;
+            b = savedNumber;
         }
 
-        Console.WriteLine("Setridena cisla jsou {0}, {1}, {2}", a, b, c);
+        Console.WriteLine("The sorted numbers are {0}, {1}, {2}", a, b, c);
     }
 }

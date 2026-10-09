@@ -46,64 +46,75 @@ i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden
 */
 
 // Функция ищет:
-// max  - самое большое число
-// max2 - второе по величине
-// max3 - третье по величине
+// largest  - самое большое число
+// second_largest - второе по величине
+// third_largest - третье по величине
 //
 // По условию массив содержит только неотрицательные числа.
-fn max_pole(pole: &[i32], max: &mut i32, max2: &mut i32, max3: &mut i32) {
+fn array_maxima(
+    array: &[i32],
+    largest: &mut i32,
+    second_largest: &mut i32,
+    third_largest: &mut i32,
+) {
     // Так как числа неотрицательные,
     // можно начать все максимумы с 0.
-    *max = 0;
-    *max2 = 0;
-    *max3 = 0;
+    *largest = 0;
+    *second_largest = 0;
+    *third_largest = 0;
 
     let mut i = 0;
 
-    while i < pole.len() {
-        let cislo = pole[i];
+    while i < array.len() {
+        let number = array[i];
 
         // Если нашли новое самое большое число:
-        if cislo > *max {
+        if number > *largest {
             // Старое второе становится третьим.
-            *max3 = *max2;
+            *third_largest = *second_largest;
 
             // Старое первое становится вторым.
-            *max2 = *max;
+            *second_largest = *largest;
 
             // Новое число становится первым.
-            *max = cislo;
+            *largest = number;
         }
         // Если число не больше первого,
         // но больше второго:
-        else if cislo > *max2 {
+        else if number > *second_largest {
             // Старое второе становится третьим.
-            *max3 = *max2;
+            *third_largest = *second_largest;
 
             // Новое число становится вторым.
-            *max2 = cislo;
+            *second_largest = number;
         }
         // Если число не больше первых двух,
         // но больше третьего:
-        else if cislo > *max3 {
-            *max3 = cislo;
+        else if number > *third_largest {
+            *third_largest = number;
         }
 
         i += 1;
     }
 }
 
+// Запускаем пример из упражнения и выводим результаты.
 fn main() {
-    let pole = [2, 5, 7, 1, 4, 6, 9, 8, 2];
+    let array = [2, 5, 7, 1, 4, 6, 9, 8, 2];
 
-    let mut max = 0;
-    let mut max2 = 0;
-    let mut max3 = 0;
+    let mut largest = 0;
+    let mut second_largest = 0;
+    let mut third_largest = 0;
 
-    max_pole(&pole, &mut max, &mut max2, &mut max3);
+    array_maxima(
+        &array,
+        &mut largest,
+        &mut second_largest,
+        &mut third_largest,
+    );
 
-    println!("Pole: {:?}", pole);
-    println!("Nejvetsi:       {}", max);
-    println!("Druhe nejvetsi: {}", max2);
-    println!("Treti nejvetsi: {}", max3);
+    println!("Array: {:?}", array);
+    println!("Largest:       {}", largest);
+    println!("Second largest: {}", second_largest);
+    println!("Third largest: {}", third_largest);
 }

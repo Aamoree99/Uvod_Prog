@@ -65,17 +65,19 @@ internal static class Program
         public Complex(double re, double im) { this.re=re; this.im=im; }
     }
     // Складываем и вычитаем действительные и мнимые части отдельно.
-    static Complex add(Complex x, Complex y) { return new Complex(x.re + y.re, x.im + y.im); }
-    static Complex subtract(Complex x, Complex y) { return new Complex(x.re - y.re, x.im - y.im); }
+    static Complex Add(Complex x, Complex y) { return new Complex(x.re + y.re, x.im + y.im); }
+    // Возвращаем разность комплексных чисел x и y.
+    static Complex Subtract(Complex x, Complex y) { return new Complex(x.re - y.re, x.im - y.im); }
     // Раскрываем скобки; i² = -1, поэтому действительная часть равна ac - bd.
-    static Complex multiply(Complex x, Complex y) { return new Complex(x.re*y.re - x.im*y.im, x.re*y.im + x.im*y.re); }
+    static Complex Multiply(Complex x, Complex y) { return new Complex(x.re*y.re - x.im*y.im, x.re*y.im + x.im*y.re); }
+    // Запускаем пример из упражнения и выводим результаты.
     public static void Main() {
         CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
         Complex x = new Complex(5.2, 3.25), y = new Complex(1.6, -4.0);
-        Complex a = add(x,y), b = subtract(x,y), c = multiply(x,y);
+        Complex a = Add(x,y), b = Subtract(x,y), c = Multiply(x,y);
         // Четыре знака после запятой; для мнимой части явно показываем знак.
-        Console.WriteLine("Soucet: {0:F4} {1:+0.0000;-0.0000;+0.0000}i", a.re, a.im);
-        Console.WriteLine("Rozdil: {0:F4} {1:+0.0000;-0.0000;+0.0000}i", b.re, b.im);
-        Console.WriteLine("Soucin: {0:F4} {1:+0.0000;-0.0000;+0.0000}i", c.re, c.im);
+        Console.WriteLine("Sum: {0:F4} {1:+0.0000;-0.0000;+0.0000}i", a.re, a.im);
+        Console.WriteLine("Difference: {0:F4} {1:+0.0000;-0.0000;+0.0000}i", b.re, b.im);
+        Console.WriteLine("Product: {0:F4} {1:+0.0000;-0.0000;+0.0000}i", c.re, c.im);
     }
 }

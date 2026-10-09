@@ -47,15 +47,16 @@ import java.math.BigInteger;
 // Каждый файл Main.java компилируется отдельно в свой каталог.
 public class Main {
     // Массив передаётся без копирования; изменяем каждый отрицательный элемент на месте.
-    static void absolutni_hodnota_pole(int[] pole) {
+    static void absoluteArray(int[] array) {
         int i=0;
-        while (i < pole.length) {
-            if (pole[i] < 0) pole[i] = -pole[i];
+        while (i < array.length) {
+            if (array[i] < 0) array[i] = -array[i];
             i += 1;
         }
     }
+    // Запускаем пример из упражнения и выводим результаты.
     public static void main(String[] args) {
-        int[] pole = new int[] {5,-2,0,-1,7,-12,2,4};
-        System.out.printf(Locale.ROOT, "Pred: %s%n", Arrays.toString(pole)); absolutni_hodnota_pole(pole); System.out.printf(Locale.ROOT, "Po:   %s%n", Arrays.toString(pole));
+        int[] array = new int[] {5,-2,0,-1,7,-12,2,4};
+        System.out.printf(Locale.ROOT, "Before: %s%n", Arrays.toString(array)); absoluteArray(array); System.out.printf(Locale.ROOT, "After:   %s%n", Arrays.toString(array));
     }
 }

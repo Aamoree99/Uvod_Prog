@@ -46,10 +46,10 @@ i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden
 */
 
 #[derive(Clone, Copy)]
-struct Datum {
-    den: i32,
-    mesic: i32,
-    rok: i32,
+struct Date {
+    day: i32,
+    month: i32,
+    year: i32,
 }
 
 // Проверяем, високосный ли год.
@@ -59,16 +59,16 @@ struct Datum {
 // - иначе делится на 100 -> НЕ високосный
 // - иначе делится на 4 -> високосный
 // - иначе обычный
-fn je_prestupny_rok(rok: i32) -> bool {
-    if rok % 400 == 0 {
+fn is_leap_year(year: i32) -> bool {
+    if year % 400 == 0 {
         return true;
     }
 
-    if rok % 100 == 0 {
+    if year % 100 == 0 {
         return false;
     }
 
-    if rok % 4 == 0 {
+    if year % 4 == 0 {
         return true;
     }
 
@@ -76,26 +76,26 @@ fn je_prestupny_rok(rok: i32) -> bool {
 }
 
 // Возвращаем количество дней в месяце.
-fn pocet_dnu_v_mesici(mesic: i32, rok: i32) -> i32 {
+fn days_in_month(month: i32, year: i32) -> i32 {
     // Месяцы с 31 днём.
-    if mesic == 1
-        || mesic == 3
-        || mesic == 5
-        || mesic == 7
-        || mesic == 8
-        || mesic == 10
-        || mesic == 12
+    if month == 1
+        || month == 3
+        || month == 5
+        || month == 7
+        || month == 8
+        || month == 10
+        || month == 12
     {
         return 31;
     }
 
     // Месяцы с 30 днями.
-    if mesic == 4 || mesic == 6 || mesic == 9 || mesic == 11 {
+    if month == 4 || month == 6 || month == 9 || month == 11 {
         return 30;
     }
 
     // Остался февраль.
-    if je_prestupny_rok(rok) == true {
+    if is_leap_year(year) == true {
         return 29;
     }
 
@@ -103,11 +103,11 @@ fn pocet_dnu_v_mesici(mesic: i32, rok: i32) -> i32 {
 }
 
 // Добавляем к дате заданное количество дней.
-fn nasledne_datum(mut datum: Datum, mut pocet_dnu: i32) -> Datum {
+fn date_after_days(mut date: Date, mut day_count: i32) -> Date {
     // Пока ещё остались дни, которые надо добавить.
-    while pocet_dnu > 0 {
+    while day_count > 0 {
         // Узнаём, сколько дней в текущем месяце.
-        let dnu_v_mesici = pocet_dnu_v_mesici(datum.mesic, datum.rok);
+        let month_length = days_in_month(date.month, date.year);
 
         // Сколько дней осталось до конца текущего месяца.
         //
@@ -116,13 +116,13 @@ fn nasledne_datum(mut datum: Datum, mut pocet_dnu: i32) -> Datum {
         // в июле 31 день
         //
         // 31 - 16 = 15 дней до конца месяца.
-        let zbyva_do_konce_mesice = dnu_v_mesici - datum.den;
+        let remaining_days = month_length - date.day;
 
         // Если нужное количество дней помещается
         // в текущий месяц, просто увеличиваем день.
-        if pocet_dnu <= zbyva_do_konce_mesice {
-            datum.den += pocet_dnu;
-            pocet_dnu = 0;
+        if day_count <= remaining_days {
+            date.day += day_count;
+            day_count = 0;
         } else {
             // Иначе переходим на первый день
             // следующего месяца.
@@ -132,35 +132,39 @@ fn nasledne_datum(mut datum: Datum, mut pocet_dnu: i32) -> Datum {
             // 31.7. -> 1.8.
             //
             // Это тоже один день.
-            pocet_dnu -= zbyva_do_konce_mesice + 1;
+            day_count -= remaining_days + 1;
 
-            datum.den = 1;
-            datum.mesic += 1;
+            date.day = 1;
+            date.month += 1;
 
             // Если месяц стал 13,
             // значит переходим на январь следующего года.
-            if datum.mesic > 12 {
-                datum.mesic = 1;
-                datum.rok += 1;
+            if date.month > 12 {
+                date.month = 1;
+                date.year += 1;
             }
         }
     }
 
-    datum
+    date
 }
 
+// Запускаем пример из упражнения и выводим результаты.
 fn main() {
-    let d = Datum {
-        den: 16,
-        mesic: 7,
-        rok: 2015,
+    let d = Date {
+        day: 16,
+        month: 7,
+        year: 2015,
     };
 
-    let pocet_dnu = 500;
+    let day_count = 500;
 
-    let d1 = nasledne_datum(d, pocet_dnu);
+    let d1 = date_after_days(d, day_count);
 
-    println!("Puvodni datum:   {:02}.{:02}.{}", d.den, d.mesic, d.rok);
-    println!("Pocet dni:       {}", pocet_dnu);
-    println!("Nasledne datum:  {:02}.{:02}.{}", d1.den, d1.mesic, d1.rok);
+    println!("Original date:   {:02}.{:02}.{}", d.day, d.month, d.year);
+    println!("Number of days:       {}", day_count);
+    println!(
+        "Date after days:  {:02}.{:02}.{}",
+        d1.day, d1.month, d1.year
+    );
 }

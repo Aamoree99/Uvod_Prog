@@ -48,20 +48,21 @@ internal static class Program
 {
 
     // Возвращаем новый массив из четырёх элементов, как в исходном примере.
-    static int[] zaokrouhli_pole(double[] pole) {
-        int[] vysledek = new int[] {0,0,0,0};
+    static int[] RoundArray(double[] array) {
+        int[] result = new int[] {0,0,0,0};
         int i=0;
-        while (i < pole.Length) {
+        while (i < array.Length) {
             // В Rust половины округляются от нуля; выбираем такое же правило в каждом языке.
-            vysledek[i] = (int)Math.Round(pole[i], MidpointRounding.AwayFromZero);
+            result[i] = (int)Math.Round(array[i], MidpointRounding.AwayFromZero);
             i += 1;
         }
-        return vysledek;
+        return result;
     }
+    // Запускаем пример из упражнения и выводим результаты.
     public static void Main() {
         CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
-        double[] pole = new double[] {5.12,-3.5996,156.0,7.9};
-        int[] zaokrouhlene=zaokrouhli_pole(pole);
-        Console.WriteLine("Puvodni:      {0}", "[" + string.Join(", ", pole) + "]"); Console.WriteLine("Zaokrouhlene: {0}", "[" + string.Join(", ", zaokrouhlene) + "]");
+        double[] array = new double[] {5.12,-3.5996,156.0,7.9};
+        int[] rounded=RoundArray(array);
+        Console.WriteLine("Original:      {0}", "[" + string.Join(", ", array) + "]"); Console.WriteLine("Rounded: {0}", "[" + string.Join(", ", rounded) + "]");
     }
 }

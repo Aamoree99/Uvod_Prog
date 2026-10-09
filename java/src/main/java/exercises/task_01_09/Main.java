@@ -48,6 +48,7 @@ import java.math.BigInteger;
 
 // Каждый файл Main.java компилируется отдельно в свой каталог.
 public class Main {
+    // Запускаем пример из упражнения и выводим результаты.
     public static void main(String[] args) {
         int a = 4;
         int b = 13;
@@ -56,13 +57,13 @@ public class Main {
         // Любое из трёх чисел может оказаться суммой двух других, поэтому проверяем три варианта.
         // Цепочка else if выводит только первое найденное совпадение.
         if (a + b == c) {
-            System.out.printf(Locale.ROOT, "Ze zadaných čísel %s, %s a %s je číslo %s součtem čísel %s a %s.%n", a, b, c, c, a, b);
+            System.out.printf(Locale.ROOT, "Among the numbers %s, %s and %s the number %s is the sum of %s and %s.%n", a, b, c, c, a, b);
         } else if (a + c == b) {
-            System.out.printf(Locale.ROOT, "Ze zadaných čísel %s, %s a %s je číslo %s součtem čísel %s a %s.%n", a, b, c, b, a, c);
+            System.out.printf(Locale.ROOT, "Among the numbers %s, %s and %s the number %s is the sum of %s and %s.%n", a, b, c, b, a, c);
         } else if (b + c == a) {
-            System.out.printf(Locale.ROOT, "Ze zadaných čísel %s, %s a %s je číslo %s součtem čísel %s a %s.%n", a, b, c, a, b, c);
+            System.out.printf(Locale.ROOT, "Among the numbers %s, %s and %s the number %s is the sum of %s and %s.%n", a, b, c, a, b, c);
         } else {
-            System.out.printf(Locale.ROOT, "Ze zadaných čísel %s, %s a %s žádná dvě čísla netvoří součet třetího čísla.%n", a, b, c);
+            System.out.printf(Locale.ROOT, "Among the numbers %s, %s and %s no two numbers sum to the third.%n", a, b, c);
         }
     }
 }

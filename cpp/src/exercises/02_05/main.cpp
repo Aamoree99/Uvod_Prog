@@ -60,26 +60,27 @@ int read_int() {
     return number;
 }
 
+// Запускаем пример из упражнения и выводим результаты.
 int main() {
     std::cout << std::boolalpha;
-    std::cout << "Zadej prvni cislo:" << '\n';
+    std::cout << "Enter the first number:" << '\n';
 
     int a = read_int();
 
-    std::cout << "Zadej druhe cislo:" << '\n';
+    std::cout << "Enter the second number:" << '\n';
 
     int b = read_int();
 
     // Этот алгоритм рассчитан на положительные a и b. b = 0 вызывает ошибку деления,
     // a = 0 сразу даёт 0; отрицательные значения не подходят для этого способа поиска.
-    auto nasobek = a;
+    auto multiple = a;
 
     // Перебираем a, 2a, 3a, ... — они уже делятся на a. Первый такой кандидат,
     // который делится и на b без остатка, является наименьшим общим кратным.
-    while (nasobek % b != 0) {
-        nasobek += a;
+    while (multiple % b != 0) {
+        multiple += a;
     }
 
-    std::cout << "Nejmensi spolecny nasobek je " << nasobek << '\n';
+    std::cout << "The least common multiple is " << multiple << '\n';
     return 0;
 }

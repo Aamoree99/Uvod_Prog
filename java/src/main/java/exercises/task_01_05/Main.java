@@ -48,6 +48,7 @@ import java.math.BigInteger;
 
 // Каждый файл Main.java компилируется отдельно в свой каталог.
 public class Main {
+    // Запускаем пример из упражнения и выводим результаты.
     public static void main(String[] args) {
         int a = 11;
         int b = 18;
@@ -67,6 +68,6 @@ public class Main {
             middle = c;
         }
 
-        System.out.printf(Locale.ROOT, "Prostřední z hodnot %s, %s a %s je %s.%n", a, b, c, middle);
+        System.out.printf(Locale.ROOT, "The middle of %s, %s and %s is %s.%n", a, b, c, middle);
     }
 }

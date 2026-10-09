@@ -58,15 +58,17 @@ i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden
 struct Complex { double re; double im; };
 // Складываем и вычитаем действительные и мнимые части отдельно.
 static Complex add(Complex x, Complex y) { return Complex{x.re + y.re, x.im + y.im}; }
+// Возвращаем разность комплексных чисел x и y.
 static Complex subtract(Complex x, Complex y) { return Complex{x.re - y.re, x.im - y.im}; }
 // Раскрываем скобки; i² = -1, поэтому действительная часть равна ac - bd.
 static Complex multiply(Complex x, Complex y) { return Complex{x.re*y.re - x.im*y.im, x.re*y.im + x.im*y.re}; }
+// Запускаем пример из упражнения и выводим результаты.
 int main() {
     std::cout << std::boolalpha;
     Complex x = Complex{5.2, 3.25}, y = Complex{1.6, -4.0};
     Complex a = add(x,y), b = subtract(x,y), c = multiply(x,y);
     // Четыре знака после запятой; для мнимой части явно показываем знак.
-    std::cout << "Soucet: " << std::fixed << std::setprecision(4) << a.re << std::defaultfloat << " " << std::showpos << std::fixed << std::setprecision(4) << a.im << std::defaultfloat << std::noshowpos << "i" << '\n';
-    std::cout << "Rozdil: " << std::fixed << std::setprecision(4) << b.re << std::defaultfloat << " " << std::showpos << std::fixed << std::setprecision(4) << b.im << std::defaultfloat << std::noshowpos << "i" << '\n';
-    std::cout << "Soucin: " << std::fixed << std::setprecision(4) << c.re << std::defaultfloat << " " << std::showpos << std::fixed << std::setprecision(4) << c.im << std::defaultfloat << std::noshowpos << "i" << '\n';
+    std::cout << "Sum: " << std::fixed << std::setprecision(4) << a.re << std::defaultfloat << " " << std::showpos << std::fixed << std::setprecision(4) << a.im << std::defaultfloat << std::noshowpos << "i" << '\n';
+    std::cout << "Difference: " << std::fixed << std::setprecision(4) << b.re << std::defaultfloat << " " << std::showpos << std::fixed << std::setprecision(4) << b.im << std::defaultfloat << std::noshowpos << "i" << '\n';
+    std::cout << "Product: " << std::fixed << std::setprecision(4) << c.re << std::defaultfloat << " " << std::showpos << std::fixed << std::setprecision(4) << c.im << std::defaultfloat << std::noshowpos << "i" << '\n';
 }

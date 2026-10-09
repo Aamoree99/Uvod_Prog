@@ -50,35 +50,35 @@ internal static class Program
     // Он использует массив и отличается от ограничений исходного задания.
     public static void Main() {
         CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
-        Console.WriteLine("Poznamka:");
-        Console.WriteLine("Ulohu by bylo mozne vyresit jednoduchym prochazenim cisel v cyklu");
-        Console.WriteLine("a u kazdeho cisla zkouset vsechny mozne delitele.");
-        Console.WriteLine("Takove reseni by ale nebylo moc zajimave, proto pouzijeme Eratosthenovo sito");
-        Console.WriteLine("a zvysime limit z 1000 na 100000.");
+        Console.WriteLine("Note:");
+        Console.WriteLine("This exercise can be solved by looping through the numbers");
+        Console.WriteLine("and testing all possible divisors for each number.");
+        Console.WriteLine("This implementation uses the sieve of Eratosthenes");
+        Console.WriteLine("and increases the limit from 1000 to 100000.");
         Console.WriteLine("");
 
         int limit = 100000;
 
         // Индекс — само число; true означает, что число пока считается простым.
         // 0 и 1 исключаем отдельно: они не являются простыми.
-        bool[] is_prime = new bool[limit];
-        Array.Fill(is_prime, true);
+        bool[] isPrime = new bool[limit];
+        Array.Fill(isPrime, true);
 
-        is_prime[0] = false;
-        is_prime[1] = false;
+        isPrime[0] = false;
+        isPrime[1] = false;
 
         var number = 2;
 
         // Достаточно обработать делители до квадратного корня из предела: у каждого
         // составного числа есть делитель не больше его корня.
         while (number * number < limit) {
-            if (is_prime[number]) {
+            if (isPrime[number]) {
                 // Начинаем вычёркивание с number²: меньшие кратные уже вычеркнули предыдущие простые.
                 // Шаг number перебирает все следующие кратные.
                 var multiple = number * number;
 
                 while (multiple < limit) {
-                    is_prime[multiple] = false;
+                    isPrime[multiple] = false;
                     multiple += number;
                 }
             }
@@ -86,7 +86,7 @@ internal static class Program
             number += 1;
         }
 
-        Console.WriteLine("Prvocisla mensi nez {0}:", limit);
+        Console.WriteLine("Prime numbers less than {0}:", limit);
         Console.WriteLine("");
 
         number = 2;
@@ -94,7 +94,7 @@ internal static class Program
         var count = 0;
 
         while (number < limit) {
-            if (is_prime[number]) {
+            if (isPrime[number]) {
                 Console.Write("{0,6}", number);
                 count += 1;
 
@@ -111,6 +111,6 @@ internal static class Program
         }
 
         Console.WriteLine("");
-        Console.WriteLine("Celkovy pocet prvocisel: {0}", count);
+        Console.WriteLine("Total prime count: {0}", count);
     }
 }

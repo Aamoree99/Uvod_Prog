@@ -61,31 +61,32 @@ i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden
 #include <iostream>
 #include <iomanip>
 
-enum class BmiType { TezkaPodvyziva, Podvaha, OptimalniVaha, Nadvaha, ObezitaPrvnihoStupne, ObezitaDruhehoStupne, ObezitaTretihoStupne };
+enum class BmiType { SevereUnderweight, Underweight, NormalWeight, Overweight, ObesityClassOne, ObesityClassTwo, ObesityClassThree };
 // Рост задаётся в метрах, вес — в килограммах. Рост должен быть положительным.
-static double bmi1(double height, double weight) { return weight / (height * height); }
+static double calculate_bmi(double height, double weight) { return weight / (height * height); }
 // Проверяем верхние границы по порядку: нижние уже исключены предыдущими ветками.
-static BmiType bmi2(double height, double weight) {
+static BmiType classify_bmi(double height, double weight) {
     double bmi = weight / (height * height);
-    if (bmi < 16.5) return BmiType::TezkaPodvyziva;
-    else if (bmi < 18.5) return BmiType::Podvaha;
-    else if (bmi < 25.0) return BmiType::OptimalniVaha;
-    else if (bmi < 30.0) return BmiType::Nadvaha;
-    else if (bmi < 35.0) return BmiType::ObezitaPrvnihoStupne;
-    else if (bmi < 40.0) return BmiType::ObezitaDruhehoStupne;
-    else return BmiType::ObezitaTretihoStupne;
+    if (bmi < 16.5) return BmiType::SevereUnderweight;
+    else if (bmi < 18.5) return BmiType::Underweight;
+    else if (bmi < 25.0) return BmiType::NormalWeight;
+    else if (bmi < 30.0) return BmiType::Overweight;
+    else if (bmi < 35.0) return BmiType::ObesityClassOne;
+    else if (bmi < 40.0) return BmiType::ObesityClassTwo;
+    else return BmiType::ObesityClassThree;
 }
+// Запускаем пример из упражнения и выводим результаты.
 int main() {
     std::cout << std::boolalpha;
-    double x = bmi1(1.70, 61.5);
-    BmiType y = bmi2(1.67, 80.0);
-    std::cout << "BMI je " << std::fixed << std::setprecision(2) << x << std::defaultfloat << "." << '\n';
+    double x = calculate_bmi(1.70, 61.5);
+    BmiType y = classify_bmi(1.67, 80.0);
+    std::cout << "BMI is " << std::fixed << std::setprecision(2) << x << std::defaultfloat << "." << '\n';
     // Переводим категорию в текст для пользователя.
-    if (y == BmiType::TezkaPodvyziva) std::cout << "Kategorie BMI: tezka podvyziva." << '\n';
-    else if (y == BmiType::Podvaha) std::cout << "Kategorie BMI: podvaha." << '\n';
-    else if (y == BmiType::OptimalniVaha) std::cout << "Kategorie BMI: optimalni vaha." << '\n';
-    else if (y == BmiType::Nadvaha) std::cout << "Kategorie BMI: nadvaha." << '\n';
-    else if (y == BmiType::ObezitaPrvnihoStupne) std::cout << "Kategorie BMI: obezita prvniho stupne." << '\n';
-    else if (y == BmiType::ObezitaDruhehoStupne) std::cout << "Kategorie BMI: obezita druheho stupne." << '\n';
-    else std::cout << "Kategorie BMI: obezita tretiho stupne." << '\n';
+    if (y == BmiType::SevereUnderweight) std::cout << "BMI category: severe underweight." << '\n';
+    else if (y == BmiType::Underweight) std::cout << "BMI category: underweight." << '\n';
+    else if (y == BmiType::NormalWeight) std::cout << "BMI category: normal weight." << '\n';
+    else if (y == BmiType::Overweight) std::cout << "BMI category: overweight." << '\n';
+    else if (y == BmiType::ObesityClassOne) std::cout << "BMI category: class I obesity." << '\n';
+    else if (y == BmiType::ObesityClassTwo) std::cout << "BMI category: class II obesity." << '\n';
+    else std::cout << "BMI category: class III obesity." << '\n';
 }

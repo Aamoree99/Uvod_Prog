@@ -42,6 +42,7 @@ i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden
 
 #include <iostream>
 
+// Запускаем пример из упражнения и выводим результаты.
 int main() {
     std::cout << std::boolalpha;
     int a = 8;
@@ -52,6 +53,6 @@ int main() {
     // Сумма этих единиц — количество подходящих чисел. Само число 10 не подходит.
     auto count = (a < 10 ? 1 : 0) + (b < 10 ? 1 : 0) + (c < 10 ? 1 : 0);
 
-    std::cout << "Byla zadána čísla " << a << ", " << b << " a " << c << ". Počet čísel s hodnotou menší než 10 je " << count << "." << '\n';
+    std::cout << "The entered numbers are " << a << ", " << b << " and " << c << ". The count of numbers less than 10 is " << count << "." << '\n';
     return 0;
 }

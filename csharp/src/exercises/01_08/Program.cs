@@ -54,6 +54,7 @@ using System.Numerics;
 internal static class Program
 {
 
+    // Запускаем пример из упражнения и выводим результаты.
     public static void Main() {
         CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
         int a = 2;
@@ -66,39 +67,39 @@ internal static class Program
         // Проверяем все шесть направлений делимости между тремя числами.
         // Условие слева от && проверяется первым: при нулевом делителе остаток не вычисляется.
         if (a != 0 && b % a == 0) {
-            Console.WriteLine("Číslo {0} je dělitelem čísla {1}.", a, b);
+            Console.WriteLine("The number {0} is a divisor of {1}.", a, b);
             found = true;
         }
 
         if (b != 0 && a % b == 0) {
-            Console.WriteLine("Číslo {0} je dělitelem čísla {1}.", b, a);
+            Console.WriteLine("The number {0} is a divisor of {1}.", b, a);
             found = true;
         }
 
         if (a != 0 && c % a == 0) {
-            Console.WriteLine("Číslo {0} je dělitelem čísla {1}.", a, c);
+            Console.WriteLine("The number {0} is a divisor of {1}.", a, c);
             found = true;
         }
 
         if (c != 0 && a % c == 0) {
-            Console.WriteLine("Číslo {0} je dělitelem čísla {1}.", c, a);
+            Console.WriteLine("The number {0} is a divisor of {1}.", c, a);
             found = true;
         }
 
         if (b != 0 && c % b == 0) {
-            Console.WriteLine("Číslo {0} je dělitelem čísla {1}.", b, c);
+            Console.WriteLine("The number {0} is a divisor of {1}.", b, c);
             found = true;
         }
 
         if (c != 0 && b % c == 0) {
-            Console.WriteLine("Číslo {0} je dělitelem čísla {1}.", c, b);
+            Console.WriteLine("The number {0} is a divisor of {1}.", c, b);
             found = true;
         }
 
         // Сообщение об отсутствии делителей выводим только после проверки всех пар.
         // Этот вариант выводит все найденные пары, хотя по условию достаточно одной.
         if (found == false) {
-            Console.WriteLine("Ze zadaných čísel {0}, {1} a {2} není žádné číslo dělitelem jiného čísla.", a, b, c);
+            Console.WriteLine("Among the numbers {0}, {1} and {2} no number divides another.", a, b, c);
         }
     }
 }

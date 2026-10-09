@@ -43,6 +43,7 @@ i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden
 
 #include <iostream>
 
+// Запускаем пример из упражнения и выводим результаты.
 int main() {
     std::cout << std::boolalpha;
     int a = 9;
@@ -75,11 +76,11 @@ int main() {
 
     // После распределения чисел сравниваем суммы; учитываем больше, меньше и равенство.
     if (odd > even) {
-        std::cout << "Zadaná čísla " << a << ", " << b << " a " << c << " mají součet lichých hodnot " << odd << " vyšší než součet sudých hodnot " << even << "." << '\n';
+        std::cout << "The numbers " << a << ", " << b << " and " << c << " have an odd-number sum of " << odd << " greater than the even-number sum of " << even << "." << '\n';
     } else if (odd < even) {
-        std::cout << "Zadaná čísla " << a << ", " << b << " a " << c << " mají součet lichých hodnot " << odd << " nižší než součet sudých hodnot " << even << "." << '\n';
+        std::cout << "The numbers " << a << ", " << b << " and " << c << " have an odd-number sum of " << odd << " less than the even-number sum of " << even << "." << '\n';
     } else {
-        std::cout << "Zadaná čísla " << a << ", " << b << " a " << c << " mají součet lichých hodnot " << odd << " stejný jako součet sudých hodnot " << even << "." << '\n';
+        std::cout << "The numbers " << a << ", " << b << " and " << c << " have an odd-number sum of " << odd << " equal to the even-number sum of " << even << "." << '\n';
     }
     return 0;
 }

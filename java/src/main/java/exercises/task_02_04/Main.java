@@ -50,18 +50,20 @@ import java.math.BigInteger;
 // Каждый файл Main.java компилируется отдельно в свой каталог.
 public class Main {
     private static final Scanner INPUT = new Scanner(System.in);
-    private static int read_int() { return Integer.parseInt(INPUT.nextLine().trim()); }
+    // Читаем одно целое число из строки ввода.
+    private static int readInt() { return Integer.parseInt(INPUT.nextLine().trim()); }
+    // Запускаем пример из упражнения и выводим результаты.
     public static void main(String[] args) {
-        System.out.printf(Locale.ROOT, "Zadejte cislo:%n");
+        System.out.printf(Locale.ROOT, "Enter a number:%n");
 
         // trim убирает перевод строки, parse преобразует текст в int. Ввод должен быть целым числом.
-        int a = read_int();
+        int a = readInt();
 
         // Факториал определён для неотрицательных целых. В Rust 34! помещается в u128, а 35! уже нет; сохраняем этот предел и здесь.
         if (a < 0) {
-            System.out.printf(Locale.ROOT, "Faktorial zaporneho cisla neni definovan.%n");
+            System.out.printf(Locale.ROOT, "The factorial of a negative number is undefined.%n");
         } else if (a > 34) {
-            System.out.printf(Locale.ROOT, "Hodnota je prilis vysoka pro datovy typ u128.%n");
+            System.out.printf(Locale.ROOT, "The number is too large for a 128-bit unsigned integer.%n");
         } else {
             // Начинаем произведение с 1. Для 0 цикл не выполняется, поэтому 0! = 1.
             BigInteger factorial = BigInteger.ONE; // int вмещает 12!, но уже не вмещает 13!.
@@ -73,7 +75,7 @@ public class Main {
                 number -= 1;
             }
 
-            System.out.printf(Locale.ROOT, "Faktorial je %s%n", factorial);
+            System.out.printf(Locale.ROOT, "The factorial is %s%n", factorial);
         }
     }
 }

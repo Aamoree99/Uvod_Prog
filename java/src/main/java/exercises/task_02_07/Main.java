@@ -44,8 +44,9 @@ import java.math.BigInteger;
 
 // Каждый файл Main.java компилируется отдельно в свой каталог.
 public class Main {
+    // Запускаем пример из упражнения и выводим результаты.
     public static void main(String[] args) {
-        System.out.printf(Locale.ROOT, "Vsechna dokonala cisla mensi nez 10000:%n");
+        System.out.printf(Locale.ROOT, "All perfect numbers less than 10000:%n");
 
         // Совершенное число равно сумме своих положительных делителей, кроме самого себя.
         int number = 2;

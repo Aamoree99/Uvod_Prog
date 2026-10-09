@@ -63,6 +63,7 @@ using System.Numerics;
 internal static class Program
 {
 
+    // Запускаем пример из упражнения и выводим результаты.
     public static void Main() {
         CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
         int age = 9;
@@ -70,11 +71,11 @@ internal static class Program
         // Проверяем тарифы по порядку. После первой ветки уже известно, что возраст >= 6.
         // Во второй ветке скидку получают дети до 15 лет либо люди от 60 лет включительно.
         if (age < 6) {
-            Console.WriteLine("Cestující ve věku {0} let zaplatí jízdné 0 Kč.", age);
+            Console.WriteLine("A passenger aged {0} pays a fare of 0 CZK.", age);
         } else if (age < 15 || age >= 60) {
-            Console.WriteLine("Cestující ve věku {0} let zaplatí jízdné 12 Kč.", age);
+            Console.WriteLine("A passenger aged {0} pays a fare of 12 CZK.", age);
         } else {
-            Console.WriteLine("Cestující ve věku {0} let zaplatí jízdné 24 Kč.", age);
+            Console.WriteLine("A passenger aged {0} pays a fare of 24 CZK.", age);
         }
     }
 }

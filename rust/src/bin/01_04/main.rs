@@ -42,12 +42,11 @@ Projekty.
 i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden příkaz.
 */
 
+// Запускаем пример из упражнения и выводим результаты.
 fn main() {
     let a: i32 = 14;
     let b: i32 = 6;
     let c: i32 = 23;
-
-    // let max = a.max(b).max(c);
 
     // За начальный максимум берём первое число, а не 0: так работают и отрицательные числа.
     // mut позволяет менять значение переменной.
@@ -63,5 +62,5 @@ fn main() {
         max = c;
     }
 
-    println!("Nejvyšší z hodnot {a}, {b} a {c} je {max}.");
+    println!("The largest of {a}, {b} and {c} is {max}.");
 }

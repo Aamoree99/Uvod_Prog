@@ -54,26 +54,27 @@ internal static class Program
 
     // По условию числа неотрицательные, поэтому начальные максимумы равны нулю.
     // Повторы учитываются; для короткого массива незаполненные места остаются нулевыми.
-    static void max_pole(int[] pole, ref int max, ref int max2, ref int max3) {
-        max=0; max2=0; max3=0;
+    static void ArrayMaxima(int[] array, ref int largest, ref int secondLargest, ref int thirdLargest) {
+        largest=0; secondLargest=0; thirdLargest=0;
         int i=0;
-        while (i < pole.Length) {
-            int cislo=pole[i];
+        while (i < array.Length) {
+            int number=array[i];
             // Сдвигаем значения справа налево, чтобы не потерять прежние максимумы.
-            if (cislo > max) { max3=max2; max2=max; max=cislo; }
-            else if (cislo > max2) { max3=max2; max2=cislo; }
-            else if (cislo > max3) { max3=cislo; }
+            if (number > largest) { thirdLargest=secondLargest; secondLargest=largest; largest=number; }
+            else if (number > secondLargest) { thirdLargest=secondLargest; secondLargest=number; }
+            else if (number > thirdLargest) { thirdLargest=number; }
             i += 1;
         }
     }
+    // Запускаем пример из упражнения и выводим результаты.
     public static void Main() {
         CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
-        int[] pole = new int[] {2,5,7,1,4,6,9,8,2};
-        int max=0,max2=0,max3=0;
-        max_pole(pole,ref max,ref max2,ref max3);
-        Console.WriteLine("Pole: {0}", "[" + string.Join(", ", pole) + "]");
-        Console.WriteLine("Nejvetsi:       {0}", max);
-        Console.WriteLine("Druhe nejvetsi: {0}", max2);
-        Console.WriteLine("Treti nejvetsi: {0}", max3);
+        int[] array = new int[] {2,5,7,1,4,6,9,8,2};
+        int largest=0,secondLargest=0,thirdLargest=0;
+        ArrayMaxima(array,ref largest,ref secondLargest,ref thirdLargest);
+        Console.WriteLine("Array: {0}", "[" + string.Join(", ", array) + "]");
+        Console.WriteLine("Largest:       {0}", largest);
+        Console.WriteLine("Second largest: {0}", secondLargest);
+        Console.WriteLine("Third largest: {0}", thirdLargest);
     }
 }

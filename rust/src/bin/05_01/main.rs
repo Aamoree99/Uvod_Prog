@@ -40,7 +40,48 @@ Projekty.
 i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden příkaz.
 */
 
-// Решение пока не написано. Этот entrypoint нужен только для сборки Cargo.
+// Функция проверяет, отсортирован ли массив по убыванию.
+//
+// array — массив целых чисел.
+// Возвращает:
+// true  — массив отсортирован по убыванию.
+// false — порядок элементов нарушен.
+fn is_descending(array: &[i32]) -> bool {
+    // Начинаем со второго элемента,
+    // потому что будем сравнивать его с предыдущим.
+    let mut i: usize = 1;
+
+    // Проходим по всем элементам массива.
+    while i < array.len() {
+        // Если текущий элемент больше предыдущего,
+        // значит порядок убывания нарушен.
+        if array[i] > array[i - 1] {
+            return false;
+        }
+
+        // Переходим к следующему элементу.
+        i += 1;
+    }
+
+    // Если дошли до конца без нарушений,
+    // значит массив отсортирован правильно.
+    true
+}
+
 fn main() {
-    println!("Reseni teto ulohy zatim neni implementovano.");
+    // Исходный массив из задания.
+    let array: [i32; 9] = [15, 12, 9, 9, 8, 5, 2, 2, 1];
+
+    // Вызываем функцию и сохраняем результат проверки.
+    let is_sorted = is_descending(&array);
+
+    // Выводим исходный массив.
+    println!("Array: {:?}", array);
+
+    // Выводим результат проверки.
+    if is_sorted == true {
+        println!("The array is sorted in descending order.");
+    } else {
+        println!("The array is not sorted in descending order.");
+    }
 }

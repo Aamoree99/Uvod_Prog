@@ -57,23 +57,24 @@ import java.math.BigInteger;
 
 // Каждый файл Main.java компилируется отдельно в свой каталог.
 public class Main {
+    // Запускаем пример из упражнения и выводим результаты.
     public static void main(String[] args) {
         int speed = 146;
 
         // Границы диапазонов важны: 60 и 130 входят в диапазон без штрафа, 150 — в следующий.
         if (speed < 60) {
-            System.out.printf(Locale.ROOT, "Rychlost %s km/h je pokutována částkou 1000 Kč.%n", speed);
+            System.out.printf(Locale.ROOT, "A speed of %s km/h incurs a fine of 1000 CZK.%n", speed);
         } else if (speed <= 130) {
-            System.out.printf(Locale.ROOT, "Rychlost %s km/h není pokutována.%n", speed);
+            System.out.printf(Locale.ROOT, "A speed of %s km/h incurs no fine.%n", speed);
         } else if (speed <= 150) {
-            System.out.printf(Locale.ROOT, "Rychlost %s km/h je pokutována částkou 2000 Kč.%n", speed);
+            System.out.printf(Locale.ROOT, "A speed of %s km/h incurs a fine of 2000 CZK.%n", speed);
         } else {
             // Считаем количество начатых пятёрок сверх 150. Добавление 4 перед целочисленным
             // делением округляет вверх: превышение на 1–5 даёт одну пятёрку, на 6–10 — две.
             var extra = (speed - 150 + 4) / 5;
             var fine = 2000 + extra * 500;
 
-            System.out.printf(Locale.ROOT, "Rychlost %s km/h je pokutována částkou %s Kč.%n", speed, fine);
+            System.out.printf(Locale.ROOT, "A speed of %s km/h incurs a fine of %s CZK.%n", speed, fine);
         }
     }
 }

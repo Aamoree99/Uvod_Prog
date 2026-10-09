@@ -86,10 +86,11 @@ Projekty.
 
 i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden příkaz.
 */
-// Copy нужен, чтобы Bod можно было передавать в функции несколько раз.
+
+// Copy нужен, чтобы Point можно было передавать в функции несколько раз.
 // Иначе Rust по умолчанию может считать значение "перемещённым".
 #[derive(Clone, Copy)]
-struct Bod {
+struct Point {
     // Координата X
     x: f64,
 
@@ -99,10 +100,10 @@ struct Bod {
 
 // Треугольник состоит из трёх точек.
 #[derive(Clone, Copy)]
-struct Trojuhelnik {
-    a: Bod,
-    b: Bod,
-    c: Bod,
+struct Triangle {
+    a: Point,
+    b: Point,
+    c: Point,
 }
 
 // a)
@@ -114,7 +115,7 @@ struct Trojuhelnik {
 //
 // Они немного отличаются,
 // но разница меньше 10^-13.
-fn priblizna_rovnost(a: f64, b: f64) -> bool {
+fn approximately_equal(a: f64, b: f64) -> bool {
     // .abs() убирает знак.
     //
     // Например:
@@ -129,57 +130,57 @@ fn priblizna_rovnost(a: f64, b: f64) -> bool {
 
 // b)
 // Считаем расстояние между двумя точками.
-fn delka_usecky(a: Bod, b: Bod) -> f64 {
+fn segment_length(a: Point, b: Point) -> f64 {
     // Разница координат X.
-    let rozdil_x = b.x - a.x;
+    let difference_x = b.x - a.x;
 
     // Разница координат Y.
-    let rozdil_y = b.y - a.y;
+    let difference_y = b.y - a.y;
 
     // Формула:
     //
     // sqrt(dx² + dy²)
     //
     // sqrt = квадратный корень.
-    (rozdil_x * rozdil_x + rozdil_y * rozdil_y).sqrt()
+    (difference_x * difference_x + difference_y * difference_y).sqrt()
 }
 
 // c)
 // Проверяем, образуют ли три точки треугольник.
-fn je_trojuhelnik(a: Bod, b: Bod, c: Bod) -> bool {
+fn is_triangle(a: Point, b: Point, c: Point) -> bool {
     // Считаем три стороны.
-    let ab = delka_usecky(a, b);
-    let bc = delka_usecky(b, c);
-    let ca = delka_usecky(c, a);
+    let ab = segment_length(a, b);
+    let bc = segment_length(b, c);
+    let ca = segment_length(c, a);
 
     // Эти переменные пока только объявляем.
     // Значения дадим ниже.
-    let nejdelsi;
-    let kratka1;
-    let kratka2;
+    let longest;
+    let short_side1;
+    let short_side2;
 
     // Определяем, какая сторона самая длинная.
 
     if ab >= bc && ab >= ca {
         // AB самая длинная.
-        nejdelsi = ab;
+        longest = ab;
 
         // Оставшиеся две короткие.
-        kratka1 = bc;
-        kratka2 = ca;
+        short_side1 = bc;
+        short_side2 = ca;
     } else if bc >= ab && bc >= ca {
         // BC самая длинная.
-        nejdelsi = bc;
+        longest = bc;
 
-        kratka1 = ab;
-        kratka2 = ca;
+        short_side1 = ab;
+        short_side2 = ca;
     } else {
         // Если не AB и не BC,
         // значит самая длинная CA.
-        nejdelsi = ca;
+        longest = ca;
 
-        kratka1 = ab;
-        kratka2 = bc;
+        short_side1 = ab;
+        short_side2 = bc;
     }
 
     // Если:
@@ -189,8 +190,8 @@ fn je_trojuhelnik(a: Bod, b: Bod, c: Bod) -> bool {
     // точки находятся на одной прямой.
     //
     // Для сравнения double используем
-    // нашу функцию priblizna_rovnost().
-    if priblizna_rovnost(kratka1 + kratka2, nejdelsi) == true {
+    // нашу функцию approximately_equal().
+    if approximately_equal(short_side1 + short_side2, longest) == true {
         return false;
     }
 
@@ -200,16 +201,16 @@ fn je_trojuhelnik(a: Bod, b: Bod, c: Bod) -> bool {
     //
     // Эта строка одновременно является return,
     // потому что это последнее выражение без ;
-    kratka1 + kratka2 > nejdelsi
+    short_side1 + short_side2 > longest
 }
 
 // d)
 // Считаем периметр треугольника.
-fn obvod_trojuhelniku(t: Trojuhelnik) -> f64 {
+fn triangle_perimeter(t: Triangle) -> f64 {
     // Считаем длину каждой стороны.
-    let ab = delka_usecky(t.a, t.b);
-    let bc = delka_usecky(t.b, t.c);
-    let ca = delka_usecky(t.c, t.a);
+    let ab = segment_length(t.a, t.b);
+    let bc = segment_length(t.b, t.c);
+    let ca = segment_length(t.c, t.a);
 
     // Периметр = сумма трёх сторон.
     //
@@ -220,88 +221,89 @@ fn obvod_trojuhelniku(t: Trojuhelnik) -> f64 {
 
 // e)
 // Проверяем, является ли треугольник прямоугольным.
-fn trojuhelnik_je_pravouhly(t: Trojuhelnik) -> bool {
+fn is_right_triangle(t: Triangle) -> bool {
     // Снова считаем три стороны.
-    let ab = delka_usecky(t.a, t.b);
-    let bc = delka_usecky(t.b, t.c);
-    let ca = delka_usecky(t.c, t.a);
+    let ab = segment_length(t.a, t.b);
+    let bc = segment_length(t.b, t.c);
+    let ca = segment_length(t.c, t.a);
 
-    let nejdelsi;
-    let kratka1;
-    let kratka2;
+    let longest;
+    let short_side1;
+    let short_side2;
 
     // Снова ищем гипотенузу,
     // то есть самую длинную сторону.
     if ab >= bc && ab >= ca {
-        nejdelsi = ab;
-        kratka1 = bc;
-        kratka2 = ca;
+        longest = ab;
+        short_side1 = bc;
+        short_side2 = ca;
     } else if bc >= ab && bc >= ca {
-        nejdelsi = bc;
-        kratka1 = ab;
-        kratka2 = ca;
+        longest = bc;
+        short_side1 = ab;
+        short_side2 = ca;
     } else {
-        nejdelsi = ca;
-        kratka1 = ab;
-        kratka2 = bc;
+        longest = ca;
+        short_side1 = ab;
+        short_side2 = bc;
     }
 
     // Теорема Пифагора:
     //
     // a² + b² = c²
     //
-    // Здесь kratka1 и kratka2 — катеты.
-    let leva_strana = kratka1 * kratka1 + kratka2 * kratka2;
+    // Здесь short_side1 и short_side2 — катеты.
+    let left_side = short_side1 * short_side1 + short_side2 * short_side2;
 
-    // nejdelsi — гипотенуза.
-    let prava_strana = nejdelsi * nejdelsi;
+    // longest — гипотенуза.
+    let right_side = longest * longest;
 
     // Нельзя нормально сравнивать f64 через ==,
     // поэтому опять используем нашу функцию.
-    priblizna_rovnost(leva_strana, prava_strana)
+    approximately_equal(left_side, right_side)
 }
 
+// Запускаем пример из упражнения и выводим результаты.
 fn main() {
     // Создаём точки из задания.
 
-    let b1 = Bod {
+    let b1 = Point {
         x: 7.2,
         y: -2.0_f64,
     };
 
-    let b2 = Bod {
+    let b2 = Point {
         x: -2.9_f64,
         y: -6.23_f64,
     };
 
-    let b3 = Bod { x: 2.0, y: 5.0 };
+    let b3 = Point { x: 2.0, y: 5.0 };
 
-    let b4 = Bod {
+    let b4 = Point {
         x: -1.0_f64,
         y: -2.5_f64,
     };
 
-    let b5 = Bod { x: 3.0, y: 7.5 };
+    let b5 = Point { x: 3.0, y: 7.5 };
 
-    let b6 = Bod {
+    let b6 = Point {
         x: 3.0,
         y: -2.6_f64,
     };
 
-    let b7 = Bod {
+    let b7 = Point {
         x: 5.2,
         y: -2.6_f64,
     };
 
     // Создаём первый треугольник.
-    let t1 = Trojuhelnik {
+    let t1 = Triangle {
         a: b1,
         b: b2,
         c: b3,
     };
 
     // Второй треугольник.
-    let t2 = Trojuhelnik {
+    let t2 = Triangle {
         a: b5,
         b: b6,
         c: b7,
@@ -309,30 +311,24 @@ fn main() {
 
     // Проверяем пункт a).
     println!(
-        "Priblizna rovnost: {}",
-        priblizna_rovnost(5.0, 4.99999999999992)
+        "Approximate equality: {}",
+        approximately_equal(5.0, 4.99999999999992)
     );
 
     // Проверяем длину отрезка.
-    println!("Delka b1-b2: {:.3}", delka_usecky(b1, b2));
+    println!("Length b1-b2: {:.3}", segment_length(b1, b2));
 
     // Должно быть true.
-    println!(
-        "b1, b2, b3 tvori trojuhelnik: {}",
-        je_trojuhelnik(b1, b2, b3)
-    );
+    println!("b1, b2, b3 form a triangle: {}", is_triangle(b1, b2, b3));
 
     // Должно быть false.
-    println!(
-        "b4, b3, b5 tvori trojuhelnik: {}",
-        je_trojuhelnik(b4, b3, b5)
-    );
+    println!("b4, b3, b5 form a triangle: {}", is_triangle(b4, b3, b5));
 
     // Периметры.
-    println!("Obvod t1: {:.3}", obvod_trojuhelniku(t1));
+    println!("Perimeter t1: {:.3}", triangle_perimeter(t1));
 
-    println!("Obvod t2: {:.3}", obvod_trojuhelniku(t2));
+    println!("Perimeter t2: {:.3}", triangle_perimeter(t2));
 
     // Проверка прямоугольности.
-    println!("t2 je pravouhly: {}", trojuhelnik_je_pravouhly(t2));
+    println!("t2 is right-angled: {}", is_right_triangle(t2));
 }

@@ -51,25 +51,27 @@ internal static class Program
 {
 
     // Перечисление ограничивает выбор учебными ставками из условия.
-    enum Dph { Zakladni, PrvniSnizena, DruhaSnizena }
+    enum VatRate { Standard, FirstReduced, SecondReduced }
     // Прибавляем к цене налог, вычисленный как цена * процент / 100.
-    static double dph1(double price, double dph) { return price + price * dph / 100.0; }
-    static double dph2(double price, Dph dph) {
+    static double PriceWithVat(double price, double vat) { return price + price * vat / 100.0; }
+    // Возвращаем цену с налогом по именованной ставке учебного задания.
+    static double PriceWithVatRate(double price, VatRate vat) {
         double percent;
-        if (dph == Dph.Zakladni) percent = 21.0;
-        else if (dph == Dph.PrvniSnizena) percent = 15.0;
+        if (vat == VatRate.Standard) percent = 21.0;
+        else if (vat == VatRate.FirstReduced) percent = 15.0;
         else percent = 10.0;
         return price + price * percent / 100.0;
     }
+    // Запускаем пример из упражнения и выводим результаты.
     public static void Main() {
         CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
-        double x = dph1(56.20, 21.0);
-        double y1 = dph2(115.0, Dph.Zakladni);
-        double y2 = dph2(115.0, Dph.PrvniSnizena);
-        double y3 = dph2(115.0, Dph.DruhaSnizena);
-        Console.WriteLine("Cena 56.20 Kč se sazbou DPH 21 % je {0:F2} Kč.", x);
-        Console.WriteLine("Cena 115.00 Kč se základní sazbou DPH 21 % je {0:F2} Kč.", y1);
-        Console.WriteLine("Cena 115.00 Kč s první sníženou sazbou DPH 15 % je {0:F2} Kč.", y2);
-        Console.WriteLine("Cena 115.00 Kč s druhou sníženou sazbou DPH 10 % je {0:F2} Kč.", y3);
+        double x = PriceWithVat(56.20, 21.0);
+        double y1 = PriceWithVatRate(115.0, VatRate.Standard);
+        double y2 = PriceWithVatRate(115.0, VatRate.FirstReduced);
+        double y3 = PriceWithVatRate(115.0, VatRate.SecondReduced);
+        Console.WriteLine("The price 56.20 CZK with 21 % VAT is {0:F2} CZK.", x);
+        Console.WriteLine("The price 115.00 CZK with the standard 21 % VAT rate is {0:F2} CZK.", y1);
+        Console.WriteLine("The price 115.00 CZK with the first reduced 15 % VAT rate is {0:F2} CZK.", y2);
+        Console.WriteLine("The price 115.00 CZK with the second reduced 10 % VAT rate is {0:F2} CZK.", y3);
     }
 }
