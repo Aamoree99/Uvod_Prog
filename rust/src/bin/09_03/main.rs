@@ -102,7 +102,458 @@ Projekty.
 i) Je zakázáno používat složené příkazy { }, pokud obsahují pouze jeden příkaz.
 */
 
-// Решение пока не написано. Этот entrypoint нужен только для сборки Cargo.
+// --------------------------------------------------
+// BASIC SETTINGS
+// --------------------------------------------------
+
+// Размер буфера для хранения рисунка.
+//
+// В Rust размер обычного массива фиксирован.
+// Используем буфер 101x101, но выводим только
+// реально используемую часть.
+//
+// Для составных рисунков требуется 2 * size + 1.
+const BUFFER_SIZE: usize = 101;
+
+type Picture = [[char; BUFFER_SIZE]; BUFFER_SIZE];
+
+// --------------------------------------------------
+// A-L) BASIC PATTERNS
+// --------------------------------------------------
+
+// Определяем, должна ли в заданной позиции
+// находиться звёздочка.
+//
+// kind — номер рисунка:
+// 0 = a, 1 = b, ... 11 = l.
+//
+// kind = 12 используется для вертикальных полос
+// в составном рисунке n.
+//
+// Функция ничего не рисует сама.
+// Она только возвращает true или false.
+fn is_star(kind: usize, row: usize, col: usize, size: usize) -> bool {
+    // Индекс центральной строки и столбца.
+    let middle = size / 2;
+
+    // Находим, является ли ячейка частью рамки.
+    let border = row == 0 || col == 0 || row == size - 1 || col == size - 1;
+
+    // Находим расстояние до ближайшего края.
+    //
+    // Оно понадобится для концентрических квадратов.
+    let mut distance = row;
+
+    if col < distance {
+        distance = col;
+    }
+
+    if size - 1 - row < distance {
+        distance = size - 1 - row;
+    }
+
+    if size - 1 - col < distance {
+        distance = size - 1 - col;
+    }
+
+    match kind {
+        // A) Только рамка квадрата.
+        0 => border,
+
+        // B) Рамка + вертикальная линия посередине.
+        1 => border || col == middle,
+
+        // C) Рамка + диагональ сверху слева вниз вправо.
+        2 => border || row == col,
+
+        // D) Рамка + две диагонали.
+        3 => border || row == col || row + col == size - 1,
+
+        // E) Рамка + вертикальная и горизонтальная линии.
+        4 => border || row == middle || col == middle,
+
+        // F) Рамка + обе средние линии + обе диагонали.
+        5 => border || row == middle || col == middle || row == col || row + col == size - 1,
+
+        // G) Рамка + чередующиеся полные и пустые строки.
+        6 => border || row % 2 == 0,
+
+        // H) Сетка из горизонтальных и вертикальных линий.
+        7 => row % 2 == 0 || col % 2 == 0,
+
+        // I) Концентрические заполненные и пустые квадраты.
+        //
+        // Ближайший край на расстоянии:
+        // 0 — звёздочки;
+        // 1 — пробелы;
+        // 2 — звёздочки;
+        // 3 — пробелы.
+        8 => distance % 2 == 0,
+
+        // J) Верхняя правая половина квадрата.
+        //
+        // Всё, что находится на главной диагонали
+        // или справа/сверху от неё.
+        9 => col >= row,
+
+        // K) Верхняя четверть:
+        // треугольник от верхнего края к центру.
+        10 => row <= middle && col >= row && row + col < size,
+
+        // L) Песочные часы.
+        //
+        // Верхняя половина сужается к центру,
+        // нижняя расширяется обратно.
+        11 => {
+            if row <= middle {
+                col >= row && row + col < size
+            } else {
+                col <= row && row + col >= size - 1
+            }
+        }
+
+        // Вспомогательный рисунок:
+        // рамка + чередующиеся вертикальные полосы.
+        12 => border || col % 2 == 0,
+
+        // Неизвестный тип рисунка.
+        _ => false,
+    }
+}
+
+// --------------------------------------------------
+// M-P) COMPOSITE PATTERNS
+// --------------------------------------------------
+
+// Определяем звёздочки составных рисунков.
+//
+// В каждом составном рисунке четыре части,
+// расположенные квадратом 2x2.
+//
+// Между частями оставляем один пустой ряд
+// и один пустой столбец.
+fn is_composite_star(kind: usize, row: usize, col: usize, size: usize) -> bool {
+    // Размер составного рисунка.
+    let total = 2 * size + 1;
+
+    // ------------------------------------------
+    // P) OUTER BORDER AND FOUR FILLED SQUARES
+    // ------------------------------------------
+
+    if kind == 15 {
+        // Внешняя рамка полностью заполнена.
+        if row == 0 || col == 0 || row == total - 1 || col == total - 1 {
+            return true;
+        }
+
+        // Между внешней рамкой и квадратами
+        // находится пустой отступ в один символ.
+        //
+        // Центральная строка и столбец
+        // также полностью пустые.
+        if row == 1
+            || col == 1
+            || row == total - 2
+            || col == total - 2
+            || row == size
+            || col == size
+        {
+            return false;
+        }
+
+        // Остальное пространство внутри занято
+        // четырьмя заполненными квадратами.
+        return true;
+    }
+
+    // Центральные разделители между квадратами.
+    if row == size || col == size {
+        return false;
+    }
+
+    // Пересчитываем координаты составного рисунка
+    // в координаты одного маленького квадрата.
+    //
+    // Например, нижний квадрат начинается
+    // со строки size + 1.
+    let local_row = if row > size { row - size - 1 } else { row };
+
+    let local_col = if col > size { col - size - 1 } else { col };
+
+    // ------------------------------------------
+    // M) FOUR CONCENTRIC SQUARE PATTERNS
+    // ------------------------------------------
+
+    if kind == 12 {
+        // Все четыре квадрата одинаковые.
+        return is_star(8, local_row, local_col, size);
+    }
+
+    // ------------------------------------------
+    // N) FOUR DIFFERENT PATTERNS
+    // ------------------------------------------
+
+    if kind == 13 {
+        // Верхний левый:
+        // рамка с обеими диагоналями.
+        if row < size && col < size {
+            return is_star(3, local_row, local_col, size);
+        }
+
+        // Верхний правый:
+        // рамка с вертикальными полосами.
+        if row < size && col > size {
+            return is_star(12, local_row, local_col, size);
+        }
+
+        // Нижний левый:
+        // сетка.
+        if row > size && col < size {
+            return is_star(7, local_row, local_col, size);
+        }
+
+        // Нижний правый:
+        // концентрические квадраты.
+        return is_star(8, local_row, local_col, size);
+    }
+
+    // ------------------------------------------
+    // O) FOUR EMPTY SQUARES WITH BORDERS
+    // ------------------------------------------
+
+    if kind == 14 {
+        return is_star(0, local_row, local_col, size);
+    }
+
+    false
+}
+
+// --------------------------------------------------
+// CREATE PICTURE
+// --------------------------------------------------
+
+// Создаём двумерный массив символов.
+//
+// size — длина стороны маленького квадрата.
+// kind — номер рисунка от 0 до 15.
+//
+// Для a-l результат имеет размер size x size.
+//
+// Для m-p результат имеет размер:
+// (2 * size + 1) x (2 * size + 1).
+fn create_picture(size: usize, kind: usize) -> Picture {
+    // По условию длина стороны должна быть нечётной.
+    assert!(size >= 3, "Size must be at least 3");
+    assert!(size % 2 == 1, "Size must be odd");
+
+    // Буфер должен вмещать и составные рисунки.
+    assert!(2 * size + 1 <= BUFFER_SIZE, "Picture is too large");
+
+    assert!(kind < 16, "Invalid picture type");
+
+    // Создаём полностью пустой рисунок.
+    let mut picture = [[' '; BUFFER_SIZE]; BUFFER_SIZE];
+
+    // Для составных рисунков используем
+    // удвоенную сторону с разделителем.
+    let total = if kind >= 12 { 2 * size + 1 } else { size };
+
+    // Перебираем каждую строку рисунка.
+    let mut row = 0;
+
+    while row < total {
+        // Начинаем с первого столбца.
+        let mut col = 0;
+
+        while col < total {
+            // Определяем, должна ли здесь быть звёздочка.
+            let filled = if kind < 12 {
+                is_star(kind, row, col, size)
+            } else {
+                is_composite_star(kind, row, col, size)
+            };
+
+            // Если условие выполнено,
+            // заменяем пробел звёздочкой.
+            if filled {
+                picture[row][col] = '*';
+            }
+
+            // Следующий столбец.
+            col += 1;
+        }
+
+        // Следующая строка.
+        row += 1;
+    }
+
+    // Возвращаем готовый рисунок.
+    picture
+}
+
+// --------------------------------------------------
+// INDIVIDUAL FUNCTIONS A-P
+// --------------------------------------------------
+
+// Каждая функция создаёт конкретный рисунок.
+//
+// Используем одну общую реализацию,
+// чтобы не копировать 16 раз одинаковые циклы.
+
+fn obrazec_00(size: usize) -> Picture {
+    create_picture(size, 0)
+}
+
+fn obrazec_01(size: usize) -> Picture {
+    create_picture(size, 1)
+}
+
+fn obrazec_02(size: usize) -> Picture {
+    create_picture(size, 2)
+}
+
+fn obrazec_03(size: usize) -> Picture {
+    create_picture(size, 3)
+}
+
+fn obrazec_10(size: usize) -> Picture {
+    create_picture(size, 4)
+}
+
+fn obrazec_11(size: usize) -> Picture {
+    create_picture(size, 5)
+}
+
+fn obrazec_12(size: usize) -> Picture {
+    create_picture(size, 6)
+}
+
+fn obrazec_13(size: usize) -> Picture {
+    create_picture(size, 7)
+}
+
+fn obrazec_20(size: usize) -> Picture {
+    create_picture(size, 8)
+}
+
+fn obrazec_21(size: usize) -> Picture {
+    create_picture(size, 9)
+}
+
+fn obrazec_22(size: usize) -> Picture {
+    create_picture(size, 10)
+}
+
+fn obrazec_23(size: usize) -> Picture {
+    create_picture(size, 11)
+}
+
+fn obrazec_30(size: usize) -> Picture {
+    create_picture(size, 12)
+}
+
+fn obrazec_31(size: usize) -> Picture {
+    create_picture(size, 13)
+}
+
+fn obrazec_32(size: usize) -> Picture {
+    create_picture(size, 14)
+}
+
+fn obrazec_33(size: usize) -> Picture {
+    create_picture(size, 15)
+}
+
+// --------------------------------------------------
+// PRINT PICTURE
+// --------------------------------------------------
+
+// Печатаем рисунок в терминал.
+//
+// total — сколько строк и столбцов
+// действительно нужно вывести.
+//
+// Пробелы сохраняются, чтобы рисунки
+// имели правильную форму.
+fn print_picture(name: &str, picture: &Picture, total: usize) {
+    println!();
+    println!("{}", name);
+    println!("----------------------------------------");
+
+    let mut row = 0;
+
+    while row < total {
+        let mut col = 0;
+
+        while col < total {
+            print!("{}", picture[row][col]);
+
+            col += 1;
+        }
+
+        println!();
+        row += 1;
+    }
+}
+
+// --------------------------------------------------
+// MAIN
+// --------------------------------------------------
+
 fn main() {
-    println!("Reseni teto ulohy zatim neni implementovano.");
+    // Длина стороны из примера преподавателя.
+    let size = 25;
+
+    // Размер составных рисунков.
+    let composite_size = 2 * size + 1;
+
+    println!("ASCII ART PATTERNS");
+    println!("========================================");
+    println!("Square size: {}", size);
+
+    // Первая строка рисунков.
+    print_picture("A) [0,0] Square border", &obrazec_00(size), size);
+    print_picture("B) [0,1] Vertical center", &obrazec_01(size), size);
+    print_picture("C) [0,2] Main diagonal", &obrazec_02(size), size);
+    print_picture("D) [0,3] Both diagonals", &obrazec_03(size), size);
+
+    // Вторая строка рисунков.
+    print_picture("E) [1,0] Center cross", &obrazec_10(size), size);
+    print_picture("F) [1,1] Cross and diagonals", &obrazec_11(size), size);
+    print_picture("G) [1,2] Alternating rows", &obrazec_12(size), size);
+    print_picture("H) [1,3] Grid", &obrazec_13(size), size);
+
+    // Третья строка рисунков.
+    print_picture("I) [2,0] Concentric squares", &obrazec_20(size), size);
+    print_picture("J) [2,1] Upper right half", &obrazec_21(size), size);
+    print_picture("K) [2,2] Upper quarter", &obrazec_22(size), size);
+    print_picture("L) [2,3] Hourglass", &obrazec_23(size), size);
+
+    // Четвёртая строка — составные рисунки.
+    print_picture(
+        "M) [3,0] Four concentric patterns",
+        &obrazec_30(size),
+        composite_size,
+    );
+
+    print_picture(
+        "N) [3,1] Four different patterns",
+        &obrazec_31(size),
+        composite_size,
+    );
+
+    print_picture(
+        "O) [3,2] Four bordered squares",
+        &obrazec_32(size),
+        composite_size,
+    );
+
+    print_picture(
+        "P) [3,3] Four filled squares",
+        &obrazec_33(size),
+        composite_size,
+    );
+
+    println!();
+    println!("All 16 patterns created successfully.");
 }
